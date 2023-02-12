@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\FormationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FormationRepository::class)]
@@ -34,13 +35,23 @@ class Formation
     #[ORM\JoinColumn(nullable: false)]
     private ?Centre $centre = null;
 
-    #[ORM\OneToMany(mappedBy: 'formation', targetEntity: InscriptionFormation::class, orphanRemoval: true)]
-    private Collection $inscriptions;
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'formations')]
+    private Collection $users;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $dateFormation = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $dureeFormation = null;
 
     public function __construct()
     {
-        $this->inscriptions = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
+
+
+
+
 
     public function getId(): ?int
     {
@@ -120,32 +131,56 @@ class Formation
     }
 
     /**
-     * @return Collection<int, InscriptionFormation>
+     * @return Collection<int, User>
      */
-    public function getInscriptions(): Collection
+    public function getUsers(): Collection
     {
-        return $this->inscriptions;
+        return $this->users;
     }
 
-    public function addInscription(InscriptionFormation $inscription): self
+    public function addUser(User $user): self
     {
-        if (!$this->inscriptions->contains($inscription)) {
-            $this->inscriptions->add($inscription);
-            $inscription->setFormation($this);
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
         }
 
         return $this;
     }
 
-    public function removeInscription(InscriptionFormation $inscription): self
+    public function removeUser(User $user): self
     {
-        if ($this->inscriptions->removeElement($inscription)) {
-            // set the owning side to null (unless already changed)
-            if ($inscription->getFormation() === $this) {
-                $inscription->setFormation(null);
-            }
-        }
+        $this->users->removeElement($user);
 
         return $this;
     }
+
+    public function getDateFormation(): ?\DateTimeInterface
+    {
+        return $this->dateFormation;
+    }
+
+    public function setDateFormation(\DateTimeInterface $dateFormation): self
+    {
+        $this->dateFormation = $dateFormation;
+
+        return $this;
+    }
+
+    public function getDureeFormation(): ?string
+    {
+        return $this->dureeFormation;
+    }
+
+    public function setDureeFormation(string $dureeFormation): self
+    {
+        $this->dureeFormation = $dureeFormation;
+
+        return $this;
+    }
+
+
+
+
+
+
 }
