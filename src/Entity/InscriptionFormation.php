@@ -17,6 +17,10 @@ class InscriptionFormation
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateInscriptionFormation = null;
 
+    #[ORM\ManyToOne(inversedBy: 'inscriptions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Formation $formation = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -30,6 +34,18 @@ class InscriptionFormation
     public function setDateInscriptionFormation(?\DateTimeInterface $dateInscriptionFormation): self
     {
         $this->dateInscriptionFormation = $dateInscriptionFormation;
+
+        return $this;
+    }
+
+    public function getFormation(): ?Formation
+    {
+        return $this->formation;
+    }
+
+    public function setFormation(?Formation $formation): self
+    {
+        $this->formation = $formation;
 
         return $this;
     }

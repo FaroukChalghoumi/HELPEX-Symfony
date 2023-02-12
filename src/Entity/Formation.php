@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\FormationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FormationRepository::class)]
@@ -31,6 +33,14 @@ class Formation
     #[ORM\ManyToOne(inversedBy: 'formations')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Centre $centre = null;
+
+    #[ORM\OneToMany(mappedBy: 'formation', targetEntity: InscriptionFormation::class, orphanRemoval: true)]
+    private Collection $inscriptions;
+
+    public function __construct()
+    {
+        $this->inscriptions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -105,6 +115,36 @@ class Formation
     public function setCentre(?Centre $centre): self
     {
         $this->centre = $centre;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, InscriptionFormation>
+     */
+    public function getInscriptions(): Collection
+    {
+        return $this->inscriptions;
+    }
+
+    public function addInscription(InscriptionFormation $inscription): self
+    {
+        if (!$this->inscriptions->contains($inscription)) {
+            $this->inscriptions->add($inscription);
+            $inscription->setFormation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInscription(InscriptionFormation $inscription): self
+    {
+        if ($this->inscriptions->removeElement($inscription)) {
+            // set the owning side to null (unless already changed)
+            if ($inscription->getFormation() === $this) {
+                $inscription->setFormation(null);
+            }
+        }
 
         return $this;
     }
