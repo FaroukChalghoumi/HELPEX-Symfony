@@ -25,6 +25,9 @@ class Formation
     #[ORM\Column(nullable: true)]
     private ?int $nombreDePlace = null;
 
+    #[ORM\ManyToOne(inversedBy: 'formations')]
+    private ?CategorieFormation $categorieFormation = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +77,18 @@ class Formation
     public function setNombreDePlace(?int $nombreDePlace): self
     {
         $this->nombreDePlace = $nombreDePlace;
+
+        return $this;
+    }
+
+    public function getCategorieFormation(): ?CategorieFormation
+    {
+        return $this->categorieFormation;
+    }
+
+    public function setCategorieFormation(?CategorieFormation $categorieFormation): self
+    {
+        $this->categorieFormation = $categorieFormation;
 
         return $this;
     }
