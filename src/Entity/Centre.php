@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CentreRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CentreRepository::class)]
@@ -27,6 +29,14 @@ class Centre
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $siteWebCentre = null;
+
+    #[ORM\OneToMany(mappedBy: 'centre', targetEntity: Formation::class, orphanRemoval: true)]
+    private Collection $formations;
+
+    public function __construct()
+    {
+        $this->formations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -89,6 +99,36 @@ class Centre
     public function setSiteWebCentre(?string $siteWebCentre): self
     {
         $this->siteWebCentre = $siteWebCentre;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Formation>
+     */
+    public function getFormations(): Collection
+    {
+        return $this->formations;
+    }
+
+    public function addFormation(Formation $formation): self
+    {
+        if (!$this->formations->contains($formation)) {
+            $this->formations->add($formation);
+            $formation->setCentre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFormation(Formation $formation): self
+    {
+        if ($this->formations->removeElement($formation)) {
+            // set the owning side to null (unless already changed)
+            if ($formation->getCentre() === $this) {
+                $formation->setCentre(null);
+            }
+        }
 
         return $this;
     }

@@ -28,6 +28,10 @@ class Formation
     #[ORM\ManyToOne(inversedBy: 'formations')]
     private ?CategorieFormation $categorieFormation = null;
 
+    #[ORM\ManyToOne(inversedBy: 'formations')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Centre $centre = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,6 +93,18 @@ class Formation
     public function setCategorieFormation(?CategorieFormation $categorieFormation): self
     {
         $this->categorieFormation = $categorieFormation;
+
+        return $this;
+    }
+
+    public function getCentre(): ?Centre
+    {
+        return $this->centre;
+    }
+
+    public function setCentre(?Centre $centre): self
+    {
+        $this->centre = $centre;
 
         return $this;
     }
