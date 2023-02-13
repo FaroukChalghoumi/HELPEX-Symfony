@@ -28,6 +28,7 @@
                 <div class="preloader">
                     <div class="loading"><span></span><span></span><span></span><span></span></div>
                 </div>
+                {% block navbar %}
                 <header class="header header-layout1">
                     <div class="header-topbar">
                         <div class="container-fluid">
@@ -223,7 +224,10 @@
                         </div><!-- /.container -->
                     </nav><!-- /.navabr -->
                 </header>
+                {% endblock %}
 
+
+                {% block footer %}
                 <footer class="footer">
                     <div class="footer-primary">
                         <div class="container">
@@ -317,8 +321,8 @@
                         </div><!-- /.container -->
                     </div><!-- /.footer-secondary -->
                 </footer>
-                <button id="scrollTopBtn"><i class="fas fa-long-arrow-alt-up"></i></button>
-            </div><!-- /.wrapper -->
+                {% endblock %}
+            </div>
         {% endblock %}
     </body>
 </html>
