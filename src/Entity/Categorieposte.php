@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CategorieposteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CategorieposteRepository::class)]
@@ -16,9 +18,15 @@ class Categorieposte
     #[ORM\Column(length: 255)]
     private ?string $topic = null;
 
-    #[ORM\ManyToOne(inversedBy: 'categorie')]
-    private ?Poste $poste = null;
+    #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Poste::class)]
+    private Collection $postes;
 
+    public function __construct()
+    {
+        $this->postes = new ArrayCollection();
+    }
+
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -36,15 +44,35 @@ class Categorieposte
         return $this;
     }
 
-    public function getPoste(): ?Poste
+    /**
+     * @return Collection<int, Poste>
+     */
+    public function getPostes(): Collection
     {
-        return $this->poste;
+        return $this->postes;
     }
 
-    public function setPoste(?Poste $poste): self
+    public function addPoste(Poste $poste): self
     {
-        $this->poste = $poste;
+        if (!$this->postes->contains($poste)) {
+            $this->postes->add($poste);
+            $poste->setCategorie($this);
+        }
 
         return $this;
     }
+
+    public function removePoste(Poste $poste): self
+    {
+        if ($this->postes->removeElement($poste)) {
+            // set the owning side to null (unless already changed)
+            if ($poste->getCategorie() === $this) {
+                $poste->setCategorie(null);
+            }
+        }
+
+        return $this;
+    }
+
+   
 }
