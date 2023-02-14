@@ -6,6 +6,8 @@ use App\Repository\CategorieFormationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: CategorieFormationRepository::class)]
 class CategorieFormation
@@ -16,9 +18,18 @@ class CategorieFormation
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank (message:'champ obligatoire')]
     private ?string $nomCategorieFormation = null;
 
+
+
     #[ORM\Column(length: 500, nullable: true)]
+    #[Assert\NotBlank (message:'champ obligatoire')]
+    #[Assert\Length(
+        min: 10,
+        minMessage: 'description insuffisante minimum {{ limit }} caractères',
+    )]
+    #[Assert\Regex('/^\w+/')]
     private ?string $descriptionCategorieFormation = null;
 
     #[ORM\OneToMany(mappedBy: 'idCategorieFormation', targetEntity: Formation::class)]

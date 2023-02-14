@@ -18,19 +18,44 @@ class Centre
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank (message:'champ vide')]
+    #[Assert\NotBlank (message:'champ obligatoire')]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: 'Your first name must be at least {{ limit }} characters long',
+        maxMessage: 'Your first name cannot be longer than {{ limit }} characters',
+    )]
+
     private ?string $nomCentre = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank (message:'champ obligatoire')]
+
     private ?string $adresseCentre = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank (message:'champ obligatoire')]
+    #[Assert\Email(
+        message: 'The email {{ value }} is not a valid email.',
+    )]
+    /*
+#[Assert\Regex(pattern = "/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/",
+    message = "L'adresse email doit être en minuscules.")]
+*/
     private ?string $emailCentre = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank (message:'champ obligatoire')]
+    #[Assert\Length(
+        min: 8,
+        max: 8,
+        minMessage: 'numero telephone non valide',
+        maxMessage: 'numero telephone non valide',
+    )]
     private ?int $telephoneCentre = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Url]
     private ?string $siteWebCentre = null;
 
     #[ORM\OneToMany(mappedBy: 'idCentre', targetEntity: Formation::class)]
