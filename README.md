@@ -12,15 +12,15 @@ ParaShop DataBase : is an empty project that contains the ParaShop module classe
     ```
     composer install 
     ```
-    2. Create Database ( DataBase name = parashop ) 
+2. Create Database ( DataBase name = parashop ) 
     ```
     php bin/console doctrine:database:create
     ```
-    3. Make Migration ( you can skip this ) 
+3. Make Migration ( you can skip this ) 
     ```
     php bin/console make:migration
     ```
-    4. Finally Migrate the changes to your DB 
+4. Finally Migrate the changes to your DB 
      ```
      php bin/console doctrine:migrations:migrate
      ```
