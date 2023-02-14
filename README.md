@@ -4,10 +4,11 @@ Hello Apex ❤❤
 😐 If you want the DataBase of ParaShop project , you just pull this repo and make the migration
 ## DataBase name = parashop ( not Helpex ‼ ) 
 
- ParaShop DataBase : is an empty project that contains the ParaShop module classes with relations 
+ParaShop DataBase : is an empty project that contains the ParaShop module classes with relations 
                         if you want to test it make sure to follow these steps 
                         and to push anything here please 😐
-    1. Make sure you install composer before you begin to test 
+                        
+1. Make sure you install composer before you begin to test 
     ```
     composer install 
     ```
