@@ -61,6 +61,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?float $tarif = null;
 
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?service $service = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -278,6 +281,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setTarif(?float $tarif): self
     {
         $this->tarif = $tarif;
+
+        return $this;
+    }
+
+    public function getService(): ?service
+    {
+        return $this->service;
+    }
+
+    public function setService(?service $service): self
+    {
+        $this->service = $service;
 
         return $this;
     }
