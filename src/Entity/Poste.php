@@ -40,7 +40,6 @@ class Poste
 
     public function __construct()
     {
-        $this->categorie = new ArrayCollection();
         $this->commentaire = new ArrayCollection();
     }
 
