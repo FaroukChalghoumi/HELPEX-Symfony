@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Organisation{% endblock %}
+
+{% block body %}
+    <h1>Organisation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ organisation.id }}</td>
+            </tr>
+            <tr>
+                <th>DescriptionOrganisation</th>
+                <td>{{ organisation.descriptionOrganisation }}</td>
+            </tr>
+            <tr>
+                <th>EmailOrganisation</th>
+                <td>{{ organisation.emailOrganisation }}</td>
+            </tr>
+            <tr>
+                <th>NumTelOrganisation</th>
+                <td>{{ organisation.numTelOrganisation }}</td>
+            </tr>
+            <tr>
+                <th>DocumentOrganisation</th>
+                <td>{{ organisation.documentOrganisation }}</td>
+            </tr>
+            <tr>
+                <th>PaymentInfo</th>
+                <td>{{ organisation.paymentInfo }}</td>
+            </tr>
+            <tr>
+                <th>NomOrg</th>
+                <td>{{ organisation.NomOrg }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_organisation_index') }}">back to list</a>
+
+    <a href="{{ path('app_organisation_edit', {'id': organisation.id}) }}">edit</a>
+
+    {{ include('organisation/_delete_form.html.twig') }}
+{% endblock %}

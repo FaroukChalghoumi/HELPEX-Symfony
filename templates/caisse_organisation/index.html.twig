@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CaisseOrganisation index{% endblock %}
+
+{% block body %}
+    <h1>CaisseOrganisation index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>MontantCaisseOrg</th>
+                <th>Goal</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for caisse_organisation in caisse_organisations %}
+            <tr>
+                <td>{{ caisse_organisation.id }}</td>
+                <td>{{ caisse_organisation.montantCaisseOrg }}</td>
+                <td>{{ caisse_organisation.goal }}</td>
+                <td>
+                    <a href="{{ path('app_caisse_organisation_show', {'id': caisse_organisation.id}) }}">show</a>
+                    <a href="{{ path('app_caisse_organisation_edit', {'id': caisse_organisation.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_caisse_organisation_new') }}">Create new</a>
+{% endblock %}
