@@ -6,6 +6,8 @@ use App\Repository\CentreRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use http\Message;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CentreRepository::class)]
 class Centre
@@ -16,6 +18,7 @@ class Centre
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank (message:'champ vide')]
     private ?string $nomCentre = null;
 
     #[ORM\Column(length: 255)]

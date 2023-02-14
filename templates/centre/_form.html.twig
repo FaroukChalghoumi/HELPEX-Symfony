@@ -1,4 +1,11 @@
+
+<div class="container">
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {{ form_label(form.nomCentre,"nom du centre") }}
+
+    {{ form_widget(form.nomCentre,{'attr':{'class':'form-control'}}) }}
+    {{ form_errors(form) }}
+
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
+</div>
