@@ -18,11 +18,10 @@ class CategorieFormation
     #[ORM\Column(length: 255)]
     private ?string $nomCategorieFormation = null;
 
-    //#[ORM\Column(length: 255, nullable: true)]
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 500, nullable: true)]
     private ?string $descriptionCategorieFormation = null;
 
-    #[ORM\OneToMany(mappedBy: 'categorieFormation', targetEntity: Formation::class)]
+    #[ORM\OneToMany(mappedBy: 'idCategorieFormation', targetEntity: Formation::class)]
     private Collection $formations;
 
     public function __construct()
@@ -52,7 +51,7 @@ class CategorieFormation
         return $this->descriptionCategorieFormation;
     }
 
-    public function setDescriptionCategorieFormation(string $descriptionCategorieFormation): self
+    public function setDescriptionCategorieFormation(?string $descriptionCategorieFormation): self
     {
         $this->descriptionCategorieFormation = $descriptionCategorieFormation;
 
@@ -62,27 +61,27 @@ class CategorieFormation
     /**
      * @return Collection<int, Formation>
      */
-    public function getformations(): Collection
+    public function getFormations(): Collection
     {
         return $this->formations;
     }
 
-    public function addformations(Formation $formations): self
+    public function addFormation(Formation $formation): self
     {
-        if (!$this->formations->contains($formations)) {
-            $this->formations->add($formations);
-            $formations->setCategorieFormation($this);
+        if (!$this->formations->contains($formation)) {
+            $this->formations->add($formation);
+            $formation->setIdCategorieFormation($this);
         }
 
         return $this;
     }
 
-    public function removeformations(Formation $formations): self
+    public function removeFormation(Formation $formation): self
     {
-        if ($this->formations->removeElement($formations)) {
+        if ($this->formations->removeElement($formation)) {
             // set the owning side to null (unless already changed)
-            if ($formations->getCategorieFormation() === $this) {
-                $formations->setCategorieFormation(null);
+            if ($formation->getIdCategorieFormation() === $this) {
+                $formation->setIdCategorieFormation(null);
             }
         }
 

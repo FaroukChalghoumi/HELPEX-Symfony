@@ -30,7 +30,7 @@ class Centre
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $siteWebCentre = null;
 
-    #[ORM\OneToMany(mappedBy: 'centre', targetEntity: Formation::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'idCentre', targetEntity: Formation::class)]
     private Collection $formations;
 
     public function __construct()
@@ -115,7 +115,7 @@ class Centre
     {
         if (!$this->formations->contains($formation)) {
             $this->formations->add($formation);
-            $formation->setCentre($this);
+            $formation->setIdCentre($this);
         }
 
         return $this;
@@ -125,8 +125,8 @@ class Centre
     {
         if ($this->formations->removeElement($formation)) {
             // set the owning side to null (unless already changed)
-            if ($formation->getCentre() === $this) {
-                $formation->setCentre(null);
+            if ($formation->getIdCentre() === $this) {
+                $formation->setIdCentre(null);
             }
         }
 
