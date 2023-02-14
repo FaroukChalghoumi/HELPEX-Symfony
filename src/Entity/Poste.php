@@ -31,11 +31,12 @@ class Poste
     #[ORM\Column]
     private ?int $compteurvote = null;
 
-    #[ORM\OneToMany(mappedBy: 'poste', targetEntity: Categorieposte::class)]
-    private Collection $categorie;
 
     #[ORM\OneToMany(mappedBy: 'poste', targetEntity: Commentaire::class)]
     private Collection $commentaire;
+
+    #[ORM\ManyToOne(inversedBy: 'postes')]
+    private ?Categorieposte $categorie = null;
 
     public function __construct()
     {
@@ -109,36 +110,6 @@ class Poste
     }
 
     /**
-     * @return Collection<int, Categorieposte>
-     */
-    public function getCategorie(): Collection
-    {
-        return $this->categorie;
-    }
-
-    public function addCategorie(Categorieposte $categorie): self
-    {
-        if (!$this->categorie->contains($categorie)) {
-            $this->categorie->add($categorie);
-            $categorie->setPoste($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCategorie(Categorieposte $categorie): self
-    {
-        if ($this->categorie->removeElement($categorie)) {
-            // set the owning side to null (unless already changed)
-            if ($categorie->getPoste() === $this) {
-                $categorie->setPoste(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Commentaire>
      */
     public function getCommentaire(): Collection
@@ -164,6 +135,18 @@ class Poste
                 $commentaire->setPoste(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorieposte
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorieposte $categorie): self
+    {
+        $this->categorie = $categorie;
 
         return $this;
     }
