@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CaisseOrganisationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CaisseOrganisationRepository::class)]
 class CaisseOrganisation
@@ -17,6 +18,11 @@ class CaisseOrganisation
     private ?float $montantCaisseOrg = 0;
 
     #[ORM\Column]
+    #[Assert\Regex(
+        pattern: '/.[0-9]+[0-9]$/i',
+        message: 'Number must be only numbers (phone number has exactly 8 characters)',
+        match: true
+    )]
     private ?float $goal = null;
 
     #[ORM\ManyToOne(inversedBy: 'Caisses')]

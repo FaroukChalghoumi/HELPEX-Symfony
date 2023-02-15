@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin.html.twig' %}
 
 {% block title %}Organisation index{% endblock %}
 
@@ -7,16 +7,16 @@
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>DescriptionOrganisation</th>
-                <th>EmailOrganisation</th>
-                <th>NumTelOrganisation</th>
-                <th>DocumentOrganisation</th>
-                <th>PaymentInfo</th>
-                <th>NomOrg</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>DescriptionOrganisation</th>
+            <th>EmailOrganisation</th>
+            <th>NumTelOrganisation</th>
+            <th>DocumentOrganisation</th>
+            <th>PaymentInfo</th>
+            <th>NomOrg</th>
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for organisation in organisations %}

@@ -6,7 +6,7 @@ use App\Repository\OrganisationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: OrganisationRepository::class)]
 class Organisation
 {
@@ -19,21 +19,37 @@ class Organisation
     private ?string $descriptionOrganisation = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Regex(
+        pattern: '/^[a-z]+@gmail.com+$/i',
+        message: 'mail must be @gmail.com',
+        match: true
+    )]
     private ?string $emailOrganisation = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Regex(
+        pattern: '/^[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]$/i',
+        message: 'Number must be only numbers (phone number has exactly 8 characters)',
+        match: true
+    )]
     private ?string $numTelOrganisation = null;
 
     #[ORM\Column(length: 255)]
     private ?string $documentOrganisation = null;
 
     #[ORM\Column(length: 255)]
+
     private ?string $paymentInfo = null;
 
     #[ORM\OneToMany(mappedBy: 'organisation', targetEntity: CaisseOrganisation::class, orphanRemoval: true)]
     private Collection $Caisses;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Regex(
+        pattern: '/^[a-z]+$/i',
+        message: 'name must be only characters',
+        match: true
+    )]
     private ?string $NomOrg = null;
 
     public function __construct()
