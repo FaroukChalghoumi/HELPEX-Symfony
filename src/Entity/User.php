@@ -29,40 +29,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    private ?string $Nom = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $Prenom = null;
+
+    #[ORM\Column(length: 255)]
     private ?string $sexe = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $adresse = null;
 
-    #[ORM\Column]
-    private ?bool $adresse_visibility = null;
-
     #[ORM\Column(length: 255)]
-    private ?string $numtel = null;
-
-    #[ORM\Column]
-    private ?bool $num_tel_visibility = null;
+    private ?string $num_tel = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $pdp = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $bio = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_naissance = null;
 
-    #[ORM\Column]
-    private ?bool $date_naissance_visibility = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $diplome = null;
 
     #[ORM\Column(nullable: true)]
     private ?float $tarif = null;
-
-    #[ORM\ManyToOne(inversedBy: 'users')]
-    private ?service $service = null;
 
     public function getId(): ?int
     {
@@ -153,6 +147,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
+    public function getNom(): ?string
+    {
+        return $this->Nom;
+    }
+
+    public function setNom(string $Nom): self
+    {
+        $this->Nom = $Nom;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->Prenom;
+    }
+
+    public function setPrenom(string $Prenom): self
+    {
+        $this->Prenom = $Prenom;
+
+        return $this;
+    }
+
     public function getSexe(): ?string
     {
         return $this->sexe;
@@ -177,38 +195,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isAdresseVisibility(): ?bool
+    public function getNumTel(): ?string
     {
-        return $this->adresse_visibility;
+        return $this->num_tel;
     }
 
-    public function setAdresseVisibility(bool $adresse_visibility): self
+    public function setNumTel(string $num_tel): self
     {
-        $this->adresse_visibility = $adresse_visibility;
-
-        return $this;
-    }
-
-    public function getNumtel(): ?string
-    {
-        return $this->numtel;
-    }
-
-    public function setNumtel(string $numtel): self
-    {
-        $this->numtel = $numtel;
-
-        return $this;
-    }
-
-    public function isNumTelVisibility(): ?bool
-    {
-        return $this->num_tel_visibility;
-    }
-
-    public function setNumTelVisibility(bool $num_tel_visibility): self
-    {
-        $this->num_tel_visibility = $num_tel_visibility;
+        $this->num_tel = $num_tel;
 
         return $this;
     }
@@ -230,7 +224,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->bio;
     }
 
-    public function setBio(?string $bio): self
+    public function setBio(string $bio): self
     {
         $this->bio = $bio;
 
@@ -245,18 +239,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setDateNaissance(\DateTimeInterface $date_naissance): self
     {
         $this->date_naissance = $date_naissance;
-
-        return $this;
-    }
-
-    public function isDateNaissanceVisibility(): ?bool
-    {
-        return $this->date_naissance_visibility;
-    }
-
-    public function setDateNaissanceVisibility(bool $date_naissance_visibility): self
-    {
-        $this->date_naissance_visibility = $date_naissance_visibility;
 
         return $this;
     }
@@ -281,18 +263,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setTarif(?float $tarif): self
     {
         $this->tarif = $tarif;
-
-        return $this;
-    }
-
-    public function getService(): ?service
-    {
-        return $this->service;
-    }
-
-    public function setService(?service $service): self
-    {
-        $this->service = $service;
 
         return $this;
     }
