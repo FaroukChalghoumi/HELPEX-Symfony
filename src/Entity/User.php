@@ -64,7 +64,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?float $tarif = null;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
-    private ?service $service = null;
+    private ?Service $Service = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Produits::class, orphanRemoval: true)]
     private Collection $produits;
@@ -295,14 +295,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getService(): ?service
+    public function getService(): ?Service
     {
-        return $this->service;
+        return $this->Service;
     }
 
-    public function setService(?service $service): self
+    public function setService(?Service $Service): self
     {
-        $this->service = $service;
+        $this->Service = $Service;
 
         return $this;
     }
@@ -335,5 +335,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+    public function __toString(): string
+    {
+        return  $this->getId();
     }
 }

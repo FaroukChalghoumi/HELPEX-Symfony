@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Produits{% endblock %}
+
+{% block body %}
+    <h2>ParaShop add Produit </h2>
+    <a class="btn btn__primary btn__rounded ml-30" href="{{ path('app_produits_index') }}">back to list</a>
+<section class="contact-layout3 bg-overlay bg-overlay-primary-gradient pb-60">
+    <div class="bg-img"><img src="assets/images/banners/3.jpg" alt="banner"></div>
+    {{ include('produits/_form.html.twig') }}
+</section>
+
+
+{% endblock %}

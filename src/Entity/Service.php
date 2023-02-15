@@ -18,7 +18,7 @@ class Service
     #[ORM\Column(length: 255)]
     private ?string $NomService = null;
 
-    #[ORM\OneToMany(mappedBy: 'service', targetEntity: User::class)]
+    #[ORM\OneToMany(mappedBy: 'Service', targetEntity: User::class)]
     private Collection $users;
 
     public function __construct()

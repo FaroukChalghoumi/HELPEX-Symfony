@@ -14,6 +14,13 @@ class Produits
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+
+    #[Assert\NotBlank]
+    #[Assert\Regex(
+        pattern: '/\d/',
+        match: false,
+        message: 'Your name cannot contain a number',
+    )]
     private ?string $NomProduit = null;
 
     #[ORM\Column(length: 255)]

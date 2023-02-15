@@ -23,12 +23,12 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}
+
             <div class="wrapper">
                 <div class="preloader">
                     <div class="loading"><span></span><span></span><span></span><span></span></div>
                 </div>
-                {% block navbar %}
+
                 <header class="header header-layout1">
                     <div class="header-topbar">
                         <div class="container-fluid">
@@ -224,10 +224,11 @@
                         </div><!-- /.container -->
                     </nav><!-- /.navabr -->
                 </header>
+                {% block body %}
+
                 {% endblock %}
 
 
-                {% block footer %}
                 <footer class="footer">
                     <div class="footer-primary">
                         <div class="container">
@@ -321,8 +322,8 @@
                         </div><!-- /.container -->
                     </div><!-- /.footer-secondary -->
                 </footer>
-                {% endblock %}
+
             </div>
-        {% endblock %}
+
     </body>
 </html>

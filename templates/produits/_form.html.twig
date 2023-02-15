@@ -1,0 +1,69 @@
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-7">
+            <div class="contact-panel mb-50">
+{{ form_start(form , {'attr': {'novalidate': 'novalidate'}}) }}
+<div class="row">
+<div class="col-sm-12">
+    <h4 class="contact-panel__title">Add Your product here </h4>
+    <p class="contact-panel__desc mb-30">Please feel welcome to contact our friendly reception staff
+        with any general or medical enquiry. Our care takers will receive or return any urgent calls.
+    </p>
+</div>
+
+{#<div class="form-group">#}
+{#    {{form_label(form.NomProduit   ) }}#}
+{#    <i class="icon-email form-group-icon"></i>  {{ form_widget(form.NomProduit , {'attr': {'class': 'form-control'}} ) }}#}
+{#</div>#}
+
+        <div class="col-sm-6 col-md-6 col-lg-6">
+        {{ form_row ( form.NomProduit , { 'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form) }}
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-6">
+        {{ form_row ( form.EtatProduit , {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form) }}
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-6">
+        {{ form_row ( form.PrixProduit , {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form) }}
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-6">
+        {{ form_row ( form.DescriptionProduit , {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form) }}
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-6">
+        {{ form_row ( form.ImagePath , {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form) }}
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+        {{ form_row ( form.StatusProduit , {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form) }}
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+        {{ form_row ( form.localisationProduit , {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form) }}
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+        {{ form_row ( form.Brand , {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form) }}
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+        {{ form_row ( form.CategorieProduit , {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form) }}
+        </div>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+        {{ form_row ( form.user , {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form) }}
+    </div>
+
+    <button class="btn btn__secondary btn__rounded btn__block btn__xhight mt-10">{{ button_label|default('Save') }}</button>
+
+</div>
+{{ form_rest(form ) }}
+
+            </div>
+        </div>
+    </div>
+</div>
