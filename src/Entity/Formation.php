@@ -15,18 +15,32 @@ class Formation
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank (message:'champ obligatoire')]
     private ?string $nomFormation = null;
 
     #[ORM\Column(length: 500)]
+    #[Assert\NotBlank (message:'champ obligatoire')]
+    #[Assert\Length(
+        min: 2,
+        max: 500,
+        minMessage: 'insuffisant {{ limit }}',
+        maxMessage: 'trop long {{ limit }} ',
+    )]
     private ?string $descriptionFormation = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank (message:'champ obligatoire')]
+    #[Assert\Positive]
     private ?float $coutFormation = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\NotBlank (message:'champ obligatoire')]
+    #[Assert\Positive]
     private ?int $NombreDePlace = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank (message:'champ obligatoire')]
+    #[Assert\Positive]
     private ?string $duree = null;
 
     #[ORM\ManyToOne(inversedBy: 'formations')]

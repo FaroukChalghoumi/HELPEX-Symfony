@@ -21,9 +21,9 @@ class Centre
     #[Assert\NotBlank (message:'champ obligatoire')]
     #[Assert\Length(
         min: 2,
-        max: 50,
-        minMessage: 'Your first name must be at least {{ limit }} characters long',
-        maxMessage: 'Your first name cannot be longer than {{ limit }} characters',
+        max: 500,
+        minMessage: 'insuffisant {{ limit }}',
+        maxMessage: 'trop long {{ limit }} ',
     )]
 
     private ?string $nomCentre = null;
@@ -159,5 +159,9 @@ class Centre
         }
 
         return $this;
+    }
+    public function  __toString(): string
+    {
+        return $this->getNomCentre();
     }
 }
