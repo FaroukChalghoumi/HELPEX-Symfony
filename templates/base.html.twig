@@ -22,7 +22,7 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}
+
             <div class="wrapper">
                 <div class="preloader">
                     <div class="loading"><span></span><span></span><span></span><span></span></div>
@@ -187,6 +187,11 @@
                 {% endblock %}
 
 
+                {% block body %}
+
+                {% endblock %}
+
+
                 {% block footer %}
                 <footer class="footer">
                     <div class="footer-primary">
@@ -283,6 +288,5 @@
                 </footer>
                 {% endblock %}
             </div>
-        {% endblock %}
     </body>
 </html>
