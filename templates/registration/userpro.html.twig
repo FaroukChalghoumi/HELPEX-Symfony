@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register
+{% endblock %}
+
+{% block body %}
+	<h1>Register</h1>
+
+	{{ form_start(formR) }}
+
+
+	{{ form_label(formR.email, 'Email') }}
+	{{ form_widget(formR.email) }}
+	{{ form_errors(formR.email) }}
+
+	{{ form_label(formR.password, 'Password') }}
+	{{ form_widget(formR.password) }}
+	{{ form_errors(formR.password) }}
+
+	{{ form_label(formR.Nom, 'Nom') }}
+	{{ form_widget(formR.Nom) }}
+	{{ form_errors(formR.Nom) }}
+
+	{{ form_label(formR.Prenom, 'Prenom') }}
+	{{ form_widget(formR.Prenom) }}
+	{{ form_errors(formR.Prenom) }}
+
+	{{ form_label(formR.sexe, 'Sexe') }}
+	{{ form_widget(formR.sexe) }}
+	{{ form_errors(formR.sexe) }}
+
+	{{ form_label(formR.adresse, 'Adresse') }}
+	{{ form_widget(formR.adresse) }}
+	{{ form_errors(formR.adresse) }}
+
+	{{ form_label(formR.num_tel, 'Num') }}
+	{{ form_widget(formR.num_tel) }}
+	{{ form_errors(formR.num_tel) }}
+
+	{{ form_label(formR.pdp, 'pdp') }}
+	{{ form_widget(formR.pdp) }}
+	{{ form_errors(formR.pdp) }}
+
+	{{ form_label(formR.bio, 'bio') }}
+	{{ form_widget(formR.bio) }}
+	{{ form_errors(formR.bio) }}
+
+	{{ form_label(formR.date_naissance, 'date_naissance') }}
+	{{ form_widget(formR.date_naissance) }}
+	{{ form_errors(formR.date_naissance) }}
+
+	{{ form_label(formR.diplome, 'diplome') }}
+	{{ form_widget(formR.diplome) }}
+	{{ form_errors(formR.diplome) }}
+
+	{{ form_label(formR.tarif, 'tarif') }}
+	{{ form_widget(formR.tarif) }}
+	{{ form_errors(formR.tarif) }}
+
+	{{ form_label(formR.filiere, 'filiere') }}
+	{{ form_widget(formR.filiere) }}
+	{{ form_errors(formR.filiere) }}
+
+	<button type="submit">Register</button>
+
+	{{ form_end(formR) }}
+{% endblock %}
