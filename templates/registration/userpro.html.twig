@@ -13,9 +13,13 @@
 	{{ form_widget(formR.email) }}
 	{{ form_errors(formR.email) }}
 
-	{{ form_label(formR.password, 'Password') }}
-	{{ form_widget(formR.password) }}
-	{{ form_errors(formR.password) }}
+	{{ form_label(formR.password.first, 'Password') }}
+	{{ form_widget(formR.password.first) }}
+	{{ form_errors(formR.password.first) }}
+
+	{{ form_label(formR.password.second, 'Confirm Password') }}
+	{{ form_widget(formR.password.second) }}
+	{{ form_errors(formR.password.second) }}
 
 	{{ form_label(formR.Nom, 'Nom') }}
 	{{ form_widget(formR.Nom) }}
