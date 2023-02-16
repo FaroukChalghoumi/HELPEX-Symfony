@@ -46,10 +46,17 @@ body {
     background-color: #100901;
     color: #fff;
     margin-left: -62px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+    border-radius: 20%;
 }
 
 .my-container input {
     border-radius: 2rem;
     padding: 2px 20px;
 }
+
 

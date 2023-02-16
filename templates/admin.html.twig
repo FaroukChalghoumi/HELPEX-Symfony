@@ -12,7 +12,11 @@
     <!-- custom css -->
     {% block css %}
         <link rel="stylesheet" href="{{ asset("admin/css/style.css") }}" />
-
+        <link href="{{asset("images/favicon/favicon.png") }}" rel="icon">
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&amp;family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet">
+        <link href="{{asset("css/use.fontawesome.com/releases/v5.15.3/css/all.css") }}" rel="stylesheet">
+        <link href="{{asset("css/libraries.css") }}" rel="stylesheet">
+        <link href="{{asset("css/style.css") }}" rel="stylesheet">
     {% endblock %}
 
 </head>
@@ -73,7 +77,7 @@
 <div class="p-1 my-container active-cont">
     <!-- Top Nav -->
     <nav class="navbar top-navbar navbar-light bg-light px-5">
-        <a class="btn border-0" id="menu-btn"><i class="bx bx-menu"></i></a>
+        <a class=" border-0" id="menu-btn"><i class="bx bx-menu"></i></a>
     </nav>
     <!--End Top Nav -->
     {% block body  %}

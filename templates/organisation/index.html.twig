@@ -41,6 +41,32 @@
         </tbody>
     </table>
 
+    {% for organisation in organisations %}
+        <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="service-item">
+                <div class="service__icon">
+                    <i class="icon-head"></i>
+                    <i class="icon-head"></i>
+                </div><!-- /.service__icon -->
+                <div class="service__content">
+                    <h4 class="service__title">{{ organisation.NomOrg }}</h4>
+                    <p class="service__desc">{{ organisation.descriptionOrganisation }}
+                    </p>
+                    <ul class="list-items list-items-layout1 list-unstyled">
+                        <li>Neurocritical Care</li>
+                        <li>Neuro Oncology</li>
+                        <li>Geriatric Neurology</li>
+                    </ul>
+                    <a href="#" class="btn btn__secondary btn__outlined btn__rounded">
+                        <span>Read More</span>
+                        <i class="icon-arrow-right"></i>
+                    </a>
+                </div><!-- /.service__content -->
+            </div><!-- /.service-item -->
+        </div>
+    {% endfor %}
+
+
     <a href="{{ path('app_organisation_new') }}">Create new</a>
 
 {% endblock %}
