@@ -23,6 +23,7 @@ class CaisseOrganisation
         message: 'Number must be only numbers (phone number has exactly 8 characters)',
         match: true
     )]
+    #[Assert\NotBlank]
     private ?float $goal = null;
 
     #[ORM\ManyToOne(inversedBy: 'Caisses')]

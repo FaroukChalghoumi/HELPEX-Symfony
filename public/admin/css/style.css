@@ -22,8 +22,13 @@ body {
 .nav-link:focus,
 .nav-link:hover {
     background-color: #ffffff26;
+    color: white;
+    text-decoration: none;
 }
-
+.nav-link{
+    color: white;
+    text-decoration: none;
+}
 .my-container {
     transition: 0.4s;
 }
@@ -47,7 +52,4 @@ body {
     border-radius: 2rem;
     padding: 2px 20px;
 }
-a {
-    color: white; /* blue colors for links too */
-    text-decoration: none; /* no underline */
-}
+

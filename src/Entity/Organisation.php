@@ -16,6 +16,7 @@ class Organisation
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
     private ?string $descriptionOrganisation = null;
 
     #[ORM\Column(length: 255)]
@@ -24,6 +25,7 @@ class Organisation
         message: 'mail must be @gmail.com',
         match: true
     )]
+    #[Assert\NotBlank]
     private ?string $emailOrganisation = null;
 
     #[ORM\Column(length: 255)]
@@ -32,13 +34,15 @@ class Organisation
         message: 'Number must be only numbers (phone number has exactly 8 characters)',
         match: true
     )]
+    #[Assert\NotBlank]
     private ?string $numTelOrganisation = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
     private ?string $documentOrganisation = null;
 
     #[ORM\Column(length: 255)]
-
+    #[Assert\NotBlank]
     private ?string $paymentInfo = null;
 
     #[ORM\OneToMany(mappedBy: 'organisation', targetEntity: CaisseOrganisation::class, orphanRemoval: true)]
@@ -50,6 +54,7 @@ class Organisation
         message: 'name must be only characters',
         match: true
     )]
+    #[Assert\NotBlank]
     private ?string $NomOrg = null;
 
     public function __construct()
