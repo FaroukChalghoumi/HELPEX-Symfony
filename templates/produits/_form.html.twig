@@ -17,51 +17,157 @@
 {#    <i class="icon-email form-group-icon"></i>  {{ form_widget(form.NomProduit , {'attr': {'class': 'form-control'}} ) }}#}
 {#</div>#}
 
-        <div class="col-sm-6 col-md-6 col-lg-6">
-        {{ form_row ( form.NomProduit , { 'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form) }}
+    <div class="form-group">
+
+{#        {{ form_row ( form.NomProduit , { 'attr': {'class': 'form-control'}}) }}#}
+
+       {{  form_label ( form.NomProduit,'nomProduit' ,{ 'attr': {'class': 'contact-panel__title'}}) }}
+{#       {{  form_errors( form.NomProduit ,{ 'attr': {'class': 'contact-panel__title'}}) }}#}
+
+        {% if form_errors(form.NomProduit) is not empty  %}
+            {{  form_errors( form.NomProduit ,{ 'attr': {'class': 'contact-panel__title'}}) }}
+        {% else %}
+            <div >Looks good! ✅</div>
+        {% endif %}
+
+
+        {{  form_widget ( form.NomProduit ,{ 'attr': {'class': 'form-control'}}) }}
+
+{#            {{ form_errors(form) }}#}
+
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6">
-        {{ form_row ( form.EtatProduit , {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form) }}
+
+            {{  form_label ( form.EtatProduit,'EtatProduit' ,{ 'attr': {'class': 'contact-panel__title'}}) }}
+{#            {% if form_errors(form.NomProduit) is not empty  %}#}
+{#                {% if form_errors(form.EtatProduit) is not empty  %}#}
+{#                    {{  form_errors( form.EtatProduit ,{ 'attr': {'class': 'contact-panel__title'}}) }}#}
+{#                {% else %}#}
+
+{#                    <div >Looks good! ✅</div>#}
+
+{#            {% endif %}#}
+{#                {% else %}#}
+{#            {% endif %}#}
+
+            {% if form_errors(form.EtatProduit) is not empty  %}
+                {{  form_errors( form.EtatProduit ,{ 'attr': {'class': 'contact-panel__title'}}) }}
+            {% else %}
+                <div >Looks good! ✅</div>
+            {% endif %}
+
+
+    {{  form_widget ( form.EtatProduit ,{ 'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-6">
+
+            {{  form_label ( form.PrixProduit,'PrixProduit' ,{ 'attr': {'class': 'contact-panel__title'}}) }}
+
+            {% if form_errors(form.PrixProduit) is not empty  %}
+                {{  form_errors( form.PrixProduit ,{ 'attr': {'class': 'contact-panel__title'}}) }}
+            {% else %}
+                <div >Looks good! ✅</div>
+            {% endif %}
+
+            {{  form_widget ( form.PrixProduit ,{ 'attr': {'class': 'form-control'}}) }}
+
+
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6">
-        {{ form_row ( form.PrixProduit , {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form) }}
+
+            {{  form_label ( form.DescriptionProduit,'DescriptionProduit' ,{ 'attr': {'class': 'contact-panel__title'}}) }}
+
+            {% if form_errors(form.DescriptionProduit) is not empty  %}
+                {{  form_errors( form.DescriptionProduit ,{ 'attr': {'class': 'contact-panel__title'}}) }}
+            {% else %}
+                <div >Looks good! ✅</div>
+            {% endif %}
+
+            {{  form_widget ( form.DescriptionProduit ,{ 'attr': {'class': 'form-control'}}) }}
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6">
-        {{ form_row ( form.DescriptionProduit , {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form) }}
+
+            {{  form_label ( form.ImagePath,'ImagePath' ,{ 'attr': {'class': 'contact-panel__title'}}) }}
+
+            {% if form_errors(form.ImagePath) is not empty  %}
+                {{  form_errors( form.ImagePath ,{ 'attr': {'class': 'contact-panel__title'}}) }}
+            {% else %}
+                <div >Looks good! ✅</div>
+            {% endif %}
+            {{  form_widget ( form.ImagePath ,{ 'attr': {'class': 'form-control'}}) }}
+
+
+
         </div>
-        <div class="col-sm-6 col-md-6 col-lg-6">
-        {{ form_row ( form.ImagePath , {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form) }}
+    <div class="col-sm-6 col-md-6 col-lg-6">
+
+            {{  form_label ( form.StatusProduit,'StatusProduit' ,{ 'attr': {'class': 'contact-panel__title'}}) }}
+
+            {% if form_errors(form.StatusProduit) is not empty  %}
+                {{  form_errors( form.StatusProduit ,{ 'attr': {'class': 'contact-panel__title'}}) }}
+            {% else %}
+                <div >Looks good! ✅</div>
+            {% endif %}
+
+            {{  form_widget ( form.StatusProduit ,{ 'attr': {'class': 'form-control'}}) }}
+
+
         </div>
         <div class="col-sm-4 col-md-4 col-lg-4">
-        {{ form_row ( form.StatusProduit , {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form) }}
+
+            {{  form_label ( form.localisationProduit,'localisationProduit' ,{ 'attr': {'class': 'contact-panel__title'}}) }}
+
+            {% if form_errors(form.localisationProduit) is not empty  %}
+                {{  form_errors( form.localisationProduit ,{ 'attr': {'class': 'contact-panel__title'}}) }}
+            {% else %}
+                <div >Looks good! ✅</div>
+            {% endif %}
+
+            {{  form_widget ( form.localisationProduit ,{ 'attr': {'class': 'form-control'}}) }}
+
+
+
         </div>
         <div class="col-sm-4 col-md-4 col-lg-4">
-        {{ form_row ( form.localisationProduit , {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form) }}
+
+            {{  form_label ( form.Brand,'Brand' ,{ 'attr': {'class': 'contact-panel__title'}}) }}
+
+            {% if form_errors(form.Brand) is not empty  %}
+                {{  form_errors( form.Brand ,{ 'attr': {'class': 'contact-panel__title'}}) }}
+            {% else %}
+                <div >Looks good! ✅</div>
+            {% endif %}
+
+            {{  form_widget ( form.Brand ,{ 'attr': {'class': 'form-control'}}) }}
+
+
         </div>
         <div class="col-sm-4 col-md-4 col-lg-4">
-        {{ form_row ( form.Brand , {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form) }}
+
+            {{  form_label ( form.CategorieProduit,'CategorieProduit' ,{ 'attr': {'class': 'contact-panel__title'}}) }}
+
+            {% if form_errors(form.CategorieProduit) is not empty  %}
+                {{  form_errors( form.CategorieProduit ,{ 'attr': {'class': 'contact-panel__title'}}) }}
+            {% else %}
+                <div >Looks good! ✅</div>
+            {% endif %}
+
+            {{  form_widget ( form.CategorieProduit ,{ 'attr': {'class': 'form-control'}}) }}
+
+
+
         </div>
         <div class="col-sm-4 col-md-4 col-lg-4">
-        {{ form_row ( form.CategorieProduit , {'attr': {'class': 'form-control'}}) }}
-            {{ form_errors(form) }}
-        </div>
-    <div class="col-sm-4 col-md-4 col-lg-4">
+
         {{ form_row ( form.user , {'attr': {'class': 'form-control'}}) }}
-        {{ form_errors(form) }}
+        {{ form_errors(form,{'attr': {'class': 'contact-panel__desc mb-30'}}) }}
     </div>
 
     <button class="btn btn__secondary btn__rounded btn__block btn__xhight mt-10">{{ button_label|default('Save') }}</button>
 
 </div>
-{{ form_rest(form ) }}
+{{ form_end(form ) }}
 
             </div>
         </div>

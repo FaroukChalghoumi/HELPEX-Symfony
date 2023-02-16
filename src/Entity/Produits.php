@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ProduitsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProduitsRepository::class)]
 class Produits
@@ -13,35 +14,43 @@ class Produits
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
 
+
+    #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
     #[Assert\Regex(
-        pattern: '/\d/',
-        match: false,
-        message: 'Your name cannot contain a number',
+        pattern: '/^[a-z]+$/i',
+        message: 'name must be only characters',
+        match: true
     )]
     private ?string $NomProduit = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
     private ?string $EtatProduit = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
     private ?string $PrixProduit = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank]
     private ?string $DescriptionProduit = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank]
     private ?string $ImagePath = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank]
     private ?string $StatusProduit = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank]
     private ?string $localisationProduit = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank]
     private ?string $Brand = null;
 
     #[ORM\ManyToOne]
