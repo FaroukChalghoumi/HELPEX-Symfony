@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -17,6 +18,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\NotBlank (message:'champ obligatoire')]
+    #[Assert\Email(
+        message: 'The email {{ value }} is not a valid email.',
+    )]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -29,37 +34,57 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank (message:'champ obligatoire')]
     private ?string $Nom = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank (message:'champ obligatoire')]
     private ?string $Prenom = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank (message:'champ obligatoire')]
+    /**dropdownmenu homme femme */
     private ?string $sexe = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank (message:'champ obligatoire')]
+    /**dropmenu regions tn */
     private ?string $adresse = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank (message:'champ obligatoire')]
+    #[Assert\Length(
+        min: 8,
+        max: 8,
+        minMessage: 'numero telephone non valide',
+        maxMessage: 'numero telephone non valide',
+    )]
     private ?string $num_tel = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $pdp = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank (message:'champ obligatoire')]
     private ?string $bio = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\NotBlank (message:'champ obligatoire')]   
     private ?\DateTimeInterface $date_naissance = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)] /***selon role pour pro user */
+    #[Assert\NotBlank (message:'champ obligatoire')]   
     private ?string $diplome = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\NotBlank (message:'champ obligatoire')]   
     private ?float $tarif = null;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Filiere $filiere = null;
+
+    #[ORM\Column]
+    private ?bool $isEnabled = null;
 
     public function getId(): ?int
     {
@@ -278,6 +303,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFiliere(?Filiere $filiere): self
     {
         $this->filiere = $filiere;
+
+        return $this;
+    }
+
+    public function isIsEnabled(): ?bool
+    {
+        return $this->isEnabled;
+    }
+
+    public function setIsEnabled(bool $isEnabled): self
+    {
+        $this->isEnabled = $isEnabled;
 
         return $this;
     }
