@@ -83,6 +83,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Filiere $filiere = null;
 
+    
     #[ORM\Column]
     private ?bool $isEnabled = null;
 
