@@ -5,9 +5,33 @@
 {% block body %}
     <h1>Edit Organisation</h1>
 
-    {{ include('organisation/_form.html.twig', {'button_label': 'Update'}) }}
+
 
     <a href="{{ path('app_organisation_index') }}">back to list</a>
 
     {{ include('organisation/_delete_form.html.twig') }}
+    <section class="contact-layout2 pt-0">
+
+        <div class="row">
+            <div class="align-content-center">
+                <div class="contact-panel align-content-center">
+                    <form class=" align-content-center" method="post" id="contactForm" novalidate="novalidate">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h4 class="contact-panel__title">Book An Appointment</h4>
+                                <p class="contact-panel__desc mb-30">Please feel welcome to contact our friendly reception staff
+                                    with any general or medical enquiry. Our doctors will receive or return any urgent calls.
+                                </p>
+                            </div>
+
+                            {{ include('organisation/_form.html.twig', {'button_label': 'Update'}) }}
+
+                        </div><!-- /.row -->
+                    </form>
+
+                </div>
+            </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+
+    </section><!-- /.contact layout 2 -->
 {% endblock %}

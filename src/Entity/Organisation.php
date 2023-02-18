@@ -54,7 +54,9 @@ class Organisation
         message: 'name must be only characters',
         match: true
     )]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(
+        message: 'champ obligatoire'
+    )]
     private ?string $NomOrg = null;
 
     public function __construct()

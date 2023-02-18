@@ -32,7 +32,7 @@
     font-family: Mukta, sans-serif;
     height: 100%;
     width: 100%;
-    padding: 10%;
+
     display: grid;
     grid-template-rows: max-content max-content;
     color: #4f546c;
