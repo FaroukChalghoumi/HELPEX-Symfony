@@ -66,7 +66,7 @@ class OrganisationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $brochureFile = $form->get('documentOrganisation')->getData();
 
-            
+
             if ($brochureFile) {
                 $brochureFileName = $fileUploader->upload($brochureFile);
                 $organisation->setDocumentOrganisation($brochureFileName);
