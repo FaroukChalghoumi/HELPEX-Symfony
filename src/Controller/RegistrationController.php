@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use  Symfony\Component\HttpFoundation\Response;
 
 class RegistrationController extends AbstractController
 {
@@ -17,6 +18,18 @@ class RegistrationController extends AbstractController
     {
         $this->passwordEncoder = $passwordEncoder;
     }
+
+
+
+/**
+     * @Route("/pick", name="pick")
+     */
+    public function pick(): Response
+    {
+        return $this->render('registration/pick.html.twig');
+    }
+
+
 
     /**
      * @Route("/registration/user", name="registration_user")

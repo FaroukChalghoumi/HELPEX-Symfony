@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+	<section class="contact-layout5 bg-overlay bg-overlay-blue-gradient pb-60">
+		<div class="bg-img"><img src="assets/images/banners/3.jpg" alt="banner"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-20 col-md-20 col-lg-50 d-flex flex-column justify-content-between">
+					<div>
+						<div class="heading heading-light mb-30">
+							<h3 class="heading__title mb-30">Helpex Pro,
+							</h3>
+							<p class="heading__desc">Today the hospital is recognised as a world renowned institution, not only
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					                  providing outstanding care and treatment, our goal is to deliver quality care in a respectful &
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					                  compassionate manner. We strive to be the first and best choice for healthcare.
+							</p>
+						</div>
+
+					</div>
+
+				</div>
+
+
+				<div class="col-sm-12 col-md-12 col-lg-5 d-flex flex-column justify-content-between">
+					<img src="{{ asset('images/helpex.png')}} " style="height: 458.4px; width: 700px ;  border-radius: 33px;"/>
+					<form method="get">
+						<button class="btn btn__primary btn__rounded btn__block btn__xhight mt-10" type="submit" formaction="{{ path('registration_user') }}">Register as User</button>
+					</form>
+				</div>
+
+				<div class="col-sm-12 col-md-12 col-lg-5 d-flex flex-column justify-content-between">
+					<img src="{{ asset('images/helpex.png')}} " style="height: 458.4px; width: 700px ;  border-radius: 33px;"/>
+					<form method="get">
+						<button class="btn btn__primary btn__rounded btn__block btn__xhight mt-10" type="submit" formaction="{{ path('registration_pro') }}">Register as Pro</button>
+					</form>
+
+				</div>
+			</div>
+		</div>
+		<!-- /.container -->
+	</section>
+	<!-- /.contact layout 5 -->
+{% endblock %}

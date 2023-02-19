@@ -18,7 +18,7 @@ class Filiere
     #[ORM\Column(length: 255)]
     private ?string $NomFiliere = null;
 
-    #[ORM\OneToMany(mappedBy: 'filiere', targetEntity: User::class)]
+    #[ORM\OneToMany(mappedBy: 'filiere', targetEntity: User::class , cascade: ['remove'])]
     private Collection $users;
 
     public function __construct()
@@ -42,6 +42,12 @@ class Filiere
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->NomFiliere; 
+    }
+
 
     /**
      * @return Collection<int, User>

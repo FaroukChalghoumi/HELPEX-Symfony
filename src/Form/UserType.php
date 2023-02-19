@@ -6,6 +6,7 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaTypeuse;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
@@ -46,7 +47,7 @@ class UserType extends AbstractType
             ->add('adresse')
             ->add('num_tel')
             ->add('pdp')
-            ->add('bio')
+            ->add('bio', TextareaType:: class)
             ->add('date_naissance')
             
         ;

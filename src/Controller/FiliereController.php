@@ -43,8 +43,13 @@ class FiliereController extends AbstractController
     #[Route('/{id}', name: 'app_filiere_show', methods: ['GET'])]
     public function show(Filiere $filiere): Response
     {
+        $entityManager = $this->getDoctrine()->getManager();
+        $filiere = $entityManager->getRepository(Filiere::class)->find($filiere);
+        $users = $filiere->getUsers();
+
         return $this->render('filiere/show.html.twig', [
             'filiere' => $filiere,
+            'users' => $users,
         ]);
     }
 
@@ -75,4 +80,24 @@ class FiliereController extends AbstractController
 
         return $this->redirectToRoute('app_filiere_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
+    public function showUsersInFiliere($filiereId)
+    {
+       
+    
+        if (!$filiere) {
+            throw $this->createNotFoundException('No filiere found for id ' . $filiereId);
+        }
+    
+        
+    
+        return $this->render('filiere/show.html.twig', [
+            'filiere' => $filiere,
+           
+        ]);
+    }
+
+
 }

@@ -83,8 +83,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Filiere $filiere = null;
 
-    
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?bool $isEnabled = null;
 
     public function getId(): ?int

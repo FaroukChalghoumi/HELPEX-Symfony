@@ -7,9 +7,12 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+
 
 class UserProType extends AbstractType
 {
@@ -46,11 +49,16 @@ class UserProType extends AbstractType
             ->add('adresse')
             ->add('num_tel')
             ->add('pdp')
-            ->add('bio')
+            ->add('bio', TextareaType:: class)
             ->add('date_naissance')
+          
             ->add('diplome')
             ->add('tarif')
             ->add('filiere')
+           
+            
+            
+            
         ;
     }
 
