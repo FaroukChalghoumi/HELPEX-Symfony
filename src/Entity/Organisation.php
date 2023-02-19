@@ -38,7 +38,7 @@ class Organisation
     private ?string $numTelOrganisation = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank]
+
     private ?string $documentOrganisation = null;
 
     #[ORM\Column(length: 255)]

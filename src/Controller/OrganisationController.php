@@ -5,10 +5,14 @@ namespace App\Controller;
 use App\Entity\Organisation;
 use App\Form\OrganisationType;
 use App\Repository\OrganisationRepository;
+use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/organisation')]
 class OrganisationController extends AbstractController
@@ -22,13 +26,18 @@ class OrganisationController extends AbstractController
     }
 
     #[Route('/new', name: 'app_organisation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, OrganisationRepository $organisationRepository): Response
+    public function new(Request $request, OrganisationRepository $organisationRepository,FileUploader $fileUploader): Response
     {
         $organisation = new Organisation();
         $form = $this->createForm(OrganisationType::class, $organisation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $brochureFile = $form->get('documentOrganisation')->getData();
+            if ($brochureFile) {
+                $brochureFileName = $fileUploader->upload($brochureFile);
+                $organisation->setDocumentOrganisation($brochureFileName);
+            }
             $organisationRepository->save($organisation, true);
 
             return $this->redirectToRoute('app_organisation_index', [], Response::HTTP_SEE_OTHER);
@@ -49,14 +58,20 @@ class OrganisationController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_organisation_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Organisation $organisation, OrganisationRepository $organisationRepository): Response
+    public function edit(Request $request, Organisation $organisation, OrganisationRepository $organisationRepository,FileUploader $fileUploader): Response
     {
         $form = $this->createForm(OrganisationType::class, $organisation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $organisationRepository->save($organisation, true);
+            $brochureFile = $form->get('documentOrganisation')->getData();
 
+            
+            if ($brochureFile) {
+                $brochureFileName = $fileUploader->upload($brochureFile);
+                $organisation->setDocumentOrganisation($brochureFileName);
+            }
+            $organisationRepository->save($organisation,true);
             return $this->redirectToRoute('app_organisation_index', [], Response::HTTP_SEE_OTHER);
         }
 

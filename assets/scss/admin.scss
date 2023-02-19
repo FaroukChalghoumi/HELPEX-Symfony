@@ -550,6 +550,7 @@ button, a {
 
     .participants {
       margin-bottom: 8px;
+
     }
 
     .project-box-content-header p {
@@ -702,9 +703,9 @@ button, a {
 }
 
 .participants {
-  display: flex;
-  align-items: center;
-
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 10px;
   img {
     width: 20px;
     height: 20px;
@@ -907,4 +908,16 @@ button, a {
     right: 2px;
     top: 10px;
   }
+}
+
+.org-action-item{
+  background-color: rgba(255, 255, 255, 0.6);
+  width: 30px;
+  height: 30px;
+  border-radius: 20%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  text-decoration: none;
+  flex-wrap: wrap;
 }
