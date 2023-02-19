@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\FormationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -48,6 +50,14 @@ class Formation
 
     #[ORM\ManyToOne(inversedBy: 'formations')]
     private ?Centre $idCentre = null;
+
+    #[ORM\OneToMany(mappedBy: 'formations', targetEntity: InscriptionFormation::class)]
+    private Collection $inscriptionFormations;
+
+    public function __construct()
+    {
+        $this->inscriptionFormations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -136,5 +146,39 @@ class Formation
         $this->idCentre = $idCentre;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, InscriptionFormation>
+     */
+    public function getInscriptionFormations(): Collection
+    {
+        return $this->inscriptionFormations;
+    }
+
+    public function addInscriptionFormation(InscriptionFormation $inscriptionFormation): self
+    {
+        if (!$this->inscriptionFormations->contains($inscriptionFormation)) {
+            $this->inscriptionFormations->add($inscriptionFormation);
+            $inscriptionFormation->setFormations($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInscriptionFormation(InscriptionFormation $inscriptionFormation): self
+    {
+        if ($this->inscriptionFormations->removeElement($inscriptionFormation)) {
+            // set the owning side to null (unless already changed)
+            if ($inscriptionFormation->getFormations() === $this) {
+                $inscriptionFormation->setFormations(null);
+            }
+        }
+
+        return $this;
+    }
+    public function  __toString(): string
+    {
+        return $this->getNomFormation();
     }
 }
