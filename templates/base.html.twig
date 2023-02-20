@@ -56,19 +56,19 @@
 															<span>+2 01061245741</span>
 														</a>
 														<p>Please feel free to contact our friendly reception staff with any general or
-															                                                        medical enquiry.
+
 														</p>
-														<a class="btn btn__secondary btn__link btn__block" href="">
-															<span>Make Appointment</span>
-															<i class="icon-arrow-right"></i>
-														</a>
+
+
 													</div>
+
+
 													<!-- /.miniPopup-emergency -->
 												</li>
 												<li>
 													<i class="icon-phone"></i>
 													<a href="tel:+5565454117">Emergency Line: (002)
-														                                                    01061245741</a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		                                                    01061245741</a>
 												</li>
 												<li>
 													<i class="icon-location"></i>
@@ -118,10 +118,9 @@
 						<nav class="navbar navbar-expand-lg sticky-navbar">
 							<div class="container-fluid">
 								<a class="navbar-brand" href="">
-									<img alt="logo" class="logo-light" src="{{ asset( "images/logo/logo-light.png" ) }}">
-									<img alt="logo" class="logo-dark" src="{{ asset("images/logo/logo-dark.png") }}">
+									<img src="{{ asset('images/helpex.png')}} " style="width: 140px;"/>
 								</a>
-								<button class="navbar-toggler" type="button">
+								<button class=" navbar-toggler" type=" button">
 									<span class="menu-lines">
 										<span></span>
 									</span>
@@ -190,36 +189,7 @@
 											<!-- /.dropdown-menu -->
 										</li>
 										<!-- /.nav-item -->
-										<li class="nav__item has-dropdown">
-											<a class="dropdown-toggle nav__item-link" data-toggle="dropdown" href="#">Doctors</a>
-											<ul class="dropdown-menu">
-												<li class="nav__item">
-													<a class="nav__item-link" href="">Doctors Timetable</a>
-												</li>
-												<!-- /.nav-item -->
-												<li class="nav__item">
-													<a class="nav__item-link" href="">Our Doctors Standard</a>
-												</li>
-												<!-- /.nav-item -->
-												<li class="nav__item">
-													<a class="nav__item-link" href="">Our Doctors Modern</a>
-												</li>
-												<!-- /.nav-item -->
-												<li class="nav__item">
-													<a class="nav__item-link" href="">Our Doctors Grid</a>
-												</li>
-												<!-- /.nav-item -->
-												<li class="nav__item">
-													<a class="nav__item-link" href="">Single Doctor 01</a>
-												</li>
-												<!-- /.nav-item -->
-												<li class="nav__item">
-													<a class="nav__item-link" href="">Single Doctor 02</a>
-												</li>
-												<!-- /.nav-item -->
-											</ul>
-											<!-- /.dropdown-menu -->
-										</li>
+
 										<!-- /.nav-item -->
 										<li class="nav__item has-dropdown">
 											<a class="dropdown-toggle nav__item-link" data-toggle="dropdown" href="#">Blog</a>
@@ -300,10 +270,32 @@
 										<!-- /.nav-item -->
 									</ul>
 									<!-- /.miniPopup-departments -->
-									<a class="btn btn__primary btn__rounded ml-30">
-										<i class="icon-calendar"></i>
-										<span>Appointment</span>
-									</a>
+									<li class="nav__item has-dropdown">
+										<a class="dropdown-toggle nav__item-link" data-toggle="dropdown" href="#">
+
+											{% if app.user !=null%}
+												<div class="testimonial__thmb">
+													<img src="{{ asset('uploads/users/' ~ app.user.pdp) }}" alt="User Image">
+												</div>
+												<span>
+													{{app.user.username}}</span>
+											{% endif %}
+
+										</a>
+										<ul class="dropdown-menu">
+											<li class="nav__item">
+												<a class="nav__item-link" href="">Profile</a>
+											</li>
+											<!-- /.nav-item -->
+											<li class="nav__item">
+												<a class="nav__item-link" href="{{ path('app_logout')}}">logout</a>
+											</li>
+
+										</ul>
+										<!-- /.dropdown-menu -->
+									</li>
+
+
 								</div>
 							</div>
 							<!-- /.container -->
@@ -322,9 +314,9 @@
 										<div class="footer-widget-about">
 											<img alt="logo" class="mb-30" src="{{ asset("images/logo/logo-light.png") }}">
 											<p class="color-gray">Our goal is to deliver quality of care in a courteous, respectful, and
-												                                            compassionate manner. We hope you will allow us to care for you and strive to be the
-												                                            first and best
-												                                            choice for your family healthcare.
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						                                            compassionate manner. We hope you will allow us to care for you and strive to be the
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						                                            first and best
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						                                            choice for your family healthcare.
 											</p>
 											<a class="btn btn__primary btn__primary-style2 btn__link">
 												<span>Make Appointment</span>
@@ -471,4 +463,4 @@
 			</div>
 		{% endblock %}
 	</body>
-</html>
+</html></body></html>

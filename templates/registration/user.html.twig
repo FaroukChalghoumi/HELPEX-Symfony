@@ -1,69 +1,175 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register
-{% endblock %}
 
 {% block body %}
-	<h1>Register</h1>
+
+	<section class="contact-layout5 bg-overlay bg-overlay-blue-gradient pb-60">
+		<div class="bg-img"><img src="assets/images/banners/3.jpg" alt="banner"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-20 col-md-20 col-lg-50 d-flex flex-column justify-content-between">
+					<div>
+						<div class="heading heading-light mb-30">
+							<h3 class="heading__title mb-30">Helpex Pro,
+							</h3>
+							<p class="heading__desc">Today the hospital is recognised as a world renowned institution, not only
+																																																																																																																																																																																																																																																																																																																																																																																																								                  providing outstanding care and treatment, our goal is to deliver quality care in a respectful &
+																																																																																																																																																																																																																																																																																																																																																																																																								                  compassionate manner. We strive to be the first and best choice for healthcare.
+							</p>
+						</div>
+
+					</div>
+
+					<ul class="list-items list-items-layout2 list-items-light list-horizontal list-unstyled mb-50">
+						<li>Fractures and dislocations</li>
+						<li>Health Assessments</li>
+						<li>Desensitisation injections</li>
+						<li>High Quality Care</li>
+						<li>
+							Home medicine review</li>
+					</ul>
+					<div class="d-flex align-items-center">
+						<a href="doctors-modern.html" class="btn btn__white btn__white-style2 btn__rounded mr-30">
+							<span>Find A Doctor</span>
+							<i class="icon-arrow-right"></i>
+						</a>
+						<a href="contact-us.html" class="btn btn__white btn__outlined btn__rounded">Contact Us</a>
+					</div>
+				</div>
 
 
-	{{ form_start(formR,{'attr':{'novalidate':'novalidate'}}) }}
-	{{ form_label(formR.email, 'Email') }}
-	{{ form_widget(formR.email) }}
-	{{ form_errors(formR.email) }}
+				<!-- SIIIIGN UPPPPPPP -->
+				<div class="class=" col-sm-20 col-md-20 col-lg-70"">
+					<div class="contact-panel mb-50">
 
-	{{ form_start(formR,{'attr':{'novalidate':'novalidate'}}) }}
-	{{ form_label(formR.password.first, 'Password') }}
-	{{ form_widget(formR.password.first) }}
-	{{ form_errors(formR.password.first) }}
+						{{ form_start(formR,{'attr':{'novalidate':'novalidate'}}) }}
+						<div class="row">
+							<div class="col-sm-12">
+								<h4 class="contact-panel__title">S'inscrire en tant que membre Professionel:</h4>
+							</div>
 
-	{{ form_start(formR,{'attr':{'novalidate':'novalidate'}}) }}
-	{{ form_label(formR.password.second, 'Confirm Password') }}
-	{{ form_widget(formR.password.second) }}
-	{{ form_errors(formR.password.second) }}
+							<!--THIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIISSSSSSSSSSSS-->
+							<div class="col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+									{{ form_label(formR.email, 'Email') }}
 
-	{{ form_start(formR,{'attr':{'novalidate':'novalidate'}}) }}
-	{{ form_label(formR.Nom, 'Nom') }}
-	{{ form_widget(formR.Nom) }}
-	{{ form_errors(formR.Nom) }}
+									{{ form_widget(formR.email, {'attr': {'class': 'form-control'}}) }}
 
-	{{ form_start(formR,{'attr':{'novalidate':'novalidate'}}) }}
-	{{ form_label(formR.Prenom, 'Prenom') }}
-	{{ form_widget(formR.Prenom) }}
-	{{ form_errors(formR.Prenom) }}
-
-	{{ form_start(formR,{'attr':{'novalidate':'novalidate'}}) }}
-	{{ form_label(formR.sexe, 'Sexe') }}
-	{{ form_widget(formR.sexe) }}
-	{{ form_errors(formR.sexe) }}
-
-	{{ form_start(formR,{'attr':{'novalidate':'novalidate'}}) }}
-	{{ form_label(formR.adresse, 'Adresse') }}
-	{{ form_widget(formR.adresse) }}
-	{{ form_errors(formR.adresse) }}
-
-	{{ form_start(formR,{'attr':{'novalidate':'novalidate'}}) }}
-	{{ form_label(formR.num_tel, 'Num') }}
-	{{ form_widget(formR.num_tel) }}
-	{{ form_errors(formR.num_tel) }}
-
-	{{ form_start(formR,{'attr':{'novalidate':'novalidate'}}) }}
-	{{ form_label(formR.pdp, 'pdp') }}
-	{{ form_widget(formR.pdp) }}
-	{{ form_errors(formR.pdp) }}
-
-	{{ form_start(formR,{'attr':{'novalidate':'novalidate'}}) }}
-	{{ form_label(formR.bio, 'bio') }}
-	{{ form_widget(formR.bio) }}
-	{{ form_errors(formR.bio) }}
-
-	{{ form_start(formR,{'attr':{'novalidate':'novalidate'}}) }}
-	{{ form_label(formR.date_naissance, 'date_naissance') }}
-	{{ form_widget(formR.date_naissance) }}
-	{{ form_errors(formR.date_naissance) }}
+									{{ form_errors(formR.email) }}
+								</div>
+							</div>
+							<!--THIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIISSSSSSSSSSSS-->
 
 
-	<button type="submit">Register</button>
+							<!-- /.col-lg-6 -->
+							<div class="col-sm-6 col-md-6 col-lg-6">
+								<div class="form-group">
+									{{ form_label(formR.password.first, 'Mot de passe') }}
+									{{ form_widget(formR.password.first, {'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(formR.password.first) }}
+								</div>
+							</div>
+							<!-- /.col-lg-6 -->
+							<div class="col-sm-6 col-md-6 col-lg-6">
+								<div class="form-group">
+									{{ form_label(formR.password.second, 'Confirmer votre mot de passe') }}
+									{{ form_widget(formR.password.second, {'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(formR.password.second) }}
+								</div>
+							</div>
 
-	{{ form_end(formR) }}
+							<!-- /.col-lg-6 -->
+							<div class="col-sm-6 col-md-6 col-lg-6">
+								<div class="form-group">
+									{{ form_label(formR.Nom, 'Nom') }}
+									{{ form_widget(formR.Nom, {'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(formR.Nom) }}
+								</div>
+							</div>
+							<!-- /.col-lg-6 -->
+							<div class="col-sm-4 col-md-4 col-lg-4">
+								<div class="form-group">
+									{{ form_label(formR.Prenom, 'Prenom') }}
+									{{ form_widget(formR.Prenom, {'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(formR.Prenom) }}
+								</div>
+							</div>
+							<!-- /.col-lg-4 -->
+							<div class="col-sm-4 col-md-4 col-lg-4">
+								<div class="form-group ">
+									{{ form_label(formR.sexe, 'Sexe') }}
+									{{ form_widget(formR.sexe, {'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(formR.sexe) }}
+
+								</div>
+							</div>
+							<!-- /.col-lg-4 -->
+							<div class="col-sm-4 col-md-4 col-lg-4">
+								<div class="form-group ">
+									{{ form_label(formR.adresse, 'Adresse') }}
+									{{ form_widget(formR.adresse, {'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(formR.adresse) }}
+								</div>
+							</div>
+							<!-- /.col-lg-4 -->
+							<div class="col-sm-4 col-md-4 col-lg-4">
+								<div class="form-group ">
+									{{ form_label(formR.num_tel, 'Num') }}
+									{{ form_widget(formR.num_tel, {'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(formR.num_tel) }}
+
+								</div>
+							</div>
+
+							<div class="col-sm-6 col-md-6 col-lg-6">
+								<div class="form-group ">
+									{{ form_row(formR.pic,  {'attr': {'class': 'form-control'}}) }}
+
+
+								</div>
+							</div>
+
+							<div class="col-sm-6 col-md-6 col-lg-6">
+								<div class="form-group ">
+									{{ form_label(formR.bio, 'Bio') }}
+									{{ form_widget(formR.bio, {'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(formR.bio) }}
+
+
+								</div>
+							</div>
+
+							<div class="col-sm-6 col-md-6 col-lg-6">
+								<div class="form-group ">
+									{{ form_label(formR.date_naissance, 'date_naissance') }}
+									{{ form_widget(formR.date_naissance) }}
+									{{ form_errors(formR.date_naissance) }}
+
+
+								</div>
+							</div>
+
+
+							<!-- /.col-lg-4 -->
+							<div class="col-12">
+								<button type="submit" class="btn btn__primary btn__rounded btn__block btn__xhight mt-10">
+									<span>S'inscrire!</span>
+									<i class="icon-arrow-right"></i>
+								</button>
+								<div class="contact-result"></div>
+							</div>
+							<!-- /.col-lg-12 -->
+						</div>
+						<!-- /.row -->
+						{{ form_end(formR) }}
+
+					</div>
+				</div>
+				<!-- /.col-lg-7 -->
+			</div>
+			<!-- /.row -->
+		</div>
+		<!-- /.container -->
+	</section>
+	<!-- /.contact layout 5 -->
 {% endblock %}

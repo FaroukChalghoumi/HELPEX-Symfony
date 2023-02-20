@@ -12,6 +12,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+
 
 
 class UserProType extends AbstractType
@@ -48,11 +51,56 @@ class UserProType extends AbstractType
             ->add('sexe')
             ->add('adresse')
             ->add('num_tel')
-            ->add('pdp')
+            ->add('pic',  FileType::class, [
+                'label' => 'Votre image de profil',
+
+                // unmapped means that this field is not associated to any entity property
+                'mapped' => false,
+
+                // make it optional so you don't have to re-upload the PDF file
+                // every time you edit the Product details
+                'required' => false,
+
+                // unmapped fields can't define their validation using annotations
+                // in the associated entity, so you can use the PHP constraint classes
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'image/png',
+                            'image/jpg',
+                            'image/jpeg',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid image',
+                    ]) 
+                ],
+            ] )
             ->add('bio', TextareaType:: class)
             ->add('date_naissance')
           
-            ->add('diplome')
+            ->add('certif',   FileType::class, [
+                'label' => 'Votre diplome ou certification (pdf)',
+
+                // unmapped means that this field is not associated to any entity property
+                'mapped' => false,
+
+                // make it optional so you don't have to re-upload the PDF file
+                // every time you edit the Product details
+                'required' => false,
+
+                // unmapped fields can't define their validation using annotations
+                // in the associated entity, so you can use the PHP constraint classes
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'application/pdf',
+                            'application/x-pdf',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid pdf file',
+                    ]) 
+                ],
+            ] )
             ->add('tarif')
             ->add('filiere')
            

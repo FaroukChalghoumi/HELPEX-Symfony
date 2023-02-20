@@ -73,11 +73,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?\DateTimeInterface $date_naissance = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)] /***selon role pour pro user */
-    #[Assert\NotBlank (message:'champ obligatoire')]   
-    private ?string $diplome = null;
+   /**  #[Assert\NotBlank (message:'champ obligatoire')] */  
+   private ?string $diplome = null;
 
     #[ORM\Column(nullable: true)]
-    #[Assert\NotBlank (message:'champ obligatoire')]   
+   /**  #[Assert\NotBlank (message:'champ obligatoire')] */  
     private ?float $tarif = null;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
