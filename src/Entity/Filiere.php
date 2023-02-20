@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\FiliereRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FiliereRepository::class)]
@@ -20,6 +21,9 @@ class Filiere
 
     #[ORM\OneToMany(mappedBy: 'filiere', targetEntity: User::class , cascade: ['remove'])]
     private Collection $users;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $DescriptionFiliere = null;
 
     public function __construct()
     {
@@ -75,6 +79,18 @@ class Filiere
                 $user->setFiliere(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDescriptionFiliere(): ?string
+    {
+        return $this->DescriptionFiliere;
+    }
+
+    public function setDescriptionFiliere(string $DescriptionFiliere): self
+    {
+        $this->DescriptionFiliere = $DescriptionFiliere;
 
         return $this;
     }

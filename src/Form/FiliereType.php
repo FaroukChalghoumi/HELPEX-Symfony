@@ -6,6 +6,8 @@ use App\Entity\Filiere;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+
 
 class FiliereType extends AbstractType
 {
@@ -13,6 +15,7 @@ class FiliereType extends AbstractType
     {
         $builder
             ->add('NomFiliere')
+            ->add('DescriptionFiliere', TextareaType:: class)
         ;
     }
 

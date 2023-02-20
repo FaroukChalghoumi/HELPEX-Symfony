@@ -1,0 +1,31 @@
+{% block body %}
+<h1>Filiere index</h1>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>NomFiliere</th>
+			<th>DescriptionFiliere</th>
+
+			<th>actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for filiere in filieres %}
+			<tr>
+				<td>{{ filiere.id }}</td>
+				<td>{{ filiere.NomFiliere }}</td>
+				<td>{{ filiere.DescriptionFiliere }}</td>
+				<td>
+					<a href="{{ path('app_filiere_show', {'id': filiere.id}) }}">show</a>
+					<a href="{{ path('app_filiere_edit', {'id': filiere.id}) }}">edit</a>
+				</td>
+			</tr>
+		{% else %}
+			<tr>
+				<td colspan="3">no records found</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
