@@ -14,12 +14,13 @@ class UserController extends AbstractController
     #[Route('admin/users', name: 'AllUsers')]
     public function AllUsers(UserRepository $userRepo): Response
     {
+        $user = $this->getUser();
 
         if (!$user) {
             return $this->redirectToRoute('app_login');
         }
 
-        return $this->render('user/allusers.html.twig', [
+        return $this->render('user/back/allusers.html.twig', [
             'user' => $this->getUser(),
             'usersList' => $userRepo->findAll()
         ]);

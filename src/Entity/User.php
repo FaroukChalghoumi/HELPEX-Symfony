@@ -71,6 +71,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\NotBlank (message:'champ obligatoire')]   
     private ?\DateTimeInterface $date_naissance = null;
+    
 
     #[ORM\Column(type: Types::TEXT, nullable: true)] /***selon role pour pro user */
    /**  #[Assert\NotBlank (message:'champ obligatoire')] */  
@@ -85,6 +86,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(nullable: true)]
     private ?bool $isEnabled = null;
+
+    public function __construct()
+{
+    $this->isEnabled = true;
+}
 
     public function getId(): ?int
     {
@@ -318,4 +324,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    
 }
