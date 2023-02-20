@@ -11,6 +11,7 @@
                 <th>Id</th>
                 <th>MontantCaisseOrg</th>
                 <th>Goal</th>
+                <th>Description</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -20,6 +21,7 @@
                 <td>{{ caisse_organisation.id }}</td>
                 <td>{{ caisse_organisation.montantCaisseOrg }}</td>
                 <td>{{ caisse_organisation.goal }}</td>
+                <td>{{ caisse_organisation.description }}</td>
                 <td>
                     <a href="{{ path('app_caisse_organisation_show', {'id': caisse_organisation.id}) }}">show</a>
                     <a href="{{ path('app_caisse_organisation_edit', {'id': caisse_organisation.id}) }}">edit</a>
@@ -27,7 +29,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\CaisseOrganisation;
-use App\Form\CaisseOrganisationType;
+use App\Form\CaisseOrganisation1Type;
 use App\Repository\CaisseOrganisationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +25,7 @@ class CaisseOrganisationController extends AbstractController
     public function new(Request $request, CaisseOrganisationRepository $caisseOrganisationRepository): Response
     {
         $caisseOrganisation = new CaisseOrganisation();
-        $form = $this->createForm(CaisseOrganisationType::class, $caisseOrganisation);
+        $form = $this->createForm(CaisseOrganisation1Type::class, $caisseOrganisation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -51,7 +51,7 @@ class CaisseOrganisationController extends AbstractController
     #[Route('/{id}/edit', name: 'app_caisse_organisation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, CaisseOrganisation $caisseOrganisation, CaisseOrganisationRepository $caisseOrganisationRepository): Response
     {
-        $form = $this->createForm(CaisseOrganisationType::class, $caisseOrganisation);
+        $form = $this->createForm(CaisseOrganisation1Type::class, $caisseOrganisation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

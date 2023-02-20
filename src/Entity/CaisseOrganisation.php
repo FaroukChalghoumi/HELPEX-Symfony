@@ -19,8 +19,7 @@ class CaisseOrganisation
 
     #[ORM\Column]
     #[Assert\Regex(
-        pattern: '/.[0-9]+[0-9]$/i',
-        message: 'Number must be only numbers (phone number has exactly 8 characters)',
+        pattern: '/^[0-9]+$/i',
         match: true
     )]
     #[Assert\NotBlank]
@@ -29,6 +28,10 @@ class CaisseOrganisation
     #[ORM\ManyToOne(inversedBy: 'Caisses')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Organisation $organisation = null;
+
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    private ?string $description = null;
 
     public function getId(): ?int
     {
@@ -67,6 +70,18 @@ class CaisseOrganisation
     public function setOrganisation(?Organisation $organisation): self
     {
         $this->organisation = $organisation;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }
