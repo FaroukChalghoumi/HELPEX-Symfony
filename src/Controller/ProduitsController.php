@@ -6,9 +6,11 @@ use App\Entity\Produits;
 use App\Form\ProduitsType;
 use App\Repository\ProduitsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/produits')]
 class ProduitsController extends AbstractController
@@ -22,14 +24,57 @@ class ProduitsController extends AbstractController
     }
 
     #[Route('/new', name: 'app_produits_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ProduitsRepository $produitsRepository): Response
+    public function new(Request $request, ProduitsRepository $produitsRepository ,  SluggerInterface $slugger): Response
     {
         $produit = new Produits();
         $form = $this->createForm(ProduitsType::class, $produit);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $pictureFile = $form->get('ImagePath')->getData();
+            if ($pictureFile) {
+                $originalFilename = pathinfo($pictureFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$pictureFile->guessExtension();
+
+                try {
+                    $pictureFile->move(
+                        $this->getParameter('Image_Produits'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // handle exception
+                }
+
+                $produit->setImagePath($newFilename);
+            }
+            $produit->setStatusProduit("Selling");
             $produitsRepository->save($produit, true);
+            /*$ImagePath = $form->get('ImagePath')->getData();
+
+            if ($ImagePath) {
+                $originalFilename = pathinfo($ImagePath->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$ImagePath->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $ImagePath->move(
+                        $this->getParameter('Image_Produits'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                // updates the 'brochureFilename' property to store the PDF file name
+                // instead of its contents
+                $produit->setImagePath($newFilename);*/
+                //$produitsRepository->save($produit, true);
+       // }
+
+
 
             return $this->redirectToRoute('app_produits_index', [], Response::HTTP_SEE_OTHER);
         }

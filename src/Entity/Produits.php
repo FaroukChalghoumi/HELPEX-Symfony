@@ -38,11 +38,9 @@ class Produits
     private ?string $DescriptionProduit = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\NotBlank]
     private ?string $ImagePath = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\NotBlank]
     private ?string $StatusProduit = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -54,6 +52,7 @@ class Produits
     private ?string $Brand = null;
 
     #[ORM\ManyToOne]
+    #[Assert\NotBlank]
     private ?CategorieProduit $CategorieProduit = null;
 
     #[ORM\ManyToOne(inversedBy: 'produits')]

@@ -1,0 +1,2 @@
+parameters:
+  Image_Produits: '%kernel.project_dir%/public/uploads/ImagesProduits'
