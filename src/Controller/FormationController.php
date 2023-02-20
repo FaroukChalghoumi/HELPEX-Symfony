@@ -21,6 +21,14 @@ class FormationController extends AbstractController
         ]);
     }
 
+    #[Route('/front', name: 'app_formation_index_front', methods: ['GET'])]
+    public function indexfront(FormationRepository $formationRepository): Response
+    {
+        return $this->render('formation/index_front.html.twig', [
+            'formations' => $formationRepository->findAll(),
+        ]);
+    }
+
     #[Route('/new', name: 'app_formation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, FormationRepository $formationRepository): Response
     {
@@ -44,6 +52,14 @@ class FormationController extends AbstractController
     public function show(Formation $formation): Response
     {
         return $this->render('formation/show.html.twig', [
+            'formation' => $formation,
+        ]);
+    }
+
+    #[Route('/front/{id}', name: 'app_formation_show_front', methods: ['GET'])]
+    public function show_front(Formation $formation): Response
+    {
+        return $this->render('formation/show_front.html.twig', [
             'formation' => $formation,
         ]);
     }
