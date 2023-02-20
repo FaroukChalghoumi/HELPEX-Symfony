@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Produits;
 use App\Form\ProduitsType;
+use App\Repository\CategorieProduitRepository;
 use App\Repository\ProduitsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -16,13 +17,20 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class ProduitsController extends AbstractController
 {
     #[Route('/', name: 'app_produits_index', methods: ['GET'])]
-    public function index(ProduitsRepository $produitsRepository): Response
+    public function index(ProduitsRepository $produitsRepository,CategorieProduitRepository $categorieProduitRepository): Response
     {
         return $this->render('produits/index.html.twig', [
             'produits' => $produitsRepository->findAll(),
+            'categorie_produits' => $categorieProduitRepository->findAll(),
         ]);
     }
-
+//    #[Route('/', name: 'app_produits_index', methods: ['GET'])]
+//    public function indexFront(CategorieProduitRepository $categorieProduitRepository): Response
+//    {
+//        return $this->render('produits/index.html.twig', [
+//            'categorie_produits' => $categorieProduitRepository->findAll(),
+//        ]);
+//    }
     #[Route('/new', name: 'app_produits_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ProduitsRepository $produitsRepository ,  SluggerInterface $slugger): Response
     {
