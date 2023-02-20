@@ -1,6 +1,7 @@
 {% extends 'admin.html.twig' %}
 
 {% block title %}formation index{% endblock %}
+{% block component %} <link rel="stylesheet" href="{{ asset("Card/style.css") }}" />  {% endblock %}
 
 {% block body %}
 
@@ -19,10 +20,10 @@
             <tr>
                 <th class="org-table-th">Id</th>
                 <th class="org-table-th">NomFormation</th>
-                <th class="org-table-th">DescriptionFormation</th>
+{#                <th class="org-table-th">DescriptionFormation</th>#}
                 <th class="org-table-th">CoutFormation</th>
-                <th class="org-table-th">NombreDePlace</th>
-                <th class="org-table-th">Duree</th>
+{#                <th class="org-table-th">NombreDePlace</th>#}
+{#                <th class="org-table-th">Duree</th>#}
 {#                <th class="org-table-th">CategorieFormation</th>#}
 {#                <th class="org-table-th">centre</th>#}
                 <th class="org-table-th">actions</th>
@@ -33,10 +34,10 @@
                 <tr>
                     <td class="org-table-th">{{ formation.id }}</td>
                     <td class="org-table-th">{{ formation.nomFormation }}</td>
-                    <td class="org-table-th">{{ formation.descriptionFormation }}</td>
+{#                    <td class="org-table-th">{{ formation.descriptionFormation }}</td>#}
                     <td class="org-table-th">{{ formation.coutFormation }}</td>
-                    <td class="org-table-th">{{ formation.NombreDePlace }}</td>
-                    <td class="org-table-th">{{ formation.duree }}</td>
+{#                    <td class="org-table-th">{{ formation.NombreDePlace }}</td>#}
+{#                    <td class="org-table-th">{{ formation.duree }}</td>#}
 {#                    <td class="org-table-th">{{ formation.idCategorieFormation }}</td>#}
 {#                    <td class="org-table-th">{{ formation.idCentre }}</td>#}
 

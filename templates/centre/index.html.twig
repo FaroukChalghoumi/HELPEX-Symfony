@@ -1,7 +1,7 @@
 {% extends 'admin.html.twig' %}
 
 {% block title %}centre index{% endblock %}
-
+{% block component %} <link rel="stylesheet" href="{{ asset("Card/style.css") }}" />  {% endblock %}
 {% block body %}
 
     <div class="org-table-container">
@@ -21,8 +21,8 @@
                 <th class="org-table-th">Nomcentre </th>
                 <th class="org-table-th">adresse</th>
                 <th class="org-table-th">email</th>
-                <th class="org-table-th">telephone</th>
-                <th class="org-table-th">site web</th>
+{#                <th class="org-table-th">telephone</th>#}
+{#                <th class="org-table-th">site web</th>#}
 
                 <th class="org-table-th">Actions</th>
             </tr>
@@ -34,9 +34,9 @@
                     <td  class="org-table-td">{{ centre.nomCentre }}</td>
                     <td  class="org-table-td">{{ centre.adresseCentre }}</td>
                     <td  class="org-table-td">{{ centre.emailCentre }}</td>
-                    <td  class="org-table-td"><p class="org-table-status status-pending">{{ centre.telephoneCentre }}</p></td>
+{#                    <td  class="org-table-td"><p class="org-table-status status-pending">{{ centre.telephoneCentre }}</p></td>#}
 
-                    <td  class="org-table-td">{{ centre.siteWebCentre }}</td>
+{#                    <td  class="org-table-td">{{ centre.siteWebCentre }}</td>#}
                     <td  class="org-table-td">
                         <div class="org-icon-container">
                             <a class="org-action-item" href="{{ path('app_centre_show', {'id': centre.id}) }}"><i class="fa-solid fa-circle-info" style="color: #0035ba"></i></a>
