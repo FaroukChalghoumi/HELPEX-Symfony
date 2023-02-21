@@ -9,6 +9,6 @@ namespace App\Config;
 enum EtatProduit: string
 {
     case New = 'New';
-    case Used_New = 'Used-New';
-    case Used_Good = 'Used-Good';
+    case UsedNEW = 'Used-New';
+    case UsedGood = 'Used-Good';
 }

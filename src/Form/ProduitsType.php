@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Produits;
 use App\Config\EtatProduit;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,8 +18,16 @@ class ProduitsType extends AbstractType
     {
         $builder
             ->add('NomProduit')
-            ->add('EtatProduit')
-           // ->add('EtatProduit', EnumType::class, ['class' => EtatProduit::class])
+            //->add('EtatProduit')
+//            ->add('EtatProduit', EnumType::class, ['class' => EtatProduit::class])
+            ->add('EtatProduit', ChoiceType::class, [
+            'choices' => [
+                'New' => 'New Product',
+                'UsedNEW' => 'UsedNEW',
+                'UsedGood' => 'UsedGood',
+
+            ]])
+
             //this class is defined to perform the enum type
             //Be careful ! This only works in php 8.1 >
             //If this caused any problems make sure to check your php -version
@@ -53,6 +62,18 @@ class ProduitsType extends AbstractType
                 'label' => 'Picture (JPEG, PNG or GIF file)',
                 'mapped' => false,
                 'required' => false,
+
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'image/jpg',
+                            'image/png',
+                            'image/jpeg',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid Image',
+                    ])
+                ],
             ])
 
 
