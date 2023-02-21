@@ -3,10 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\ProduitsRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProduitsRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Produits
 {
     #[ORM\Id]
@@ -58,6 +60,15 @@ class Produits
     #[ORM\ManyToOne(inversedBy: 'produits')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $CreatedAt = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $UpdatedAt = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $Details = null;
 
 
 
@@ -186,7 +197,53 @@ class Produits
         return $this;
     }
 
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->CreatedAt;
+    }
 
+    public function setCreatedAt(?\DateTimeInterface $CreatedAt): self
+    {
+        $this->CreatedAt = $CreatedAt;
 
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->UpdatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $UpdatedAt): self
+    {
+        $this->UpdatedAt = $UpdatedAt;
+
+        return $this;
+    }
+
+    public function getDetails(): ?string
+    {
+        return $this->Details;
+    }
+
+    public function setDetails(?string $Details): self
+    {
+        $this->Details = $Details;
+
+        return $this;
+    }
+
+    #[ORM\PrePersist]
+    public function onPrePersist(): void
+    {
+        $this->CreatedAt = new \DateTime();
+        $this->UpdatedAt = new \DateTime();
+    }
+
+    #[ORM\PreUpdate]
+    public function onPreUpdate(): void
+    {
+        $this->UpdatedAt = new \DateTime();
+    }
 
 }
