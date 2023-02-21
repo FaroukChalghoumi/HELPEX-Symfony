@@ -69,7 +69,8 @@
 
                         <div class="service__content">
                             <h4 class="service__title">{{ formation.nomFormation }}</h4>
-                            <p class="service__desc">{{ formation.descriptionFormation }}
+
+                            <p class="service__desc">{{ formation.descriptionFormation | striptags | slice(0, 60) }}...
                             </p>
                             <a href={{ path('app_formation_show_front', {'id': formation.id}) }} class="btn btn__secondary btn__outlined btn__rounded">
                                 <span>Read More</span>
