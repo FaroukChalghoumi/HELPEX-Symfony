@@ -32,7 +32,7 @@ class CategorieFormation
     #[Assert\Regex('/^\w+/')]
     private ?string $descriptionCategorieFormation = null;
 
-    #[ORM\OneToMany(mappedBy: 'idCategorieFormation', targetEntity: Formation::class)]
+    #[ORM\OneToMany(mappedBy: 'idCategorieFormation', targetEntity: Formation::class, orphanRemoval: true)]
     private Collection $formations;
 
     public function __construct()

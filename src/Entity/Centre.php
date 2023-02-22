@@ -58,7 +58,7 @@ class Centre
     #[Assert\Url]
     private ?string $siteWebCentre = null;
 
-    #[ORM\OneToMany(mappedBy: 'idCentre', targetEntity: Formation::class)]
+    #[ORM\OneToMany(mappedBy: 'idCentre', targetEntity: Formation::class, orphanRemoval: true)]
     private Collection $formations;
 
     public function __construct()
