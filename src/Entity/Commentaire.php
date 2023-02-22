@@ -18,6 +18,7 @@ class Commentaire
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank (message:'champ obligatoire')]
     private ?string $description = null;
 
     #[ORM\Column]
@@ -25,7 +26,11 @@ class Commentaire
 
     #[ORM\ManyToOne(inversedBy: 'commentaire')]
     private ?Poste $poste = null;
-
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+        $this->compteurvote = 0;
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -77,5 +82,9 @@ class Commentaire
         $this->poste = $poste;
 
         return $this;
+    }
+    public function __toString()
+    {
+        return $this->getDescription();
     }
 }

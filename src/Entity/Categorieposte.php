@@ -16,6 +16,7 @@ class Categorieposte
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank (message:'champ obligatoire')]
     private ?string $topic = null;
 
     #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Poste::class)]
@@ -74,5 +75,8 @@ class Categorieposte
         return $this;
     }
 
-   
+    public function __toString()
+    {
+        return $this->topic;
+    }
 }

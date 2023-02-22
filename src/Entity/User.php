@@ -22,7 +22,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $email = null;
 
     #[ORM\Column]
-    private array $roles = ["ROLE_CLIENT","ROLE_ADMIN","ROLE_PRO"];
+    private array $roles = [];
 
     /**
      * @var string The hashed password
@@ -31,31 +31,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $nom = null;
+    private ?string $sexe = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $prenom = null;
-
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $adresse = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $numTel = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $pdp = null;
 
     #[ORM\Column]
     private ?bool $adresse_visibility = null;
 
-    #[ORM\Column]
-    private ?bool $numTel_visibility = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $dateNaissance = null;
+    #[ORM\Column(length: 255)]
+    private ?string $numtel = null;
 
     #[ORM\Column]
-    private ?bool $dateNaissance_visibility = null;
+    private ?bool $num_tel_visibility = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $pdp = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $bio = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $date_naissance = null;
+
+    #[ORM\Column]
+    private ?bool $date_naissance_visibility = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $diplome = null;
@@ -64,19 +64,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?float $tarif = null;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
-    private ?Service $service = null;
+    private ?service $service = null;
 
-    #[ORM\ManyToMany(targetEntity: Formation::class, mappedBy: 'users')]
-    private Collection $formations;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Produits::class, orphanRemoval: true)]
+    private Collection $produits;
 
     public function __construct()
     {
-        $this->formations = new ArrayCollection();
+        $this->produits = new ArrayCollection();
     }
-
-
-
-
 
     public function getId(): ?int
     {
@@ -167,26 +163,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getNom(): ?string
+    public function getSexe(): ?string
     {
-        return $this->nom;
+        return $this->sexe;
     }
 
-    public function setNom(string $nom): self
+    public function setSexe(string $sexe): self
     {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(string $prenom): self
-    {
-        $this->prenom = $prenom;
+        $this->sexe = $sexe;
 
         return $this;
     }
@@ -203,14 +187,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getNumTel(): ?string
+    public function isAdresseVisibility(): ?bool
     {
-        return $this->numTel;
+        return $this->adresse_visibility;
     }
 
-    public function setNumTel(string $numTel): self
+    public function setAdresseVisibility(bool $adresse_visibility): self
     {
-        $this->numTel = $numTel;
+        $this->adresse_visibility = $adresse_visibility;
+
+        return $this;
+    }
+
+    public function getNumtel(): ?string
+    {
+        return $this->numtel;
+    }
+
+    public function setNumtel(string $numtel): self
+    {
+        $this->numtel = $numtel;
+
+        return $this;
+    }
+
+    public function isNumTelVisibility(): ?bool
+    {
+        return $this->num_tel_visibility;
+    }
+
+    public function setNumTelVisibility(bool $num_tel_visibility): self
+    {
+        $this->num_tel_visibility = $num_tel_visibility;
 
         return $this;
     }
@@ -227,50 +235,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isAdresseVisibility(): ?bool
+    public function getBio(): ?string
     {
-        return $this->adresse_visibility;
+        return $this->bio;
     }
 
-    public function setAdresseVisibility(bool $adresse_visibility): self
+    public function setBio(?string $bio): self
     {
-        $this->adresse_visibility = $adresse_visibility;
-
-        return $this;
-    }
-
-    public function isNumTelVisibility(): ?bool
-    {
-        return $this->numTel_visibility;
-    }
-
-    public function setNumTelVisibility(bool $numTel_visibility): self
-    {
-        $this->numTel_visibility = $numTel_visibility;
+        $this->bio = $bio;
 
         return $this;
     }
 
     public function getDateNaissance(): ?\DateTimeInterface
     {
-        return $this->dateNaissance;
+        return $this->date_naissance;
     }
 
-    public function setDateNaissance(\DateTimeInterface $dateNaissance): self
+    public function setDateNaissance(\DateTimeInterface $date_naissance): self
     {
-        $this->dateNaissance = $dateNaissance;
+        $this->date_naissance = $date_naissance;
 
         return $this;
     }
 
     public function isDateNaissanceVisibility(): ?bool
     {
-        return $this->dateNaissance_visibility;
+        return $this->date_naissance_visibility;
     }
 
-    public function setDateNaissanceVisibility(bool $dateNaissance_visibility): self
+    public function setDateNaissanceVisibility(bool $date_naissance_visibility): self
     {
-        $this->dateNaissance_visibility = $dateNaissance_visibility;
+        $this->date_naissance_visibility = $date_naissance_visibility;
 
         return $this;
     }
@@ -299,12 +295,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getService(): ?Service
+    public function getService(): ?service
     {
         return $this->service;
     }
 
-    public function setService(?Service $service): self
+    public function setService(?service $service): self
     {
         $this->service = $service;
 
@@ -312,36 +308,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Formation>
+     * @return Collection<int, Produits>
      */
-    public function getFormations(): Collection
+    public function getProduits(): Collection
     {
-        return $this->formations;
+        return $this->produits;
     }
 
-    public function addFormation(Formation $formation): self
+    public function addProduit(Produits $produit): self
     {
-        if (!$this->formations->contains($formation)) {
-            $this->formations->add($formation);
-            $formation->addUser($this);
+        if (!$this->produits->contains($produit)) {
+            $this->produits->add($produit);
+            $produit->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeFormation(Formation $formation): self
+    public function removeProduit(Produits $produit): self
     {
-        if ($this->formations->removeElement($formation)) {
-            $formation->removeUser($this);
+        if ($this->produits->removeElement($produit)) {
+            // set the owning side to null (unless already changed)
+            if ($produit->getUser() === $this) {
+                $produit->setUser(null);
+            }
         }
 
         return $this;
     }
-
-
-
-
-
-
-
 }

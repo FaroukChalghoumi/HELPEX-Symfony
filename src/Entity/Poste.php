@@ -7,7 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * @ORM\EntityListeners({"App\EventListener\YourEntityListener"})
+ */
 #[ORM\Entity(repositoryClass: PosteRepository::class)]
 class Poste
 {
@@ -17,12 +21,20 @@ class Poste
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank (message:'champ obligatoire')]
+    #[Assert\Length(
+        min: 4,
+        max: 20,
+        minMessage: 'insuffisant {{ limit }}',
+        maxMessage: 'trop long {{ limit }} ',
+    )]
     private ?string $titre = null;
-
+  
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank (message:'champ obligatoire')]
     private ?string $description = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -33,14 +45,15 @@ class Poste
 
 
     #[ORM\OneToMany(mappedBy: 'poste', targetEntity: Commentaire::class)]
-    private Collection $commentaire;
+    private ?Collection $commentaire;
 
     #[ORM\ManyToOne(inversedBy: 'postes')]
     private ?Categorieposte $categorie = null;
 
     public function __construct()
     {
-        $this->categorie = new ArrayCollection();
+        $this->date = new \DateTime();
+        $this->compteurvote = 0;
         $this->commentaire = new ArrayCollection();
     }
 
@@ -72,7 +85,8 @@ class Poste
 
         return $this;
     }
-
+   
+    
     public function getDescription(): ?string
     {
         return $this->description;
@@ -149,5 +163,9 @@ class Poste
         $this->categorie = $categorie;
 
         return $this;
+    }
+    public function __toString()
+    {
+        return $this->id;
     }
 }

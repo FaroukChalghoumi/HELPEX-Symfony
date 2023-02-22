@@ -3,9 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\FormationRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FormationRepository::class)]
@@ -19,39 +16,23 @@ class Formation
     #[ORM\Column(length: 255)]
     private ?string $nomFormation = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 500)]
     private ?string $descriptionFormation = null;
 
     #[ORM\Column]
     private ?float $coutFormation = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $nombreDePlace = null;
+    private ?int $NombreDePlace = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $duree = null;
 
     #[ORM\ManyToOne(inversedBy: 'formations')]
-    private ?CategorieFormation $categorieFormation = null;
+    private ?CategorieFormation $idCategorieFormation = null;
 
     #[ORM\ManyToOne(inversedBy: 'formations')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Centre $centre = null;
-
-    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'formations')]
-    private Collection $users;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $dateFormation = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $dureeFormation = null;
-
-    public function __construct()
-    {
-        $this->users = new ArrayCollection();
-    }
-
-
-
-
+    private ?Centre $idCentre = null;
 
     public function getId(): ?int
     {
@@ -96,91 +77,49 @@ class Formation
 
     public function getNombreDePlace(): ?int
     {
-        return $this->nombreDePlace;
+        return $this->NombreDePlace;
     }
 
-    public function setNombreDePlace(?int $nombreDePlace): self
+    public function setNombreDePlace(?int $NombreDePlace): self
     {
-        $this->nombreDePlace = $nombreDePlace;
+        $this->NombreDePlace = $NombreDePlace;
 
         return $this;
     }
 
-    public function getCategorieFormation(): ?CategorieFormation
+    public function getDuree(): ?string
     {
-        return $this->categorieFormation;
+        return $this->duree;
     }
 
-    public function setCategorieFormation(?CategorieFormation $categorieFormation): self
+    public function setDuree(?string $duree): self
     {
-        $this->categorieFormation = $categorieFormation;
+        $this->duree = $duree;
 
         return $this;
     }
 
-    public function getCentre(): ?Centre
+    public function getIdCategorieFormation(): ?CategorieFormation
     {
-        return $this->centre;
+        return $this->idCategorieFormation;
     }
 
-    public function setCentre(?Centre $centre): self
+    public function setIdCategorieFormation(?CategorieFormation $idCategorieFormation): self
     {
-        $this->centre = $centre;
+        $this->idCategorieFormation = $idCategorieFormation;
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, User>
-     */
-    public function getUsers(): Collection
+    public function getIdCentre(): ?Centre
     {
-        return $this->users;
+        return $this->idCentre;
     }
 
-    public function addUser(User $user): self
+    public function setIdCentre(?Centre $idCentre): self
     {
-        if (!$this->users->contains($user)) {
-            $this->users->add($user);
-        }
+        $this->idCentre = $idCentre;
 
         return $this;
     }
-
-    public function removeUser(User $user): self
-    {
-        $this->users->removeElement($user);
-
-        return $this;
-    }
-
-    public function getDateFormation(): ?\DateTimeInterface
-    {
-        return $this->dateFormation;
-    }
-
-    public function setDateFormation(\DateTimeInterface $dateFormation): self
-    {
-        $this->dateFormation = $dateFormation;
-
-        return $this;
-    }
-
-    public function getDureeFormation(): ?string
-    {
-        return $this->dureeFormation;
-    }
-
-    public function setDureeFormation(string $dureeFormation): self
-    {
-        $this->dureeFormation = $dureeFormation;
-
-        return $this;
-    }
-
-
-
-
-
-
 }

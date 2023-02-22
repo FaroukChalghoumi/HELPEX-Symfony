@@ -1,0 +1,40 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Poste{% endblock %}
+
+{% block body %}
+    <h1>Poste</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ poste.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ poste.titre }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ poste.date ? poste.date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ poste.description }}</td>
+            </tr>
+            <tr>
+                <th>Multimedia</th>
+                <td>{{ poste.multimedia }}</td>
+            </tr>
+            <tr>
+                <th>Likes</th>
+                <td>{{ poste.compteurvote }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_poste_index') }}">back to list</a>
+
+    
+{% endblock %}

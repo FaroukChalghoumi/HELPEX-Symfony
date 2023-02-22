@@ -16,7 +16,7 @@ class Service
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $nomService = null;
+    private ?string $NomService = null;
 
     #[ORM\OneToMany(mappedBy: 'service', targetEntity: User::class)]
     private Collection $users;
@@ -33,12 +33,12 @@ class Service
 
     public function getNomService(): ?string
     {
-        return $this->nomService;
+        return $this->NomService;
     }
 
-    public function setNomService(string $nomService): self
+    public function setNomService(string $NomService): self
     {
-        $this->nomService = $nomService;
+        $this->NomService = $NomService;
 
         return $this;
     }
