@@ -13,8 +13,8 @@
 							<h3 class="heading__title mb-30">Helpex Pro,
 							</h3>
 							<p class="heading__desc">Today the hospital is recognised as a world renowned institution, not only
-																																																																																																																																																																																																																																																																																																																																																																																																																																																                  providing outstanding care and treatment, our goal is to deliver quality care in a respectful &
-																																																																																																																																																																																																																																																																																																																																																																																																																																																                  compassionate manner. We strive to be the first and best choice for healthcare.
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								                  providing outstanding care and treatment, our goal is to deliver quality care in a respectful &
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								                  compassionate manner. We strive to be the first and best choice for healthcare.
 							</p>
 						</div>
 
@@ -51,8 +51,8 @@
 							<!--THIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIISSSSSSSSSSSS-->
 							<div class="col-sm-12 col-md-12 col-lg-12">
 								<div class="form-group">
-									{{ form_label(formR.email, 'Email') }}
 
+									{{ form_label(formR.email, 'Email') }}
 									{{ form_widget(formR.email, {'attr': {'class': 'form-control'}}) }}
 
 									{{ form_errors(formR.email) }}
@@ -138,7 +138,8 @@
 							</div>
 
 							<div class="col-sm-6 col-md-6 col-lg-6">
-								<div class="form-group ">
+								<div class="form-group form-group-date ">
+									<i class="icon-calendar form-group-icon"></i>
 									{{ form_label(formR.date_naissance, 'date_naissance') }}
 									{{ form_widget(formR.date_naissance) }}
 									{{ form_errors(formR.date_naissance) }}

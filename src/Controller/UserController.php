@@ -19,6 +19,7 @@ class UserController extends AbstractController
         if (!$user) {
             return $this->redirectToRoute('app_login');
         }
+        
 
         return $this->render('user/back/allusers.html.twig', [
             'user' => $this->getUser(),
@@ -28,6 +29,22 @@ class UserController extends AbstractController
 
 
     ///////////////////////FRONTBABY/////////////
+
+    #[Route('/professionals', name: 'ProUsers')]
+public function ProUsers(UserRepository $userRepo): Response
+    {
+       // $user = $this->getUser();
+
+        //if (!$user) {
+          //  return $this->redirectToRoute('app_login');
+       // }
+        $role= 'ROLE_PRO' ;
+
+        return $this->render('user/front/professionals.html.twig', [
+            'user' => $this->getUser(),
+            'ProList' => $userRepo->findPros([$role])
+        ]);
+    }
 
 
 }

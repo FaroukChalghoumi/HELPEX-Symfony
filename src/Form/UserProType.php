@@ -8,12 +8,15 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+
 
 
 
@@ -48,8 +51,20 @@ class UserProType extends AbstractType
             ])
             ->add('Nom')
             ->add('Prenom')
-            ->add('sexe')
-            ->add('adresse')
+            ->add('sexe',ChoiceType::class, [
+                'choices' => [
+                    'homme' => 'homme',
+                    'femme' => 'femme',
+    
+                ]])
+            ->add('adresse',ChoiceType::class, [
+                'choices' => [
+                    'ariana' => 'ariana',
+                    'bizerte' => 'bizerte',
+                    'gabes' => 'gabes',
+
+    
+                ]])
             ->add('num_tel')
             ->add('pic',  FileType::class, [
                 'label' => 'Votre image de profil',
@@ -76,7 +91,16 @@ class UserProType extends AbstractType
                 ],
             ] )
             ->add('bio', TextareaType:: class)
-            ->add('date_naissance')
+            ->add('date_naissance', DateType::class,[
+                'widget' => 'single_text',
+                'format' => 'dd-MM-yyyy',
+                'html5'=>false,
+                'attr' => [
+                    'class' => 'form-group-date',
+                    'id' => 'contact-date',
+                    'name' => 'contact-date',
+                    'type' => 'date'   ,             ],
+            ])
           
             ->add('certif',   FileType::class, [
                 'label' => 'Votre diplome ou certification (pdf)',

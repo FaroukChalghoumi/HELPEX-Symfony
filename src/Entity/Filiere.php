@@ -19,7 +19,7 @@ class Filiere
     #[ORM\Column(length: 255)]
     private ?string $NomFiliere = null;
 
-    #[ORM\OneToMany(mappedBy: 'filiere', targetEntity: User::class , cascade: ['remove'])]
+    #[ORM\OneToMany(mappedBy: 'filiere', targetEntity: User::class , orphanRemoval: true)]
     private Collection $users;
 
     #[ORM\Column(type: Types::TEXT)]
