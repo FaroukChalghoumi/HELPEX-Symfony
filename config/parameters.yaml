@@ -1,0 +1,2 @@
+parameters:
+  images: '%kernel.project_dir%/public/uploads/imagesformation'

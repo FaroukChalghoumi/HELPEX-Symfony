@@ -29,7 +29,7 @@
                 <tr>
                     <td class="org-table-th">{{ categorie_formation.id }}</td>
                     <td class="org-table-th">{{ categorie_formation.nomCategorieFormation }}</td>
-                    <td class="org-table-th">{{ categorie_formation.descriptionCategorieFormation }}</td>
+                    <td class="org-table-th">{{ categorie_formation.descriptionCategorieFormation | striptags | slice(0, 60) }}...</td>
                     <td  class="org-table-td">
                         <div class="org-icon-container">
                             <a class="org-action-item" href="{{ path('app_categorie_formation_show', {'id': categorie_formation.id}) }}"><i class="fa-solid fa-circle-info" style="color: #0035ba"></i></a>

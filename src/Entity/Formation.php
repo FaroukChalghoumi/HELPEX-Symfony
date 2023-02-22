@@ -54,6 +54,9 @@ class Formation
     #[ORM\OneToMany(mappedBy: 'formations', targetEntity: InscriptionFormation::class)]
     private Collection $inscriptionFormations;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $iamgeformation = null;
+
     public function __construct()
     {
         $this->inscriptionFormations = new ArrayCollection();
@@ -180,5 +183,17 @@ class Formation
     public function  __toString(): string
     {
         return $this->getNomFormation();
+    }
+
+    public function getIamgeformation(): ?string
+    {
+        return $this->iamgeformation;
+    }
+
+    public function setIamgeformation(?string $iamgeformation): self
+    {
+        $this->iamgeformation = $iamgeformation;
+
+        return $this;
     }
 }
