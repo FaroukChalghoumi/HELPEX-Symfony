@@ -13,6 +13,13 @@
 			<div class="">
 				<h2>les filieres</h2>
 			</div>
+			<div class="add-org-btn-container">
+				<a href="{{ path('app_filiere_new') }}" class="add-org-btn" data-toggle="modal">
+					<i class="fa-solid fa-plus"></i>
+					<span>Ajouter Filiere</span>
+				</a>
+
+			</div>
 
 		</div>
 		<table class="org-table">
@@ -42,10 +49,10 @@
 								<a class="org-action-item" href="{{ path('app_filiere_edit', {'id': filiere.id}) }}">
 									<i class="fa-solid fa-pencil" style="color: #FFC107"></i>
 								</a>
-								<form class="org-action-item" method="post" action="">
-									<input type="hidden" name="_token" value="">
+								<form class="org-action-item" method="post" action="{{ path('app_filiere_delete', {'id': filiere.id}) }}" onsubmit="return confirm('Are you sure you want to delete this filiere?');">
+									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ filiere.id) }}">
 									<button>
-										<a href="">
+										<a href="{{ path('app_filiere_delete', {'id': filiere.id}) }}">
 											<i class="fa-solid fa-trash-can" style="color: red"></i>
 										</a>
 									</button>
