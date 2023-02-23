@@ -1,0 +1,95 @@
+.containerDonations{
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 20% 75%;
+    row-gap: 5%;
+}
+.containerCaisses{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.caisse-container{
+    width: 40%;
+    height: 100px;
+    background: rgb(203 203 203 / 41%);
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 20% 75%;
+    column-gap: 5%;
+}
+.caisse-img-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid white;
+}
+.caisse-content-layout{
+    width: 100%;
+    height: 95%;
+    display: grid;
+    grid-template-columns: 70% 25%;
+    column-gap: 2%;
+}
+.caisse-content-container{
+    width: 100%;
+    height: 95%;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    row-gap: 13%;
+    color: black;
+    padding-top: 5%;
+    border-right: 1px solid white;
+    padding-right: 15px;
+}
+.box-progress {
+    display: block;
+    height: 4px;
+    border-radius: 6px;
+
+}
+.box-progress-bar {
+    width: 100%;
+    height: 4px;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #fff;
+
+}
+.box-progress-header {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16px;
+    margin: 0;
+}
+.box-progress-percentage {
+    text-align: right;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16px;
+}
+
+.donate-btn-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.donate-btn{
+    width: 70%;
+    height: 30%;
+    color: white;
+    background: #34c471;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+}

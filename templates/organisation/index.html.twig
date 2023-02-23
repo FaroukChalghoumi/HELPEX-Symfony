@@ -5,23 +5,16 @@
 {% endblock %}
 {% block body %}
     <div class="projects-section-header">
-        <p>Projects</p>
-        <p class="time">December, 12</p>
+        <p>Organisations</p>
+
     </div>
     <div class="projects-section-line">
         <div class="projects-status">
             <div class="item-status">
-                <span class="status-number">45</span>
-                <span class="status-type">In Progress</span>
+                <span class="status-number">{{ organisations|length }}</span>
+                <span class="status-type">Total</span>
             </div>
-            <div class="item-status">
-                <span class="status-number">24</span>
-                <span class="status-type">Upcoming</span>
-            </div>
-            <div class="item-status">
-                <span class="status-number">62</span>
-                <span class="status-type">Total Projects</span>
-            </div>
+
         </div>
         <div class="view-actions">
             <button class="view-btn list-view" title="List View">
@@ -47,7 +40,7 @@
             <div class="project-box-wrapper">
                 <div class="project-box" style="background-color: #c8f7dc;">
                     <div class="project-box-header">
-                        <span>December 10, 2020</span>
+                        <span><img style="width: 30px;height: 30px"src="{{ asset("uploads/brochures/" ~ organisation.logoOrg) }}" ></span>
                         <div class="more-wrapper">
                             <button class="project-btn-more">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical">
@@ -63,13 +56,7 @@
                         <p class="box-content-subheader"><span class="box-content-header">Telephone:</span>{{ organisation.numTelOrganisation }} </p>
                         <p class="box-content-subheader"><span class="box-content-header">Document:</span>{{ organisation.documentOrganisation }} </p>
                     </div>
-                    <div class="box-progress-wrapper">
-                        <p class="box-progress-header">Progress</p>
-                        <div class="box-progress-bar">
-                            <span class="box-progress" style="width: 60%; background-color: #34c471"></span>
-                        </div>
-                        <p class="box-progress-percentage">40%</p>
-                    </div>
+
                     <div class="project-box-footer">
                         <div class="participants">
                                 <div class="org-action-item ">
@@ -86,7 +73,7 @@
                             </form>
                         </div>
                         <div class="days-left" style="color: #34c471;">
-                            2 Days Left
+                            In progress
                         </div>
                     </div>
                 </div>

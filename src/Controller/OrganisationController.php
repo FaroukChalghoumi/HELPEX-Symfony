@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Organisation;
 use App\Form\OrganisationType;
+use App\Repository\CaisseOrganisationRepository;
 use App\Repository\OrganisationRepository;
 use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,9 +35,14 @@ class OrganisationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $brochureFile = $form->get('documentOrganisation')->getData();
+            $Logo = $form->get('logoOrg')->getData();
             if ($brochureFile) {
                 $brochureFileName = $fileUploader->upload($brochureFile);
                 $organisation->setDocumentOrganisation($brochureFileName);
+            }
+            if ($Logo) {
+                $LogoFileName = $fileUploader->upload($Logo);
+                $organisation->setLogoOrg($LogoFileName);
             }
             $organisationRepository->save($organisation, true);
 
@@ -50,10 +56,13 @@ class OrganisationController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_organisation_show', methods: ['GET'])]
-    public function show(Organisation $organisation): Response
+    public function show(Organisation $organisation, CaisseOrganisationRepository $caisseOrganisationRepository): Response
     {
         return $this->render('organisation/show.html.twig', [
             'organisation' => $organisation,
+            'Caisses' => $caisseOrganisationRepository->findBy([
+                'organisation' => $organisation
+            ])
         ]);
     }
 
@@ -65,11 +74,15 @@ class OrganisationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $brochureFile = $form->get('documentOrganisation')->getData();
-
+            $Logo = $form->get('logoOrg')->getData();
 
             if ($brochureFile) {
                 $brochureFileName = $fileUploader->upload($brochureFile);
                 $organisation->setDocumentOrganisation($brochureFileName);
+            }
+            if ($Logo) {
+                $LogoFileName = $fileUploader->upload($Logo);
+                $organisation->setLogoOrg($LogoFileName);
             }
             $organisationRepository->save($organisation,true);
             return $this->redirectToRoute('app_organisation_index', [], Response::HTTP_SEE_OTHER);

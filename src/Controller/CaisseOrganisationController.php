@@ -3,8 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\CaisseOrganisation;
+use App\Entity\Organisation;
 use App\Form\CaisseOrganisation1Type;
 use App\Repository\CaisseOrganisationRepository;
+use App\Repository\OrganisationRepository;
+use Monolog\Registry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -69,10 +73,15 @@ class CaisseOrganisationController extends AbstractController
     #[Route('/{id}', name: 'app_caisse_organisation_delete', methods: ['POST'])]
     public function delete(Request $request, CaisseOrganisation $caisseOrganisation, CaisseOrganisationRepository $caisseOrganisationRepository): Response
     {
+        $session = $request->getSession();
+        $session->set('previous_url', $request->headers->get('referer'));
         if ($this->isCsrfTokenValid('delete'.$caisseOrganisation->getId(), $request->request->get('_token'))) {
             $caisseOrganisationRepository->remove($caisseOrganisation, true);
         }
+        $previousUrl = $session->get('previous_url');
 
-        return $this->redirectToRoute('app_caisse_organisation_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirect($previousUrl);
     }
+
+
 }

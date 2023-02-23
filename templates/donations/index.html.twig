@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block component %}
+    <link href="{{asset("Donations/donations.css") }}" rel="stylesheet">
+
+{% endblock %}
+{% block body %}
+
+<div class="containerDonations">
+    <div style="width: 100%;height:95%;display: flex;justify-content: center;align-items: center;flex-direction: column;padding-top: 5%;">
+        <h2 class="slide__title">Donations are optional yet very impactful !</h2> <br>
+        <h5 class="slide__desc">Here are some of the organisations that we trust ! !</h5>
+    </div>
+    <div class="containerCaisses">
+        {% for caisse_organisation in Caisses %}
+            <div class="caisse-container">
+                <div class="caisse-img-container"><img style="width: 50px;height: 50px;" src="{{ asset("uploads/brochures/"~caisse_organisation.organisation.logoOrg) }}"></div>
+                <div class="caisse-content-layout">
+                    <div class="caisse-content-container">
+                        <div>
+                           <span style="font-weight: bold"> Organisation</span> : {{ caisse_organisation.organisation.NomOrg }}
+                        </div>
+                        <div>
+                            <span style="font-weight: bold"> Cause</span> : {{ caisse_organisation.description }}
+                        </div>
+                        <div >
+                            <div class="box-progress-bar">
+                                <span class="box-progress" style="width: {{ (caisse_organisation.montantCaisseOrg/caisse_organisation.goal*100) }}%; background-color: #34c471"></span>
+                            </div>
+                            <p class="box-progress-percentage">{{ (caisse_organisation.montantCaisseOrg*100/caisse_organisation.goal)|number_format(2, '.', '') }}%</p>
+                        </div>
+                    </div>
+                    <div class="donate-btn-container">
+                        <div class="donate-btn">
+                            Donate !
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+
+
+{% endblock %}
+

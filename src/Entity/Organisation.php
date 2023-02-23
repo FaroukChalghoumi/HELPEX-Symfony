@@ -38,7 +38,7 @@ class Organisation
     private ?string $numTelOrganisation = null;
 
     #[ORM\Column(length: 255)]
-
+    #[Assert\NotBlank]
     private ?string $documentOrganisation = null;
 
     #[ORM\Column(length: 255)]
@@ -58,6 +58,10 @@ class Organisation
         message: 'champ obligatoire'
     )]
     private ?string $NomOrg = null;
+
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    private ?string $logoOrg = null;
 
     public function __construct()
     {
@@ -172,5 +176,17 @@ class Organisation
     }
     public function __toString(): string{
         return $this->NomOrg;
+    }
+
+    public function getLogoOrg(): ?string
+    {
+        return $this->logoOrg;
+    }
+
+    public function setLogoOrg(string $logoOrg): self
+    {
+        $this->logoOrg = $logoOrg;
+
+        return $this;
     }
 }

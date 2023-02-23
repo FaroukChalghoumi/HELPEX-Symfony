@@ -270,7 +270,7 @@ button, a {
   background-color: var(--projects-section);
   border-radius: 32px;
   padding: 32px 32px 0 32px;
-  overflow: hidden;
+  overflow-y: scroll;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -812,7 +812,7 @@ button, a {
 }
 
 @media screen and (max-width: 520px) {
-  .projects-section { overflow: auto; }
+  .projects-section { overflow-y: scroll; }
   .project-boxes { overflow-y: visible; }
 
   .app-sidebar, .app-icon { display: none; }
