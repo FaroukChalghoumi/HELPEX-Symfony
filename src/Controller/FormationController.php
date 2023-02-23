@@ -89,12 +89,29 @@ class FormationController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_formation_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Formation $formation, FormationRepository $formationRepository): Response
+    public function edit(Request $request, Formation $formation, FormationRepository $formationRepository,SluggerInterface $slugger): Response
     {
         $form = $this->createForm(FormationType::class, $formation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $pictureFile = $form->get('iamgeformation')->getData();
+            if ($pictureFile) {
+                $originalFilename = pathinfo($pictureFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $pictureFile->guessExtension();
+
+                try {
+                    $pictureFile->move(
+                        $this->getParameter('images'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // handle exception
+                }
+
+                $formation->setIamgeformation($newFilename);
+            }
             $formationRepository->save($formation, true);
 
             return $this->redirectToRoute('app_formation_index', [], Response::HTTP_SEE_OTHER);
