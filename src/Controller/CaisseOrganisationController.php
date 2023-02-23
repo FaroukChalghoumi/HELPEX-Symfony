@@ -25,17 +25,21 @@ class CaisseOrganisationController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_caisse_organisation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, CaisseOrganisationRepository $caisseOrganisationRepository): Response
+    #[Route('/new/{id}', name: 'app_caisse_organisation_new', methods: ['GET', 'POST'])]
+    public function new(Organisation $organisation,Request $request, CaisseOrganisationRepository $caisseOrganisationRepository): Response
     {
         $caisseOrganisation = new CaisseOrganisation();
         $form = $this->createForm(CaisseOrganisation1Type::class, $caisseOrganisation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $caisseOrganisation->setOrganisation($organisation);
+
             $caisseOrganisationRepository->save($caisseOrganisation, true);
 
-            return $this->redirectToRoute('app_caisse_organisation_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_organisation_show',[
+                'id'=> $organisation->getId(),
+            ]);
         }
 
         return $this->renderForm('caisse_organisation/new.html.twig', [

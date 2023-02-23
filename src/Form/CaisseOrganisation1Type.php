@@ -14,7 +14,7 @@ class CaisseOrganisation1Type extends AbstractType
         $builder
             ->add('goal')
             ->add('description')
-            ->add('organisation')
+
         ;
     }
 
