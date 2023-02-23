@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 
+{% block navbar %}{% endblock %}
 
 {% block body %}
 
@@ -10,30 +11,23 @@
 				<div class="col-sm-20 col-md-20 col-lg-50 d-flex flex-column justify-content-between">
 					<div>
 						<div class="heading heading-light mb-30">
-							<h3 class="heading__title mb-30">Helpex Pro,
+							<h3 class="heading__title mb-30">Helpex, notre assistance à votre porte.
 							</h3>
-							<p class="heading__desc">Today the hospital is recognised as a world renowned institution, not only
-																																																																																																																																																																																																																																																																																																																																																																																																								                  providing outstanding care and treatment, our goal is to deliver quality care in a respectful &
-																																																																																																																																																																																																																																																																																																																																																																																																								                  compassionate manner. We strive to be the first and best choice for healthcare.
+							<p class="heading__desc">
+								Helpex est une platforme ciblée à toutes les personnes ayant besoin des soins et assistance consistante a domicile,
+																																assurant par conséquent tous leurs besoins dans le confort de leurs foyer."
 							</p>
 						</div>
 
 					</div>
 
-					<ul class="list-items list-items-layout2 list-items-light list-horizontal list-unstyled mb-50">
-						<li>Fractures and dislocations</li>
-						<li>Health Assessments</li>
-						<li>Desensitisation injections</li>
-						<li>High Quality Care</li>
-						<li>
-							Home medicine review</li>
-					</ul>
+
 					<div class="d-flex align-items-center">
-						<a href="doctors-modern.html" class="btn btn__white btn__white-style2 btn__rounded mr-30">
-							<span>Find A Doctor</span>
-							<i class="icon-arrow-right"></i>
+						<a href="{{ path('pick') }}" class="btn btn__white btn__white-style2 btn__rounded mr-30">
+							<i class="icon-arrow-left"></i>
+							<span>Retour</span>
+
 						</a>
-						<a href="contact-us.html" class="btn btn__white btn__outlined btn__rounded">Contact Us</a>
 					</div>
 				</div>
 
@@ -45,7 +39,7 @@
 						{{ form_start(formR,{'attr':{'novalidate':'novalidate'}}) }}
 						<div class="row">
 							<div class="col-sm-12">
-								<h4 class="contact-panel__title">S'inscrire en tant que membre Professionel:</h4>
+								<h4 class="contact-panel__title">S'inscrire en tant que Client Helpex:</h4>
 							</div>
 
 							<!--THIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIISSSSSSSSSSSS-->
@@ -173,3 +167,4 @@
 	</section>
 	<!-- /.contact layout 5 -->
 {% endblock %}
+{% block footer %}{% endblock %}

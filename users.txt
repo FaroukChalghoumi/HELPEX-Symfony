@@ -2,3 +2,5 @@ admin: apex.pidev1@gmail.com apex014725869
 pro : infermier@gmail.com 123456789
       mariem w ahmed mariem w ahmed
 user : client@gmail.com 014725869
+
+margin: auto;

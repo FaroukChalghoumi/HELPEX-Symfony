@@ -7977,6 +7977,7 @@ button.bg-dark:hover {
 .justify-content-between {
   -ms-flex-pack: justify !important;
   justify-content: space-between !important;
+  margin: auto;
 }
 
 .justify-content-around {
@@ -8148,6 +8149,7 @@ button.bg-dark:hover {
   .justify-content-sm-between {
     -ms-flex-pack: justify !important;
     justify-content: space-between !important;
+    margin:auto;
   }
 
   .justify-content-sm-around {

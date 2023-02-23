@@ -1,11 +1,12 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin.html.twig' %}
 
-{% block title %}New Filiere{% endblock %}
+{% block title %}New Filiere
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Filiere</h1>
+	<h1>Create new Filiere</h1>
 
-    {{ include('filiere/_form.html.twig') }}
+	{{ include('filiere/_form.html.twig') }}
 
-    <a href="{{ path('app_filiere_index') }}">back to list</a>
+	<a href="{{ path('app_filiere_index') }}">back to list</a>
 {% endblock %}

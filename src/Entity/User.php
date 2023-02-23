@@ -70,7 +70,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\NotBlank (message:'champ obligatoire')]   
-    #[Assert\LessThanOrEqual("-18 years", message:"You should be at least 18 years old.")] 
+   // #[Assert\LessThanOrEqual("-18 years", message:"You should be at least 18 years old.")] 
     private ?\DateTimeInterface $date_naissance = null;
     
 

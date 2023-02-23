@@ -1,0 +1,240 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+	<!-- ========================
+																											       page title 
+																											    =========================== -->
+	<section class="page-title page-title-layout6">
+		<div class="bg-img"><img src="{{ asset('images/page-titles/7.jpg' ) }}" alt="background"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-12 d-flex flex-wrap justify-content-end align-items-center">
+					<div class="testimonials__rating mr-30">
+						<div class="testimonials__rating-inner d-flex align-items-center">
+							<span class="total__rate">4.9</span>
+							<div>
+								<span class="overall__rate">Zocdoc Overall Rating</span>
+								<span>, based on 7541 reviews.</span>
+							</div>
+						</div>
+						<!-- /.testimonials__rating-inner -->
+					</div>
+					<!-- /.testimonials__rating -->
+					<a href="appointment.html" class="btn btn__white btn__rounded">Appointment</a>
+				</div>
+				<!-- /.col-12 -->
+			</div>
+			<!-- /.row -->
+		</div>
+		<!-- /.container -->
+	</section>
+	<!-- /.page-title -->
+
+	<section class="pt-120 pb-80">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 col-md-12 col-lg-4">
+					<aside class="sidebar has-marign-right">
+						<div class="widget widget-member shifted-top">
+							<div class="member mb-0">
+								<div class="member__img">
+									<img src="{{ asset('uploads/users/' ~ user.pdp) }}" alt="Professinal Image">
+								</div>
+								<!-- /.member-img -->
+								<div class="member__info">
+									<h5 class="member__name">
+										<a href="">{{ user.Nom }}
+											{{ user.Prenom }}</a>
+									</h5>
+									<p class="member__job">{{ user.filiere }}</p>
+									<a href="" class="phone__number">
+										<i class="icon-phone"></i>
+										<span>{{ user.NumTel }}</span>
+									</a>
+
+									<div class="mt-20 d-flex flex-wrap justify-content-between align-items-center">
+										<ul class="social-icons list-unstyled mb-0">
+											<li>
+												<a href="#" class="facebook">
+													<i class="fab fa-facebook-f"></i>
+												</a>
+											</li>
+											<li>
+												<a href="#" class="twitter">
+													<i class="fab fa-twitter"></i>
+												</a>
+											</li>
+											<li>
+												<a href="#" class="phone">
+													<i class="fas fa-phone-alt"></i>
+												</a>
+											</li>
+										</ul>
+										<!-- /.social-icons -->
+									</div>
+								</div>
+								<!-- /.member-info -->
+							</div>
+							<!-- /.member -->
+						</div>
+						<!-- /.widget-member -->
+
+						<!-- /.widget-help -->
+
+						<div class="widget widget-reports">
+							<a href="#" class="btn btn__primary btn__block">
+
+								<span>Accompagnement</span>
+							</a>
+						</div>
+						<div class="widget widget-help bg-overlay bg-overlay-primary-gradient">
+							<div class="bg-img"><img src={{ asset('images/banners/5.jpg') }} alt="background"></div>
+							<div class="widget-content">
+								<div class="widget__icon">
+									<i class="icon-call3"></i>
+								</div>
+								<h4 class="widget__title">Emergency Cases</h4>
+								<p class="widget__desc">Please feel welcome to contact our friendly reception staff with any general
+																																																																																																			                    or medical enquiry call us.
+								</p>
+								<a href="tel:+201061245741" class="phone__number">
+									<i class="icon-phone"></i>
+									<span>01061245741</span>
+								</a>
+							</div>
+							<!-- /.widget-content -->
+						</div>
+
+
+					</aside>
+					<!-- /.sidebar -->
+				</div>
+				<!-- /.col-lg-4 -->
+				<div
+					class="col-sm-12 col-md-12 col-lg-8">
+					<!--<div class="text-block mb-50">
+																																																																																																																																		<h5 class="text-block__title">Biography</h5>
+																																																																																																																																		<p class="text-block__desc mb-20 font-weight-bold color-secondary">A neurologist is a medical doctor with
+																																																																																																																																										                specialized training
+																																																																																																																																										                in diagnosing, treating, and managing disorders of the brain and nervous system including, but not
+																																																																																																																																										                limited to, Alzheimer’s disease, amyotrophic lateral sclerosis (ALS), concussion, epilepsy, migraine,
+																																																																																																																																										                multiple sclerosis, Parkinson’s disease, and stroke.</p>
+																																																																																																																																		<p class="text-block__desc mb-20">He then traveled to Philadelphia, Pennsylvania to complete a Fellowship
+																																																																																																																																										                in Intervention Cardiology at Hahnemann Hospital in conjunction with Drexel University, where he
+																																																																																																																																										                received extensive training in coronary as well as peripheral interventions and limb salvage procedures.
+																																																																																																																																										                He actively participates in clinical research trials and has been published in peer reviewed journals
+																																																																																																																																										                such as the Journal of the State Medical Society and Baylor University Medical Center's Proceedings.</p>
+																																																																																																																																		<p class="text-block__desc mb-20">In his spare time, watches college and professional football and enjoys
+																																																																																																																																										                traveling, swimming and playing chess. He is currently Board Certified in Cardiovascular Disease and
+																																																																																																																																										                Interventional Cardiology. He moved to California where he completed both his Internship ('85-'86) and
+																																																																																																																																										                Residency ('87-'89) at the University of California.</p>
+																																																																																																																																	</div>
+																																																																																																																																	 
+																																																																																																																																	<ul class="details-list list-unstyled mb-60">
+																																																																																																																																		<li>
+																																																																																																																																			<h5 class="details__title">Speciality</h5>
+																																																																																																																																			<div class="details__content">
+																																																																																																																																				<p class="mb-0">Cardiology
+																																																																																																																																				</p>
+																																																																																																																																			</div>
+																																																																																																																																		</li>
+																																																																																																																																		<li>
+																																																																																																																																			<h5 class="details__title">Degrees</h5>
+																																																																																																																																			<div class="details__content">
+																																																																																																																																				<p class="mb-0">M.D. of Medicine
+																																																																																																																																				</p>
+																																																																																																																																			</div>
+																																																																																																																																		</li>
+																																																																																																																																		<li>
+																																																																																																																																			<h5 class="details__title">Areas of Expertise</h5>
+																																																																																																																																			<div class="details__content">
+																																																																																																																																				<ul class="list-items list-items-layout2 list-unstyled mb-0">
+																																																																																																																																					<li>Cardiac Imaging – Non-invasive.</li>
+																																																																																																																																					<li>Cardiac Rehabilitation and Exercise.</li>
+																																																																																																																																					<li>Hypertrophic Cardiomyopathy.</li>
+																																																																																																																																					<li>Inherited Heart Diseases.</li>
+																																																																																																																																				</ul>
+																																																																																																																																			</div>
+																																																																																																																																		</li>
+																																																																																																																																		<li>
+																																																																																																																																			<h5 class="details__title">Office</h5>
+																																																																																																																																			<div class="details__content">
+																																																																																																																																				<p class="mb-0">2307 Beverley Rd Brooklyn, New York 11226 United States.</p>
+																																																																																																																																			</div>
+																																																																																																																																		</li>
+																																																																																																																																		<li>
+																																																																																																																																			<h5 class="details__title">University</h5>
+																																																																																																																																			<div class="details__content">
+																																																																																																																																				<p class="mb-0">Harvard University</p>
+																																																																																																																																			</div>
+																																																																																																																																		</li>
+																																																																																																																																	</ul>-->
+
+
+					<section class="contact-layout4 bg-overlay bg-overlay-secondary-gradient pb-50 pb-50">
+						<div class="bg-img"><img src="{{ asset('images/page-titles/7.jpg' ) }}" alt="background"></div>
+						<div class="contact-panel mb-0">
+							<form class="contact-panel__form" method="post" action="http://7oroof.com/demos/medcity/assets/php/contact.php" id="contactForm">
+								<div class="row">
+									<div class="col-sm-12">
+										<h4 class="contact-panel__title">Bio</h4>
+										<p class="contact-panel__desc mb-30">
+											{{ user.bio }}
+										</p>
+									</div>
+								</div>
+								<!-- /.row -->
+								<ul class="details-list list-unstyled mb-60">
+									<li>
+										<h5 class="details__title">Specialité</h5>
+										<div class="details__content">
+											<p class="mb-0">{{ user.filiere }}
+											</p>
+										</div>
+									</li>
+									<li>
+										<h5 class="details__title">Diplomé</h5>
+										<div class="details__content">
+											<p class="mb-0">{{ user.isEnabled ? 'True' : 'False' }}
+											</p>
+										</div>
+									</li>
+
+									<li>
+										<h5 class="details__title">date naissance</h5>
+										<div class="details__content">
+											<p class="mb-0">{{ user.DateNaissance ? user.DateNaissance|date('Y-m-d') : '' }}</p>
+										</div>
+									</li>
+									<li>
+										<h5 class="details__title">Tarif/seance</h5>
+										<div class="details__content">
+											<p class="mb-0">{{ user.tarif}}</p>
+										</div>
+									</li>
+									<li>
+										<h5 class="details__title">Expertise</h5>
+										<div class="details__content">
+											<ul class="list-items list-items-layout2 list-unstyled mb-0">
+												<li>Cardiac Imaging – Non-invasive.</li>
+												<li>Cardiac Rehabilitation and Exercise.</li>
+												<li>Hypertrophic Cardiomyopathy.</li>
+												<li>Inherited Heart Diseases.</li>
+											</ul>
+										</div>
+									</li>
+								</ul>
+							</form>
+						</div>
+					</section>
+					<!-- /.contact layout 2 -->
+				</div>
+				<!-- /.col-lg-8 -->
+			</div>
+			<!-- /.row -->
+		</div>
+		<!-- /.container -->
+	</section>
+{% endblock %}

@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Entity\Filiere;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -16,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 
@@ -32,11 +34,11 @@ class UserProType extends AbstractType
                     'attr' => ['autocomplete' => 'new-password'],
                     'constraints' => [
                         new NotBlank([
-                            'message' => 'Please enter a password',
+                            'message' => 'Ajoutez un mot de passe',
                         ]),
                         new Length([
                             'min' => 6,
-                            'minMessage' => 'Your password should be at least {{ limit }} characters',
+                            'minMessage' => 'minimum 6 characters',
                             // max length allowed by Symfony for security reasons
                             'max' => 4096,
                         ]),
@@ -47,7 +49,7 @@ class UserProType extends AbstractType
                     'attr' => ['autocomplete' => 'new-password'],
                     'label' => 'Repeat Password',
                 ],
-                'invalid_message' => 'The password fields must match.',
+                'invalid_message' => 'les mots de passes doivent etre identiques.',
             ])
             ->add('Nom')
             ->add('Prenom')
@@ -86,21 +88,12 @@ class UserProType extends AbstractType
                             'image/jpg',
                             'image/jpeg',
                         ],
-                        'mimeTypesMessage' => 'Please upload a valid image',
+                        'mimeTypesMessage' => 'insérer une image de type png,jpg ou jpeg',
                     ]) 
                 ],
             ] )
             ->add('bio', TextareaType:: class)
-            ->add('date_naissance', DateType::class,[
-                'widget' => 'single_text',
-                'format' => 'dd-MM-yyyy',
-                'html5'=>false,
-                'attr' => [
-                    'class' => 'form-group-date',
-                    'id' => 'contact-date',
-                    'name' => 'contact-date',
-                    'type' => 'date'   ,             ],
-            ])
+            ->add('date_naissance')
           
             ->add('certif',   FileType::class, [
                 'label' => 'Votre diplome ou certification (pdf)',
@@ -115,13 +108,16 @@ class UserProType extends AbstractType
                 // unmapped fields can't define their validation using annotations
                 // in the associated entity, so you can use the PHP constraint classes
                 'constraints' => [
+                    new Assert\NotBlank([
+                        'message' => 'votre diplome ou certificat est obligatoire.',
+                    ]),
                     new File([
                         'maxSize' => '1024k',
                         'mimeTypes' => [
                             'application/pdf',
                             'application/x-pdf',
                         ],
-                        'mimeTypesMessage' => 'Please upload a valid pdf file',
+                        'mimeTypesMessage' => 'il faut un fichier pdf',
                     ]) 
                 ],
             ] )
@@ -140,4 +136,8 @@ class UserProType extends AbstractType
             'data_class' => User::class,
         ]);
     }
+
+
+   
+
 }

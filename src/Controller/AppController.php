@@ -21,13 +21,11 @@ class AppController extends AbstractController
         ]);
     } 
 
-    #[Route('/admin', name: 'admin')]
+    #[ Route('/admin', name: 'admin'),
+     IsGranted("ROLE_ADMIN") ]
     public function indexAdmin(): Response
     {
-        $user = $this->getUser();
-        if (!$user) {
-            return $this->redirectToRoute('app_login');
-        }
+        
         return $this->render('app/admin.html.twig', [
             'user' => $this->getUser(),
         ]);

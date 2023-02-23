@@ -1,39 +1,66 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin.html.twig' %}
 
-{% block title %}Filiere index
+{% block title %}formation index
+{% endblock %}
+{% block component %}
+	<link rel="stylesheet" href="{{ asset("css/Card/style.css") }}"/>
 {% endblock %}
 
 {% block body %}
-	<h1>Filiere index</h1>
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>NomFiliere</th>
-				<th>DescriptionFiliere</th>
+	<div class="org-table-container" style="">
+		<div class="org-table-head-container">
+			<div class="">
+				<h2>les filieres</h2>
+			</div>
 
-				<th>actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for filiere in filieres %}
+		</div>
+		<table class="org-table">
+			<thead class="org-table-head">
 				<tr>
-					<td>{{ filiere.id }}</td>
-					<td>{{ filiere.NomFiliere }}</td>
-					<td>{{ filiere.DescriptionFiliere }}</td>
-					<td>
-						<a href="{{ path('app_filiere_show', {'id': filiere.id}) }}">show</a>
-						<a href="{{ path('app_filiere_edit', {'id': filiere.id}) }}">edit</a>
-					</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="3">no records found</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+					<th class="org-table-th">Id</th>
+					<th class="org-table-th">Filiere</th>
+					<th class="org-table-th">DescriptionFiliere</th>
 
-	<a href="{{ path('app_filiere_new') }}">Create new</a>
+					<th class="org-table-th">
+						actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for filiere in filieres %}
+					<tr>
+						<td class="org-table-th">{{ filiere.id }}</td>
+						<td class="org-table-th">{{ filiere.NomFiliere }}</td>
+						<td class="org-table-th">{{ filiere.DescriptionFiliere }}</td>
+
+
+						<td class="org-table-td">
+							<div class="org-icon-container">
+								<a class="org-action-item" href="{{ path('app_filiere_show', {'id': filiere.id}) }}">
+									<i class="fa-solid fa-circle-info" style="color: #0035ba"></i>
+								</a>
+								<a class="org-action-item" href="{{ path('app_filiere_edit', {'id': filiere.id}) }}">
+									<i class="fa-solid fa-pencil" style="color: #FFC107"></i>
+								</a>
+								<form class="org-action-item" method="post" action="">
+									<input type="hidden" name="_token" value="">
+									<button>
+										<a href="">
+											<i class="fa-solid fa-trash-can" style="color: red"></i>
+										</a>
+									</button>
+								</form>
+							</div>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="8">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+
 {% endblock %}

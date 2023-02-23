@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/filiere')]
+#[Route('admin/filiere')]
 class FiliereController extends AbstractController
 {
     #[Route('/', name: 'app_filiere_index', methods: ['GET'])]

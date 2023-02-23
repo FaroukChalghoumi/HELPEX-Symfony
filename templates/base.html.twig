@@ -67,7 +67,7 @@
 											<li>
 												<i class="icon-phone"></i>
 												<a href="tel:+5565454117">Emergency Line: (002)
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																						                                                    01061245741</a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																	                                                    01061245741</a>
 											</li>
 											<li>
 												<i class="icon-location"></i>
@@ -117,7 +117,12 @@
 					<nav class="navbar navbar-expand-lg sticky-navbar">
 						<div class="container-fluid">
 							<a class="navbar-brand" href="">
-								<img src="{{ asset('images/helpex.png')}} " style="width: 140px;"/>
+								{% if is_granted('ROLE_PRO')%}
+									<img src="{{ asset('images/helpexpro.png')}} " style="width: 140px;"/>
+								{% endif %}
+								{% if is_granted('ROLE_USER')%}
+									<img src="{{ asset('images/helpex.png')}} " style="width: 140px;"/>
+								{% endif %}
 							</a>
 							<button class=" navbar-toggler" type=" button">
 								<span class="menu-lines">
@@ -128,105 +133,27 @@
 								<ul class="navbar-nav ml-auto">
 									<li class="nav__item has-dropdown">
 										<a class="dropdown-toggle nav__item-link active" data-toggle="dropdown" href="#">Home</a>
-										<ul class="dropdown-menu">
-											<li class="nav__item">
-												<a class="nav__item-link" href="">Home Main</a>
-											</li>
-											<!-- /.nav-item -->
-											<li class="nav__item">
-												<a class="nav__item-link" href="">Home Modern</a>
-											</li>
-											<!-- /.nav-item -->
-											<li class="nav__item">
-												<a class="nav__item-link" href="">Home Classic</a>
-											</li>
-											<!-- /.nav-item -->
-											<li class="nav__item">
-												<a class="nav__item-link" href="">Home Dentist</a>
-											</li>
-											<!-- /.nav-item -->
-											<li class="nav__item">
-												<a class="nav__item-link" href="">Home pharmacy</a>
-											</li>
-											<!-- /.nav-item -->
-										</ul>
-										<!-- /.dropdown-menu -->
+
 									</li>
 									<!-- /.nav-item -->
 									<li class="nav__item has-dropdown">
-										<a class="dropdown-toggle nav__item-link" data-toggle="dropdown" href="#">About Us</a>
+										<a class="dropdown-toggle nav__item-link" data-toggle="dropdown" href="#">Nos Services</a>
 										<ul class="dropdown-menu">
 											<li class="nav__item">
-												<a class="nav__item-link" href="">About Us</a>
+												<a class="nav__item-link" href="">Nos Filieres</a>
 											</li>
 											<!-- /.nav-item -->
 											<li class="nav__item">
-												<a class="nav__item-link" href="">Our Services</a>
+												<a class="nav__item-link" href=" {{ path('ProUsers')}} ">Nos Professionels</a>
 											</li>
-											<!-- /.nav-item -->
-											<li class="nav__item">
-												<a class="nav__item-link" href="">single Services</a>
-											</li>
-											<!-- /.nav-item -->
-											<li class="nav__item">
-												<a class="nav__item-link" href="">Pricing & Plans</a>
-											</li>
-											<!-- /.nav-item -->
-											<li class="nav__item">
-												<a class="nav__item-link" href="">Appointments</a>
-											</li>
-											<!-- /.nav-item -->
-											<li class="nav__item">
-												<a class="nav__item-link" href="">Help & FAQs</a>
-											</li>
-											<!-- /.nav-item -->
-											<li class="nav__item">
-												<a class="nav__item-link" href="">Our Gallery</a>
-											</li>
-											<!-- /.nav-item -->
+
 										</ul>
 										<!-- /.dropdown-menu -->
 									</li>
 									<!-- /.nav-item -->
 
-									<!-- /.nav-item -->
-									<li class="nav__item has-dropdown">
-										<a class="dropdown-toggle nav__item-link" data-toggle="dropdown" href="#">Blog</a>
-										<ul class="dropdown-menu">
-											<li class="nav__item">
-												<a class="nav__item-link" href="">Blog Grid</a>
-											</li>
-											<!-- /.nav-item -->
-											<li class="nav__item">
-												<a class="nav__item-link" href="">Single Blog Post</a>
-											</li>
-											<!-- /.nav-item -->
-										</ul>
-										<!-- /.dropdown-menu -->
-									</li>
-									<!-- /.nav-item -->
-									<li class="nav__item has-dropdown">
-										<a class="dropdown-toggle nav__item-link" data-toggle="dropdown" href="#">Shop</a>
-										<ul class="dropdown-menu">
-											<li class="nav__item">
-												<a class="nav__item-link" href="">Our Products</a>
-											</li>
-											<!-- /.nav-item -->
-											<li class="nav__item">
-												<a class="nav__item-link" href="">Products Single</a>
-											</li>
-											<!-- /.nav-item -->
-											<li class="nav__item">
-												<a class="nav__item-link" href="">Cart</a>
-											</li>
-											<!-- /.nav-item -->
-										</ul>
-										<!-- /.dropdown-menu -->
-									</li>
-									<!-- /.nav-item -->
-									<li class="nav__item">
-										<a class="nav__item-link" href="">Contacts</a>
-									</li>
+								<!-- /.nav-item -->
+
 									<!-- /.nav-item -->
 								</ul>
 								<!-- /.navbar-nav -->
@@ -235,67 +162,64 @@
 								</button>
 							</div>
 							<!-- /.navbar-collapse -->
-							<div class="d-none d-xl-flex align-items-center position-relative ml-30">
-								<div class="miniPopup-departments-trigger">
-									<span class="menu-lines" id="miniPopup-departments-trigger-icon">
-										<span></span>
-									</span>
-									<a href="">Departments</a>
-								</div>
-								<ul class="miniPopup miniPopup-departments dropdown-menu" id="miniPopup-departments">
-									<li class="nav__item">
-										<a class="nav__item-link" href="">Neurology Clinic</a>
-									</li>
-									<!-- /.nav-item -->
-									<li class="nav__item">
-										<a class="nav__item-link">Cardiology Clinic</a>
-									</li>
-									<!-- /.nav-item -->
-									<li class="nav__item">
-										<a class="nav__item-link">Pathology Clinic</a>
-									</li>
-									<!-- /.nav-item -->
-									<li class="nav__item">
-										<a class="nav__item-link">Laboratory Clinic</a>
-									</li>
-									<!-- /.nav-item -->
-									<li class="nav__item">
-										<a class="nav__item-link">Pediatric Clinic</a>
-									</li>
-									<!-- /.nav-item -->
-									<li class="nav__item">
-										<a class="nav__item-link">Cardiac Clinic</a>
-									</li>
-									<!-- /.nav-item -->
-								</ul>
+							<div
+								class="d-none d-xl-flex align-items-center position-relative ml-30">
+
+
 								<!-- /.miniPopup-departments -->
-								{% if app.user !=null%}
-
-									<li class="nav__item has-dropdown">
-										<a class="dropdown-toggle nav__item-link" data-toggle="dropdown" href="#">
 
 
-											<div class="testimonial__thmb">
-												<img src="{{ asset('uploads/users/' ~ app.user.pdp) }}" alt="User Image">
-											</div>
+								<li class="nav__item has-dropdown">
+									<a class="dropdown-toggle nav__item-link" data-toggle="dropdown" href="#">
+
+
+										<div class="testimonial__thmb">
+											{% if is_granted('IS_AUTHENTICATED_FULLY')%}
+
+												{% if app.user.pdp is not null %}
+													<img src="{{ asset('uploads/users/' ~ app.user.pdp) }}" alt="User Image">
+												{% else %}
+													<img src="{{ asset('images/noauth.jpg') }}" alt="User Image">
+												{% endif %}
+
+
+											{% else %}
+												<img src="{{ asset('images/noauth.jpg') }}" alt="User Image">
+											{% endif %}
+										</div>
+										{% if is_granted('IS_AUTHENTICATED_FULLY')%}
+
 											<span>
 												{{app.user.username}}</span>
+										{% else %}
+											<span>connectez-vous!</span>
+										{% endif %}
 
 
-										</a>
-										<ul class="dropdown-menu">
+									</a>
+									<ul class="dropdown-menu">
+										{% if is_granted('IS_AUTHENTICATED_FULLY')%}
+
 											<li class="nav__item">
-												<a class="nav__item-link" href="">Profile</a>
+												<a class="nav__item-link" href="{{ path('YourProfile')}}">Profile</a>
 											</li>
-											<!-- /.nav-item -->
 											<li class="nav__item">
 												<a class="nav__item-link" href="{{ path('app_logout')}}">logout</a>
 											</li>
+										{% else %}
 
-										</ul>
-										<!-- /.dropdown-menu -->
-									</li>
-								{% endif %}
+											<li class="nav__item">
+												<a class="nav__item-link" href="{{ path('app_login')}}">login</a>
+											</li>
+											<!-- /.nav-item -->
+											<li class="nav__item">
+												<a class="nav__item-link" href="{{ path('pick')}}">registrer</a>
+											</li>
+										{% endif %}
+
+									</ul>
+									<!-- /.dropdown-menu -->
+								</li>
 
 
 							</div>
@@ -317,9 +241,9 @@
 									<div class="footer-widget-about">
 										<img alt="logo" class="mb-30" src="{{ asset("images/logo/logo-light.png") }}">
 										<p class="color-gray">Our goal is to deliver quality of care in a courteous, respectful, and
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																			                                            compassionate manner. We hope you will allow us to care for you and strive to be the
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																			                                            first and best
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																			                                            choice for your family healthcare.
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													                                            compassionate manner. We hope you will allow us to care for you and strive to be the
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													                                            first and best
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													                                            choice for your family healthcare.
 										</p>
 										<a class="btn btn__primary btn__primary-style2 btn__link">
 											<span>Make Appointment</span>
@@ -463,7 +387,6 @@
 					<!-- /.footer-secondary -->
 				</footer>
 			{% endblock %}
-		</div>
-
+		</body>
 	</body>
-</html></body></html>
+</html></body></html></body></html></body></html></div></body></html> </body></html>
