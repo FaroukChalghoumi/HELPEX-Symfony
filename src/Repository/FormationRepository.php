@@ -63,4 +63,12 @@ class FormationRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+//    public function getFormationByCategorie($nomCategorieFormation) : array {
+//        return $this->createQueryBuilder('p')
+//            ->join('p.idCategorieFormation','c')
+//            ->where('c.nomCategorieFormation = :nomCategorieFormation')
+//            ->setParameter('nomCategorieFormation',$nomCategorieFormation)
+//            ->getQuery()
+//            ->getResult();
+//    }
 }

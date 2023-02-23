@@ -93,43 +93,43 @@
 
 
 
-    <table class="table">
-        <thead>
-        <tr>
-        <tr>Id</tr>
-        <th>NomFormation</th>
-        <th>DescriptionFormation</th>
-        <th>CoutFormation</th>
-        <th>NombreDePlace</th>
-        <th>Duree</th>
-        <th>CategorieFormation</th>
-        <th>centre</th>
-        <th>actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for formation in formations %}
-            <tr>
-                <td>{{ formation.id }}</td>
-                <td >{{ formation.nomFormation }}</td>
-                <td >{{ formation.descriptionFormation }}</td>
-                <td >{{ formation.coutFormation }}</td>
-                <td>{{ formation.NombreDePlace }}</td>
-                <td>{{ formation.duree }}</td>
-                <td>{{ formation.idCategorieFormation }}</td>
-                <td>{{ formation.idCentre }}</td>
+{#    <table class="table">#}
+{#        <thead>#}
+{#        <tr>#}
+{#        <tr>Id</tr>#}
+{#        <th>NomFormation</th>#}
+{#        <th>DescriptionFormation</th>#}
+{#        <th>CoutFormation</th>#}
+{#        <th>NombreDePlace</th>#}
+{#        <th>Duree</th>#}
+{#        <th>CategorieFormation</th>#}
+{#        <th>centre</th>#}
+{#        <th>actions</th>#}
+{#        </tr>#}
+{#        </thead>#}
+{#        <tbody>#}
+{#        {% for formation in formations %}#}
+{#            <tr>#}
+{#                <td>{{ formation.id }}</td>#}
+{#                <td >{{ formation.nomFormation }}</td>#}
+{#                <td >{{ formation.descriptionFormation }}</td>#}
+{#                <td >{{ formation.coutFormation }}</td>#}
+{#                <td>{{ formation.NombreDePlace }}</td>#}
+{#                <td>{{ formation.duree }}</td>#}
+{#                <td>{{ formation.idCategorieFormation }}</td>#}
+{#                <td>{{ formation.idCentre }}</td>#}
 
-                    <a href="{{ path('app_formation_show', {'id': formation.id}) }}">show</a>
-                    <a href="{{ path('app_formation_edit', {'id': formation.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="10">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+{#                    <a href="{{ path('app_formation_show', {'id': formation.id}) }}">show</a>#}
+{#                    <a href="{{ path('app_formation_edit', {'id': formation.id}) }}">edit</a>#}
+{#                </td>#}
+{#            </tr>#}
+{#        {% else %}#}
+{#            <tr>#}
+{#                <td colspan="10">no records found</td>#}
+{#            </tr>#}
+{#        {% endfor %}#}
+{#        </tbody>#}
+{#    </table>#}
 
-    <a href="{{ path('app_formation_new') }}">Create new</a>
+{#    <a href="{{ path('app_formation_new') }}">Create new</a>#}
 {% endblock %}

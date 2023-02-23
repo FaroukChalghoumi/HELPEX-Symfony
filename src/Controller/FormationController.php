@@ -115,4 +115,15 @@ class FormationController extends AbstractController
 
         return $this->redirectToRoute('app_formation_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+//    #[Route('front/bycategory/{id}', name: 'app_formation_bycategory')]
+//    public function getByCategorie($id,FormationRepository $repo) : Response {
+//
+//        $formation = $repo->getFormationByCategorie($id);
+//        return $this->renderForm('formation\index_front_bycategorie.html.twig', [
+//            'formations' => $formation,
+//
+//        ]);
+//    }
 }
