@@ -67,7 +67,7 @@
 											<li>
 												<i class="icon-phone"></i>
 												<a href="tel:+5565454117">Emergency Line: (002)
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																	                                                    01061245741</a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								                                                    01061245741</a>
 											</li>
 											<li>
 												<i class="icon-location"></i>
@@ -119,8 +119,8 @@
 							<a class="navbar-brand" href="">
 								{% if is_granted('ROLE_PRO')%}
 									<img src="{{ asset('images/helpexpro.png')}} " style="width: 140px;"/>
-								{% endif %}
-								{% if is_granted('ROLE_USER')%}
+								{% else %}
+
 									<img src="{{ asset('images/helpex.png')}} " style="width: 140px;"/>
 								{% endif %}
 							</a>
@@ -135,6 +135,13 @@
 										<a class="dropdown-toggle nav__item-link active" data-toggle="dropdown" href="#">Home</a>
 
 									</li>
+									{% if is_granted('ROLE_PRO')%}
+										<li class="nav__item has-dropdown">
+											<a class="dropdown-toggle nav__item-link active" data-toggle="dropdown" href="#">professional</a>
+
+										</li>
+									{% endif %}
+
 									<!-- /.nav-item -->
 									<li class="nav__item has-dropdown">
 										<a class="dropdown-toggle nav__item-link" data-toggle="dropdown" href="#">Nos Services</a>
@@ -241,9 +248,9 @@
 									<div class="footer-widget-about">
 										<img alt="logo" class="mb-30" src="{{ asset("images/logo/logo-light.png") }}">
 										<p class="color-gray">Our goal is to deliver quality of care in a courteous, respectful, and
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													                                            compassionate manner. We hope you will allow us to care for you and strive to be the
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													                                            first and best
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																													                                            choice for your family healthcare.
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															                                            compassionate manner. We hope you will allow us to care for you and strive to be the
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															                                            first and best
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															                                            choice for your family healthcare.
 										</p>
 										<a class="btn btn__primary btn__primary-style2 btn__link">
 											<span>Make Appointment</span>
@@ -389,4 +396,4 @@
 			{% endblock %}
 		</body>
 	</body>
-</html></body></html></body></html></body></html></div></body></html> </body></html>
+</html></body></html></body></html></body></html></body></html></div> </body></html></body></html>
