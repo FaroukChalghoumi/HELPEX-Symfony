@@ -1,0 +1,26 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Categorieposte{% endblock %}
+
+{% block body %}
+    <h1>Categorieposte</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ categorieposte.id }}</td>
+            </tr>
+            <tr>
+                <th>Topic</th>
+                <td>{{ categorieposte.topic }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_categorieposte_index') }}">back to list</a>
+
+    <a href="{{ path('app_categorieposte_edit', {'id': categorieposte.id}) }}">edit</a>
+
+    {{ include('categorieposte/_delete_form.html.twig') }}
+{% endblock %}

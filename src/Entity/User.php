@@ -93,10 +93,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: InscriptionFormation::class)]
     private Collection $inscriptionFormations;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Poste::class)]
+    private Collection $postes;
+
     public function __construct()
 {
     $this->isEnabled = true;
     $this->inscriptionFormations = new ArrayCollection();
+    $this->postes = new ArrayCollection();
 }
 
     public function getId(): ?int
@@ -356,6 +360,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($inscriptionFormation->getUser() === $this) {
                 $inscriptionFormation->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Poste>
+     */
+    public function getPostes(): Collection
+    {
+        return $this->postes;
+    }
+
+    public function addPoste(Poste $poste): self
+    {
+        if (!$this->postes->contains($poste)) {
+            $this->postes->add($poste);
+            $poste->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePoste(Poste $poste): self
+    {
+        if ($this->postes->removeElement($poste)) {
+            // set the owning side to null (unless already changed)
+            if ($poste->getUser() === $this) {
+                $poste->setUser(null);
             }
         }
 
