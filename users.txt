@@ -1,0 +1,13 @@
+admin: apex.pidev1@gmail.com apex014725869
+pro :
+      mariem w ahmed mariem w ahmed
+user : client@gmail.com 014725869
+
+margin: auto;
+
+
+{% if user.pdp is not null %}
+								<img src="{{ asset('uploads/users/' ~ user.pdp) }}" alt="User Image">
+							{% else %}
+								<img src="{{ asset('images/noauth.jpg') }}" alt="User Image">
+							{% endif %}

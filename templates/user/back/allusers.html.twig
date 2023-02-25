@@ -1,0 +1,218 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}formation index
+{% endblock %}
+{% block component %}
+	<link rel="stylesheet" href="{{ asset("css/Card/style.css") }}"/>
+{% endblock %}
+
+{% block body %}
+
+	<div class="org-table-container" style="">
+		<div class="org-table-head-container">
+			<div class="">
+				<h2>Tous les utilisateurs</h2>
+			</div>
+
+		</div>
+		<table class="org-table">
+			<thead class="org-table-head">
+				<tr>
+					<th class="org-table-th">Id</th>
+					<th class="org-table-th">photo</th>
+					<th class="org-table-th">email</th>
+					<th class="org-table-th">nom</th>
+					<th class="org-table-th">prenom</th>
+					<th class="org-table-th">adresse</th>
+					<th class="org-table-th">num tel</th>
+					<th class="org-table-th">sexe</th>
+					<th class="org-table-th">datenaissance</th>
+					<th class="org-table-th">filiere</th>
+					<th class="org-table-th">autoriser</th>
+					<th class="org-table-th">
+						actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for user in usersList %}
+					<tr>
+						<td class="org-table-th">{{ user.id }}</td>
+
+						<td class="org-table-th"><img src="{{ asset('uploads/users/' ~ user.pdp) }}" alt="User Image"></td>
+						<td class="org-table-th">{{ user.email }}</td>
+						<td class="org-table-th">{{ user.Nom }}</td>
+						<td class="org-table-th">{{ user.Prenom }}</td>
+						<td class="org-table-th">{{ user.adresse }}</td>
+						<td class="org-table-th">{{ user.NumTel }}</td>
+						<td class="org-table-th">{{ user.sexe }}</td>
+						<td class="org-table-th">{{ user.DateNaissance ? user.DateNaissance|date('Y-m-d') : '' }}</td>
+						<td class="org-table-th">{{ user.filiere }}</td>
+						<td class="org-table-th">{{ user.isEnabled ? 'True' : 'False' }}</td>
+
+
+						<td class="org-table-td">
+							<div class="org-icon-container">
+								<a class="org-action-item" href="">
+									<i class="fa-solid fa-circle-info" style="color: #0035ba"></i>
+								</a>
+								<a class="org-action-item" href="">
+									<i class="fa-solid fa-pencil" style="color: #FFC107"></i>
+								</a>
+								<form class="org-action-item" method="post" action="">
+									<input type="hidden" name="_token" value="">
+									<button>
+										<a href="">
+											<i class="fa-solid fa-trash-can" style="color: red"></i>
+										</a>
+									</button>
+								</form>
+							</div>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="8">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div class="org-table-head-container">
+			<div class="">
+				<h2>les utilisateurs PRO</h2>
+			</div>
+
+		</div>
+		<table class="org-table">
+			<thead class="org-table-head">
+				<tr>
+					<th class="org-table-th">Id</th>
+					<th class="org-table-th">photo</th>
+					<th class="org-table-th">email</th>
+					<th class="org-table-th">nom</th>
+					<th class="org-table-th">prenom</th>
+					<th class="org-table-th">adresse</th>
+					<th class="org-table-th">num tel</th>
+					<th class="org-table-th">sexe</th>
+					<th class="org-table-th">datenaissance</th>
+					<th class="org-table-th">filiere</th>
+					<th class="org-table-th">autoriser</th>
+					<th class="org-table-th">
+						actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for user in ProList %}
+					<tr>
+						<td class="org-table-th">{{ user.id }}</td>
+
+						<td class="org-table-th"><img src="{{ asset('uploads/users/' ~ user.pdp) }}" alt="User Image"></td>
+						<td class="org-table-th">{{ user.email }}</td>
+						<td class="org-table-th">{{ user.Nom }}</td>
+						<td class="org-table-th">{{ user.Prenom }}</td>
+						<td class="org-table-th">{{ user.adresse }}</td>
+						<td class="org-table-th">{{ user.NumTel }}</td>
+						<td class="org-table-th">{{ user.sexe }}</td>
+						<td class="org-table-th">{{ user.DateNaissance ? user.DateNaissance|date('Y-m-d') : '' }}</td>
+						<td class="org-table-th">{{ user.filiere }}</td>
+						<td class="org-table-th">{{ user.isEnabled ? 'True' : 'False' }}</td>
+
+
+						<td class="org-table-td">
+							<div class="org-icon-container">
+								<a class="org-action-item" href="">
+									<i class="fa-solid fa-circle-info" style="color: #0035ba"></i>
+								</a>
+								<a class="org-action-item" href="">
+									<i class="fa-solid fa-pencil" style="color: #FFC107"></i>
+								</a>
+								<form class="org-action-item" method="post" action="">
+									<input type="hidden" name="_token" value="">
+									<button>
+										<a href="">
+											<i class="fa-solid fa-trash-can" style="color: red"></i>
+										</a>
+									</button>
+								</form>
+							</div>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="8">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div class="org-table-head-container">
+			<div class="">
+				<h2>les utilisateurs CLIENTS</h2>
+			</div>
+		</div>
+
+
+		<table class="org-table">
+			<thead class="org-table-head">
+				<tr>
+					<th class="org-table-th">Id</th>
+					<th class="org-table-th">photo</th>
+					<th class="org-table-th">email</th>
+					<th class="org-table-th">nom</th>
+					<th class="org-table-th">prenom</th>
+					<th class="org-table-th">adresse</th>
+					<th class="org-table-th">num tel</th>
+					<th class="org-table-th">sexe</th>
+					<th class="org-table-th">datenaissance</th>
+
+					<th class="org-table-th">autoriser</th>
+					<th class="org-table-th">
+						actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for user in ClientList %}
+					<tr>
+						<td class="org-table-th">{{ user.id }}</td>
+
+						<td class="org-table-th">
+							<img src="{{ asset('uploads/users/' ~ user.pdp) }}" alt="User Image">
+
+						</td>
+						<td class="org-table-th">{{ user.email }}</td>
+						<td class="org-table-th">{{ user.Nom }}</td>
+						<td class="org-table-th">{{ user.Prenom }}</td>
+						<td class="org-table-th">{{ user.adresse }}</td>
+						<td class="org-table-th">{{ user.NumTel }}</td>
+						<td class="org-table-th">{{ user.sexe }}</td>
+						<td class="org-table-th">{{ user.DateNaissance ? user.DateNaissance|date('Y-m-d') : '' }}</td>
+
+						<td class="org-table-th">{{ user.isEnabled ? 'True' : 'False' }}</td>
+
+
+						<td class="org-table-td">
+							<div class="org-icon-container">
+								<a class="org-action-item" href="">
+									<i class="fa-solid fa-circle-info" style="color: #0035ba"></i>
+								</a>
+								<a class="org-action-item" href="">
+									<i class="fa-solid fa-pencil" style="color: #FFC107"></i>
+								</a>
+								<form class="org-action-item" method="post" action="">
+									<input type="hidden" name="_token" value="">
+									<button>
+										<a href="">
+											<i class="fa-solid fa-trash-can" style="color: red"></i>
+										</a>
+									</button>
+								</form>
+							</div>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="8">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>{% endblock %}

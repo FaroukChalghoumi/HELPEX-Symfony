@@ -3,12 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -19,6 +18,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\NotBlank (message:'champ obligatoire')]
+    #[Assert\Email(
+        message: 'The email {{ value }} is not a valid email.',
+    )]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -31,48 +34,64 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank (message:'champ obligatoire')]
+    private ?string $Nom = null;
+
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank (message:'champ obligatoire')]
+    private ?string $Prenom = null;
+
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank (message:'champ obligatoire')]
+    /**dropdownmenu homme femme */
     private ?string $sexe = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank (message:'champ obligatoire')]
+    /**dropmenu regions tn */
     private ?string $adresse = null;
 
-    #[ORM\Column]
-    private ?bool $adresse_visibility = null;
-
     #[ORM\Column(length: 255)]
-    private ?string $numtel = null;
-
-    #[ORM\Column]
-    private ?bool $num_tel_visibility = null;
+    #[Assert\NotBlank (message:'champ obligatoire')]
+    #[Assert\Length(
+        min: 8,
+        max: 8,
+        minMessage: 'numero telephone non valide',
+        maxMessage: 'numero telephone non valide',
+    )]
+    private ?string $num_tel = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $pdp = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank (message:'champ obligatoire')]
     private ?string $bio = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\NotBlank (message:'champ obligatoire')]   
+   // #[Assert\LessThanOrEqual("-18 years", message:"You should be at least 18 years old.")] 
     private ?\DateTimeInterface $date_naissance = null;
+    
 
-    #[ORM\Column]
-    private ?bool $date_naissance_visibility = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $diplome = null;
+    #[ORM\Column(type: Types::TEXT, nullable: true)] /***selon role pour pro user */
+   /**  #[Assert\NotBlank (message:'champ obligatoire')] */  
+   private ?string $diplome = null;
 
     #[ORM\Column(nullable: true)]
+   /**  #[Assert\NotBlank (message:'champ obligatoire')] */  
     private ?float $tarif = null;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
-    private ?service $service = null;
+    private ?Filiere $filiere = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Produits::class, orphanRemoval: true)]
-    private Collection $produits;
+    #[ORM\Column(nullable: true)]
+    private ?bool $isEnabled = null;
 
     public function __construct()
-    {
-        $this->produits = new ArrayCollection();
-    }
+{
+    $this->isEnabled = true;
+}
 
     public function getId(): ?int
     {
@@ -163,6 +182,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
+    public function getNom(): ?string
+    {
+        return $this->Nom;
+    }
+
+    public function setNom(string $Nom): self
+    {
+        $this->Nom = $Nom;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->Prenom;
+    }
+
+    public function setPrenom(string $Prenom): self
+    {
+        $this->Prenom = $Prenom;
+
+        return $this;
+    }
+
     public function getSexe(): ?string
     {
         return $this->sexe;
@@ -187,38 +230,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isAdresseVisibility(): ?bool
+    public function getNumTel(): ?string
     {
-        return $this->adresse_visibility;
+        return $this->num_tel;
     }
 
-    public function setAdresseVisibility(bool $adresse_visibility): self
+    public function setNumTel(string $num_tel): self
     {
-        $this->adresse_visibility = $adresse_visibility;
-
-        return $this;
-    }
-
-    public function getNumtel(): ?string
-    {
-        return $this->numtel;
-    }
-
-    public function setNumtel(string $numtel): self
-    {
-        $this->numtel = $numtel;
-
-        return $this;
-    }
-
-    public function isNumTelVisibility(): ?bool
-    {
-        return $this->num_tel_visibility;
-    }
-
-    public function setNumTelVisibility(bool $num_tel_visibility): self
-    {
-        $this->num_tel_visibility = $num_tel_visibility;
+        $this->num_tel = $num_tel;
 
         return $this;
     }
@@ -240,7 +259,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->bio;
     }
 
-    public function setBio(?string $bio): self
+    public function setBio(string $bio): self
     {
         $this->bio = $bio;
 
@@ -255,18 +274,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setDateNaissance(\DateTimeInterface $date_naissance): self
     {
         $this->date_naissance = $date_naissance;
-
-        return $this;
-    }
-
-    public function isDateNaissanceVisibility(): ?bool
-    {
-        return $this->date_naissance_visibility;
-    }
-
-    public function setDateNaissanceVisibility(bool $date_naissance_visibility): self
-    {
-        $this->date_naissance_visibility = $date_naissance_visibility;
 
         return $this;
     }
@@ -295,45 +302,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getService(): ?service
+    public function getFiliere(): ?Filiere
     {
-        return $this->service;
+        return $this->filiere;
     }
 
-    public function setService(?service $service): self
+    public function setFiliere(?Filiere $filiere): self
     {
-        $this->service = $service;
+        $this->filiere = $filiere;
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, Produits>
-     */
-    public function getProduits(): Collection
+    public function isIsEnabled(): ?bool
     {
-        return $this->produits;
+        return $this->isEnabled;
     }
 
-    public function addProduit(Produits $produit): self
+    public function setIsEnabled(bool $isEnabled): self
     {
-        if (!$this->produits->contains($produit)) {
-            $this->produits->add($produit);
-            $produit->setUser($this);
-        }
+        $this->isEnabled = $isEnabled;
 
         return $this;
     }
 
-    public function removeProduit(Produits $produit): self
-    {
-        if ($this->produits->removeElement($produit)) {
-            // set the owning side to null (unless already changed)
-            if ($produit->getUser() === $this) {
-                $produit->setUser(null);
-            }
-        }
-
-        return $this;
-    }
+    
 }
