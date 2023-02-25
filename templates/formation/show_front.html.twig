@@ -18,9 +18,9 @@
                     </div><!-- /.text-block -->
                     <div class="video-banner-layout2 bg-overlay mb-70">
                         {% if formation.iamgeformation  is not empty %}
-                            <img src={{ asset('uploads/imagesformation/' ~ formation.iamgeformation) }} alt="Formation" loading="lazy">
+                            <img src={{ asset('uploads/users/' ~ formation.iamgeformation) }} alt="Formation" loading="lazy">
                         {% else %}
-                            <img src={{ asset('uploads/NoImage.jpg' ) }} alt="Product" loading="lazy">
+                            <img src={{ asset('uploads/users/NoImage.jpg' ) }} alt="Product" loading="lazy">
                         {% endif %}
                         <a class="video__btn video__btn-white popup-video" href="https://www.youtube.com/watch?v=nrJtHemSPW4">
                             <div class="video__player">

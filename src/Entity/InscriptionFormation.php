@@ -26,6 +26,9 @@ class InscriptionFormation
     #[ORM\ManyToOne(inversedBy: 'inscriptionFormations')]
     private ?Formation $formations = null;
 
+    #[ORM\ManyToOne(inversedBy: 'inscriptionFormations')]
+    private ?User $user = null;
+
 
 
     public function getId(): ?int
@@ -82,6 +85,18 @@ class InscriptionFormation
     public function setFormations(?Formation $formations): self
     {
         $this->formations = $formations;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

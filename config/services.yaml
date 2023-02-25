@@ -6,6 +6,7 @@
 parameters:
   users_directory: '%kernel.project_dir%/public/uploads/users'
 
+
 services:
   # default configuration for services in *this* file
   _defaults:

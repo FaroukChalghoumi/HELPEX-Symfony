@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -88,9 +90,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?bool $isEnabled = null;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: InscriptionFormation::class)]
+    private Collection $inscriptionFormations;
+
     public function __construct()
 {
     $this->isEnabled = true;
+    $this->inscriptionFormations = new ArrayCollection();
 }
 
     public function getId(): ?int
@@ -322,6 +328,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsEnabled(bool $isEnabled): self
     {
         $this->isEnabled = $isEnabled;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, InscriptionFormation>
+     */
+    public function getInscriptionFormations(): Collection
+    {
+        return $this->inscriptionFormations;
+    }
+
+    public function addInscriptionFormation(InscriptionFormation $inscriptionFormation): self
+    {
+        if (!$this->inscriptionFormations->contains($inscriptionFormation)) {
+            $this->inscriptionFormations->add($inscriptionFormation);
+            $inscriptionFormation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInscriptionFormation(InscriptionFormation $inscriptionFormation): self
+    {
+        if ($this->inscriptionFormations->removeElement($inscriptionFormation)) {
+            // set the owning side to null (unless already changed)
+            if ($inscriptionFormation->getUser() === $this) {
+                $inscriptionFormation->setUser(null);
+            }
+        }
 
         return $this;
     }
