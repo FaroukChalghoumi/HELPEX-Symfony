@@ -1,0 +1,11 @@
+{#
+{% extends 'base.html.twig' %}
+#}
+
+
+{% block body %}
+
+    {{ include('item/_form.html.twig') }}
+
+    <a href="{{ path('app_item_index') }}">back to list</a>
+{% endblock %}

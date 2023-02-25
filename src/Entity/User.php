@@ -96,11 +96,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Poste::class)]
     private Collection $postes;
 
+//
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Accompagnement::class, orphanRemoval: true)]
+    private Collection $accompagnements;
+
+    #[ORM\OneToMany(mappedBy: 'user_pro', targetEntity: Accompagnement::class)]
+    private ?Collection $accompagnements_pro=null;
+
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Accompagnement $accompagnement = null;
+
+
+
     public function __construct()
 {
     $this->isEnabled = true;
     $this->inscriptionFormations = new ArrayCollection();
     $this->postes = new ArrayCollection();
+
+    $this->accompagnements = new ArrayCollection();
+    $this->accompagnements_pro = new ArrayCollection();
 }
 
     public function getId(): ?int
@@ -395,6 +410,83 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    /**
+     * @return Collection<int, Accompagnement>
+     */
+    public function getAccompagnements(): Collection
+    {
+        return $this->accompagnements;
+    }
 
-    
+    public function addAccompagnement(Accompagnement $accompagnement): self
+    {
+        if (!$this->accompagnements->contains($accompagnement)) {
+            $this->accompagnements->add($accompagnement);
+            $accompagnement->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAccompagnement(Accompagnement $accompagnement): self
+    {
+        if ($this->accompagnements->removeElement($accompagnement)) {
+            // set the owning side to null (unless already changed)
+            if ($accompagnement->getUser() === $this) {
+                $accompagnement->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAccompagnement(): ?Accompagnement
+    {
+        return $this->accompagnement;
+    }
+
+    public function setAccompagnement(?Accompagnement $accompagnement): self
+    {
+        $this->accompagnement = $accompagnement;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getNom() ;}
+
+
+
+    /**
+     * @return Collection<int, Accompagnement>
+     */
+    public function getAccompagnementsPro(): Collection
+    {
+        return $this->accompagnements_pro;
+    }
+
+    public function addAccompagnementsPro(Accompagnement $accompagnementsPro): self
+    {
+        if (!$this->accompagnements_pro->contains($accompagnementsPro)) {
+            $this->accompagnements_pro->add($accompagnementsPro);
+            $accompagnementsPro->setUserPro($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAccompagnementsPro(Accompagnement $accompagnementsPro): self
+    {
+        if ($this->accompagnements_pro->removeElement($accompagnementsPro)) {
+            // set the owning side to null (unless already changed)
+            if ($accompagnementsPro->getUserPro() === $this) {
+                $accompagnementsPro->setUserPro(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }
