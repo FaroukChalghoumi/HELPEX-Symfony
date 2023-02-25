@@ -96,11 +96,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Poste::class)]
     private Collection $postes;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Produits::class)]
+    private Collection $produits;
+
     public function __construct()
 {
     $this->isEnabled = true;
     $this->inscriptionFormations = new ArrayCollection();
     $this->postes = new ArrayCollection();
+    $this->produits = new ArrayCollection();
 }
 
     public function getId(): ?int
@@ -396,5 +400,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    
+    /**
+     * @return Collection<int, Produits>
+     */
+    public function getProduits(): Collection
+    {
+        return $this->produits;
+    }
+
+    public function addProduit(Produits $produit): self
+    {
+        if (!$this->produits->contains($produit)) {
+            $this->produits->add($produit);
+            $produit->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduit(Produits $produit): self
+    {
+        if ($this->produits->removeElement($produit)) {
+            // set the owning side to null (unless already changed)
+            if ($produit->getUser() === $this) {
+                $produit->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->id;
+    }
 }

@@ -1,0 +1,17 @@
+{% extends 'admin.html.twig' %}
+{% block component %}
+<link href="{{asset("images/favicon/favicon.png") }}" rel="icon">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&amp;family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet">
+<link href="{{asset("css/use.fontawesome.com/releases/v5.15.3/css/all.css") }}" rel="stylesheet">
+<link href="{{asset("css/libraries.css") }}" rel="stylesheet">
+<link href="{{asset("css/style.css") }}" rel="stylesheet">
+{% endblock %}
+{% block title %}Edit CategorieProduit{% endblock %}
+
+{% block body %}
+    <h1>Edit CategorieProduit</h1>
+
+    {{ include('categorie_produit/_form.html.twig', {'button_label': 'Update'}) }}
+
+
+{% endblock %}
