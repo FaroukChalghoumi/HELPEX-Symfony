@@ -134,13 +134,22 @@ class FormationController extends AbstractController
     }
 
 
-//    #[Route('front/bycategory/{id}', name: 'app_formation_bycategory')]
-//    public function getByCategorie($id,FormationRepository $repo) : Response {
-//
-//        $formation = $repo->getFormationByCategorie($id);
-//        return $this->renderForm('formation\index_front_bycategorie.html.twig', [
-//            'formations' => $formation,
-//
-//        ]);
-//    }
+    #[Route('/front/bycategory/{id}', name: 'app_formation_bycategory')]
+    public function getByCategorie($id,FormationRepository $repo) : Response {
+
+        $formation = $repo->getBycategory($id);
+        return $this->renderForm('formation\index_front_bycategorie.html.twig', [
+            'formations' => $formation,
+
+        ]);
+    }
+    #[Route('/front/bycentre/{id}', name: 'app_formation_bycentre')]
+    public function getByCentre($id,FormationRepository $repo) : Response {
+
+        $formation = $repo->getBycentre($id);
+        return $this->renderForm('formation\index_front_bycentre.html.twig', [
+            'formations' => $formation,
+
+        ]);
+    }
 }

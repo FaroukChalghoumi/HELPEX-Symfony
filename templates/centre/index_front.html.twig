@@ -60,25 +60,29 @@
 
             <div class="row">
                 <!-- service item #1 -->
-                {% for formation in formations %}
+                {% for centre in centres %}
                     <div class="col-sm-12 col-md-6 col-lg-4">
                         <div class="service-item">
                             <div class="service__img">
-                                {% if formation.iamgeformation  is not empty %}
-                                    <img src={{ asset('uploads/imagesformation/' ~ formation.iamgeformation) }} alt="Formation" loading="lazy">
-                                {% else %}
+
                                     <img src={{ asset('uploads/NoImage.jpg' ) }} alt="Product" loading="lazy">
-                                {% endif %}
+
                                 {#                        <img src="{{ asset("images/services/1.jpg")}}" alt="img" loading="lazy">#}
                             </div><!-- /.serviceimg -->
 
                             <div class="service__content">
-                                <h4 class="service__title">{{ formation.nomFormation }}</h4>
+                                <h4 class="service__title">{{ centre.nomCentre }}</h4>
 
-                                <p class="service__desc">{{ formation.descriptionFormation | striptags | slice(0, 60) }}...
+                                <p class="service__desc">{{ centre.adresseCentre }}
                                 </p>
-                                <a href={{ path('app_formation_show_front', {'id': formation.id}) }} class="btn btn__secondary btn__outlined btn__rounded">
-                                <span>Read More</span>
+{#                                <a href={{ path('app_centre_show', {'id': centre.id}) }} class="btn btn__secondary btn__outlined btn__rounded">#}
+
+{#                                <span>Read More</span>#}
+{#                                <i class="icon-arrow-right"></i>#}
+{#                                </a>#}
+                                <a href={{ path('app_formation_bycentre', {'id': centre.id}) }} class="btn btn__secondary btn__outlined btn__rounded">
+
+                                <span>voir nos formations</span>
                                 <i class="icon-arrow-right"></i>
                                 </a>
                             </div>

@@ -65,7 +65,10 @@
                 <div class="service-item">
                     <div class="service__img">
                         {% if formation.iamgeformation  is not empty %}
-                            <img src={{ asset('uploads/imagesformation/' ~ formation.iamgeformation) }} alt="Formation" loading="lazy">
+                            <div>
+                            <a href="blog-single-post.html">                             <img src={{ asset('uploads/imagesformation/' ~ formation.iamgeformation) }} alt="Formation" loading="lazy">
+                            </a>
+                            </div>
                         {% else %}
                             <img src={{ asset('uploads/NoImage.jpg' ) }} alt="Product" loading="lazy">
                         {% endif %}

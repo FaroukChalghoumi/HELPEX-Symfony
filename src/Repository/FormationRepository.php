@@ -71,4 +71,22 @@ class FormationRepository extends ServiceEntityRepository
 //            ->getQuery()
 //            ->getResult();
 //    }
+    public function getBycategory($id)  {
+        $qb= $this->createQueryBuilder('f')
+            ->join('f.idCategorieFormation','c')
+            ->addSelect('c')
+            ->where('c.id=:id')
+            ->setParameter('id',$id);
+        return $qb->getQuery()
+            ->getResult();
+    }
+    public function getBycentre($id)  {
+        $qb= $this->createQueryBuilder('ce')
+            ->join('ce.idCentre','c')
+            ->addSelect('c')
+            ->where('c.id=:id')
+            ->setParameter('id',$id);
+        return $qb->getQuery()
+            ->getResult();
+    }
 }

@@ -20,6 +20,13 @@ class CentreController extends AbstractController
             'centres' => $centreRepository->findAll(),
         ]);
     }
+    #[Route('/front', name: 'app_centre_index_front', methods: ['GET'])]
+    public function indexfront(CentreRepository $centreRepository): Response
+    {
+        return $this->render('centre/index_front.html.twig', [
+            'centres' => $centreRepository->findAll(),
+        ]);
+    }
 
     #[Route('/new', name: 'app_centre_new', methods: ['GET', 'POST'])]
     public function new(Request $request, CentreRepository $centreRepository): Response
