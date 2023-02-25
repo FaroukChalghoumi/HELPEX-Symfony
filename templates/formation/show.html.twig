@@ -1,0 +1,53 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Formation{% endblock %}
+
+{% block body %}
+    <h1>Formation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ formation.id }}</td>
+            </tr>
+            <tr>
+                <th>NomFormation</th>
+                <td>{{ formation.nomFormation }}</td>
+            </tr>
+            <tr>
+                <th>DescriptionFormation</th>
+                <td>{{ formation.descriptionFormation }}</td>
+            </tr>
+            <tr>
+                <th>CoutFormation</th>
+                <td>{{ formation.coutFormation }}</td>
+            </tr>
+            <tr>
+                <th>NombreDePlace</th>
+                <td>{{ formation.NombreDePlace }}</td>
+            </tr>
+            <tr>
+                <th>Duree</th>
+                <td>{{ formation.duree }}</td>
+            </tr>
+            <tr>
+                <th>category foramtion</th>
+                <td>{{ formation.idCategorieFormation }}</td>
+            </tr>
+            <tr>
+                <th>centre</th>
+                <td>{{ formation.idCentre }}</td>
+            </tr>
+            <tr>
+                <img src={{ asset('uploads/imagesformation/' ~ formation.iamgeformation) }} alt="Formation" loading="lazy">
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_formation_index') }}">back to list</a>
+
+    <a href="{{ path('app_formation_edit', {'id': formation.id}) }}">edit</a>
+
+    {{ include('formation/_delete_form.html.twig') }}
+{% endblock %}

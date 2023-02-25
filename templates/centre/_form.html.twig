@@ -1,0 +1,66 @@
+
+<div class="row">
+    <div class="col-sm-6 col-md-6 col-lg-6">
+    <div class="form-group">
+
+
+{{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+    {{ form_label(form.nomCentre,"nom du centre") }}
+    {{ form_widget(form.nomCentre,{'attr':{'class':'form-control'}}) }}
+    {{ form_errors(form.nomCentre) }}
+
+
+    </div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+    <div class="form-group">
+
+
+        {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+        {{ form_label(form.adresseCentre,"adresse") }}
+        {{ form_widget(form.adresseCentre,{'attr':{'class':'form-control'}}) }}
+        {{ form_errors(form.adresseCentre) }}
+
+
+    </div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+
+    <div class="form-group">
+
+
+        {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+        {{ form_label(form.emailCentre,"emailCentre") }}
+        {{ form_widget(form.emailCentre,{'attr':{'class':'form-control'}}) }}
+        {{ form_errors(form.emailCentre) }}
+
+
+    </div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+    <div class="form-group">
+
+
+        {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+        {{ form_label(form.telephoneCentre,"telephoneCentre") }}
+        {{ form_widget(form.telephoneCentre,{'attr':{'class':'form-control'}}) }}
+        {{ form_errors(form.telephoneCentre) }}
+
+
+    </div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+    <div class="form-group">
+
+
+        {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+        {{ form_label(form.siteWebCentre,"siteWebCentre") }}
+        {{ form_widget(form.siteWebCentre,{'attr':{'class':'form-control'}}) }}
+        {{ form_errors(form.siteWebCentre) }}
+
+
+    </div>
+    </div>
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+</div>

@@ -1,0 +1,43 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Centre{% endblock %}
+
+{% block body %}
+    <h1>Centre</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ centre.id }}</td>
+            </tr>
+            <tr>
+                <th>NomCentre</th>
+                <td>{{ centre.nomCentre }}</td>
+            </tr>
+            <tr>
+                <th>AdresseCentre</th>
+                <td>{{ centre.adresseCentre }}</td>
+            </tr>
+            <tr>
+                <th>EmailCentre</th>
+                <td>{{ centre.emailCentre }}</td>
+            </tr>
+            <tr>
+                <th>TelephoneCentre</th>
+                <td>{{ centre.telephoneCentre }}</td>
+            </tr>
+            <tr>
+                <th>SiteWebCentre</th>
+                <td>{{ centre.siteWebCentre }}</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_centre_index') }}"><i class="fa-solid fa-left-long"></i></a>
+
+    <a href="{{ path('app_centre_edit', {'id': centre.id}) }}"><i class="fa-sharp fa-solid fa-pen"></i></a>
+
+    {{ include('centre/_delete_form.html.twig') }}
+{% endblock %}

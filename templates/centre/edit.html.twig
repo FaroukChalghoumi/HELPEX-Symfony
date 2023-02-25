@@ -1,0 +1,13 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}modifier Centre{% endblock %}
+
+{% block body %}
+    <h1>modifier Centre</h1>
+
+    {{ include('centre/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_centre_index') }}">back to list</a>
+
+    {{ include('centre/_delete_form.html.twig') }}
+{% endblock %}
