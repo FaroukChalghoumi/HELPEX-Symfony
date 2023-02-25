@@ -30,18 +30,23 @@
           <span>Make a poste</span> 
           </a>
          
-           <select>
-              <option selected="" value="0">Categories</option>
-               {% for categorie in categoriepostes %}
-                <option >{{ categorie.topic }}</option>
-               {% endfor %}
-
-              </select>
+           <div class="widget widget-categories">
+                <h5 class="widget__title">Categories</h5>
+                <div class="widget-content">
+                  <ul class="list-unstyled mb-0">
+                {% for categorie in categoriepostes %}
+                {% set postesCount = categorie.postes|length %}
+                    <li><a href="#"><span class="cat-count">{{ postesCount }}</span><span>{{ categorie.topic }}</span></a></li>
+                {% endfor %}
+                  </ul>
+                </div><!-- /.widget-content -->
+              </div><!-- /.widget-categories -->
               
           <div class="col-sm-12 col-md-6 col-lg-4">
+          
            
            {% for poste in postes %}
-         {% if loop.index % 3 == 1 %}<div style="width: 100%;">{% endif %}
+         {% if loop.index % 3 == 1 %}<div style="width: 80%;">{% endif %}
             <div class="post-item" style="display: inline-block; margin-right: 10px; vertical-align: top; white-space: normal;flex-basis: calc(33.33% - 20px); margin: 10px;">
               <div class="post__img">
                 <a href="blog-single-post.html">
@@ -57,7 +62,7 @@
                   <a class="post__meta-author" href="#">John Ezak</a>
                 </div>
                 <h4 class="post__title"><a href="#">{{ poste.titre }}</a></h4>
-                <p class="post__desc">{{  poste.description|length > 10 ? poste.description|slice(0, 10) ~ '...' : poste.description  }}
+                <p class="post__desc">{{  poste.description|length > 100 ? poste.description|slice(0, 100) ~ '...' : poste.description  }}
                 </p>
                 <a href="{{ path('app_postecommentaire_show', {'id': poste.id}) }}" class="btn btn__secondary btn__link btn__rounded">
                   <span>Check comments</span>
@@ -70,7 +75,7 @@
               </div><!-- /.post__body -->
             </div><!-- /.post-item -->
                 {% if loop.index % 3 == 0 or loop.last %}</div>{% endif %}
-
+              
                     {% endfor %}
 
           </div><!-- /.col-lg-4 -->

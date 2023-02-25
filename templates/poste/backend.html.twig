@@ -33,7 +33,7 @@
                     <td  class="org-table-td">{{ poste.id }}</td>
                     <td  class="org-table-td">{{ poste.titre }}</td>
                     <td  class="org-table-td">{{ poste.categorie }}</td>
-                    <td  class="org-table-td">{{ poste.description }}</td>
+                    <td  class="org-table-td">{{  poste.description|length > 50 ? poste.description|slice(0, 50) ~ '...' : poste.description  }}</td>
                     <td  class="org-table-td">{{ poste.date ? poste.date|date('Y-m-d') : '' }}</td> 
                     <td  class="org-table-td"> 
                   {% for commentaire in commentaires %}

@@ -28,6 +28,7 @@ class Poste
         minMessage: 'insuffisant {{ limit }}',
         maxMessage: 'trop long {{ limit }} ',
     )]
+    #[Assert\Regex(pattern:'/^[0-9]+$/i', match:false,message:'c"ant only be numbers')]
     private ?string $titre = null;
   
     #[ORM\Column(type: Types::DATE_MUTABLE)]

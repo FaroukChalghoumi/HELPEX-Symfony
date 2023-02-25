@@ -115,8 +115,10 @@ class PosteController extends AbstractController
     #[Route('/{id}', name: 'app_poste_show', methods: ['GET'])]
     public function show(Poste $poste): Response
     {
+        $commentaires = $poste->getCommentaire();
         return $this->render('poste/show.html.twig', [
             'poste' => $poste,
+            'commentaires' => $commentaires,
         ]);
     }
 
