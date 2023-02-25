@@ -37,10 +37,15 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
         
+        $role1= 'ROLE_PRO' ;
+        $role2= 'ROLE_USER' ;
 
         return $this->render('user/back/allusers.html.twig', [
             'user' => $this->getUser(),
-            'usersList' => $userRepo->findAll()
+            'usersList' => $userRepo->findAll(),
+            'ProList' => $userRepo->findPros([$role1]),
+            'ClientList' => $userRepo->findPros([$role2])
+
         ]);
     }
 
@@ -63,6 +68,7 @@ public function ProUsers(UserRepository $userRepo): Response
         return $this->render('user/front/professionals.html.twig', [
             'user' => $this->getUser(),
             'ProList' => $userRepo->findPros([$role])
+
         ]);
     }
 
@@ -98,6 +104,12 @@ public function ProUsers(UserRepository $userRepo): Response
 
     public function updateYourProfile(Request $request, User $user, UserRepository $ur,  SluggerInterface $slugger ): Response
     {
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $form = $this->createForm(EditYourProfileType::class, $user);
         $form->handleRequest($request);
 

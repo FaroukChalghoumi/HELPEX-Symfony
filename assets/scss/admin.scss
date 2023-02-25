@@ -274,6 +274,7 @@ button, a {
   height: 100%;
   display: flex;
   flex-direction: column;
+  overflow-y: scroll;
 
   &-line {
     display: flex;

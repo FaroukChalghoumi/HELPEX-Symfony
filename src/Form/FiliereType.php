@@ -9,13 +9,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 
+
 class FiliereType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('NomFiliere')
-            ->add('DescriptionFiliere', TextareaType:: class)
+           ->add('DescriptionFiliere', TextareaType:: class)
         ;
     }
 

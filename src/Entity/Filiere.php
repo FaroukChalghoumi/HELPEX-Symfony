@@ -6,7 +6,10 @@ use App\Repository\FiliereRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
+
 use Doctrine\ORM\Mapping as ORM;
+
 
 #[ORM\Entity(repositoryClass: FiliereRepository::class)]
 class Filiere
@@ -16,13 +19,16 @@ class Filiere
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank (message:'champ obligatoire')]
+
     private ?string $NomFiliere = null;
 
     #[ORM\OneToMany(mappedBy: 'filiere', targetEntity: User::class , orphanRemoval: true)]
     private Collection $users;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\NotBlank (message:'champ obligatoire')]
     private ?string $DescriptionFiliere = null;
 
     public function __construct()

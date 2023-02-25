@@ -16,6 +16,12 @@ class FiliereController extends AbstractController
     #[Route('/', name: 'app_filiere_index', methods: ['GET'])]
     public function index(FiliereRepository $filiereRepository): Response
     {
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
         return $this->render('filiere/index.html.twig', [
             'filieres' => $filiereRepository->findAll(),
         ]);
