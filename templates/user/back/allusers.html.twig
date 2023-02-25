@@ -173,7 +173,10 @@
 					<tr>
 						<td class="org-table-th">{{ user.id }}</td>
 
-						<td class="org-table-th"><img src="{{ asset('uploads/users/' ~ user.pdp) }}" alt="User Image"></td>
+						<td class="org-table-th">
+							<img src="{{ asset('uploads/users/' ~ user.pdp) }}" alt="User Image">
+
+						</td>
 						<td class="org-table-th">{{ user.email }}</td>
 						<td class="org-table-th">{{ user.Nom }}</td>
 						<td class="org-table-th">{{ user.Prenom }}</td>
