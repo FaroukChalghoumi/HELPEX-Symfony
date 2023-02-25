@@ -19,10 +19,10 @@ class Produits
 
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank (message:'champ obligatoire')]
     #[Assert\Regex(
         pattern: '/^[a-z]+$/i',
-        message: 'name must be only characters',
+        message: 'le nom du produit ne contient pas des nombre',
         match: true
     )]
     private ?string $NomProduit = null;
@@ -32,11 +32,18 @@ class Produits
     private ?string $EtatProduit = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank (message:'champ obligatoire')]
+    #[Assert\Positive]
     private ?string $PrixProduit = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank (message:'champ obligatoire')]
+    #[Assert\Length(
+        min: 50,
+        max: 255,
+        minMessage: 'insuffisant {{ limit }}',
+        maxMessage: 'trop long {{ limit }} ',
+    )]
     private ?string $DescriptionProduit = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -46,16 +53,16 @@ class Produits
     private ?string $StatusProduit = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\NotBlank]
+
     private ?string $localisationProduit = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank (message:'champ obligatoire')]
     private ?string $Brand = null;
 
-    #[ORM\ManyToOne]
-    #[Assert\NotBlank]
-    private ?CategorieProduit $CategorieProduit = null;
+//    #[ORM\ManyToOne]
+//    #[Assert\NotBlank (message:'champ obligatoire')]
+//    private ?CategorieProduit $CategorieProduit = null;
 
     #[ORM\ManyToOne(inversedBy: 'produits')]
     #[ORM\JoinColumn(nullable: false)]
@@ -69,6 +76,14 @@ class Produits
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Details = null;
+
+    #[ORM\Column]
+    private ?bool $Authorisation = null;
+
+    #[ORM\ManyToOne(inversedBy: 'produits')]
+    private ?CategorieProduit $CategorieProduit = null;
+
+
 
 
 
@@ -173,17 +188,9 @@ class Produits
         return $this;
     }
 
-    public function getCategorieProduit(): ?CategorieProduit
-    {
-        return $this->CategorieProduit;
-    }
 
-    public function setCategorieProduit(?CategorieProduit $CategorieProduit): self
-    {
-        $this->CategorieProduit = $CategorieProduit;
 
-        return $this;
-    }
+
 
     public function getUser(): ?User
     {
@@ -244,6 +251,30 @@ class Produits
     public function onPreUpdate(): void
     {
         $this->UpdatedAt = new \DateTime();
+    }
+
+    public function isAuthorisation(): ?bool
+    {
+        return $this->Authorisation;
+    }
+
+    public function setAuthorisation(bool $Authorisation): self
+    {
+        $this->Authorisation = $Authorisation;
+
+        return $this;
+    }
+
+    public function getCategorieProduit(): ?CategorieProduit
+    {
+        return $this->CategorieProduit;
+    }
+
+    public function setCategorieProduit(?CategorieProduit $CategorieProduit): self
+    {
+        $this->CategorieProduit = $CategorieProduit;
+
+        return $this;
     }
 
 }

@@ -106,6 +106,10 @@
                                         <div class="product__quantity d-flex mb-30">
                                             <a class="btn btn__secondary btn__rounded" href="#">Request Client</a>
                                         </div><!-- /.product-quantity -->
+
+                                        <div class="product__quantity d-flex mb-30">
+                                        <a href="{{ path('app_produits_edit', {'id':produit.id})}}" class="btn btn__secondary btn__rounded">Editer mon poste</a>
+                                        </div><!-- /.product-quantity -->
                                         <div class="product__meta-details">
                                             <ul class="list-unstyled mb-30">
                                                 <li><span>IdProduit :</span> <span>#{{ produit.id }}</span></li>

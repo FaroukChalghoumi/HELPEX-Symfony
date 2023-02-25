@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Produits;
+use App\Form\ProduitAuthType;
 use App\Form\ProduitsType;
 use App\Repository\CategorieProduitRepository;
 use App\Repository\ProduitsRepository;
@@ -13,10 +14,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-#[Route('/produits')]
+
 class ProduitsController extends AbstractController
 {
-    #[Route('/', name: 'app_produits_index', methods: ['GET'])]
+    #[Route('/produits/', name: 'app_produits_index', methods: ['GET'])]
     public function index(ProduitsRepository $produitsRepository,CategorieProduitRepository $categorieProduitRepository): Response
     {
         return $this->render('produits/index.html.twig', [
@@ -24,6 +25,9 @@ class ProduitsController extends AbstractController
             'categorie_produits' => $categorieProduitRepository->findAll(),
         ]);
     }
+
+
+
 //    #[Route('/', name: 'app_produits_index', methods: ['GET'])]
 //    public function indexFront(CategorieProduitRepository $categorieProduitRepository): Response
 //    {
@@ -31,7 +35,7 @@ class ProduitsController extends AbstractController
 //            'categorie_produits' => $categorieProduitRepository->findAll(),
 //        ]);
 //    }
-    #[Route('/new', name: 'app_produits_new', methods: ['GET', 'POST'])]
+    #[Route('/produits/new', name: 'app_produits_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ProduitsRepository $produitsRepository ,  SluggerInterface $slugger): Response
     {
         $produit = new Produits();
@@ -57,6 +61,7 @@ class ProduitsController extends AbstractController
                 $produit->setImagePath($newFilename);
             }
             $produit->setStatusProduit("Selling");
+            $produit->setAuthorisation(false);
             $produitsRepository->save($produit, true);
             /*$ImagePath = $form->get('ImagePath')->getData();
 
@@ -93,7 +98,7 @@ class ProduitsController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_produits_show', methods: ['GET'])]
+    #[Route('/produits/{id}', name: 'app_produits_show', methods: ['GET'])]
     public function show(Produits $produit): Response
     {
         return $this->render('produits/show.html.twig', [
@@ -101,7 +106,17 @@ class ProduitsController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_produits_edit', methods: ['GET', 'POST'])]
+
+    #[Route('/produits/{id}', name: 'app_produits_index_adminath', methods: ['GET'])]
+    public function showadm(Produits $produit): Response
+    {
+
+        return $this->render('produits/show.html.twig', [
+            'produit' => $produit,
+        ]);
+    }
+
+    #[Route('/produits/{id}/edit', name: 'app_produits_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Produits $produit, ProduitsRepository $produitsRepository): Response
     {
         $form = $this->createForm(ProduitsType::class, $produit);
@@ -119,7 +134,26 @@ class ProduitsController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_produits_delete', methods: ['POST'])]
+
+    #[Route('/{id}/edit/back', name: 'app_produits_edit_auth', methods: ['GET', 'POST'])]
+    public function editAdmin(Request $request ,Produits $produit, ProduitsRepository $produitsRepository): Response
+    {
+        $form = $this->createForm(ProduitAuthType::class, $produit);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $produitsRepository->save($produit, true);
+
+            return $this->redirectToRoute('app_categorie_produit_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('produits/editAdmin.html.twig', [
+            'produit' => $produit,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/produits/{id}', name: 'app_produits_delete', methods: ['POST'])]
     public function delete(Request $request, Produits $produit, ProduitsRepository $produitsRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->request->get('_token'))) {
@@ -128,4 +162,8 @@ class ProduitsController extends AbstractController
 
         return $this->redirectToRoute('app_produits_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
+
 }

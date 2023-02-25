@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\CategorieProduit;
+use App\Entity\Produits;
 use App\Form\CategorieProduitType;
 use App\Repository\CategorieProduitRepository;
+use App\Repository\ProduitsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +18,7 @@ class CategorieProduitController extends AbstractController
     #[Route('/', name: 'app_categorie_produit_index', methods: ['GET'])]
     public function index(CategorieProduitRepository $categorieProduitRepository): Response
     {
-        return $this->render('categorie_produit/index.html.twig', [
+        return $this->render('categorie_produit/adminCat.html.twig', [
             'categorie_produits' => $categorieProduitRepository->findAll(),
         ]);
     }
@@ -41,11 +43,22 @@ class CategorieProduitController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_categorie_produit_show', methods: ['GET'])]
-    public function show(CategorieProduit $categorieProduit): Response
+    public function show(CategorieProduit $categorieProduit , ProduitsRepository $produitsRepository): Response
     {
         return $this->render('categorie_produit/show.html.twig', [
             'categorie_produit' => $categorieProduit,
+            'produits' => $produitsRepository->findAll(),
         ]);
+    }
+
+    #[Route('/{id}', name: 'app_produits_delete_admin', methods: ['POST'])]
+    public function deletePAdmin(Request $request, Produits $produit, ProduitsRepository $produitsRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->request->get('_token'))) {
+            $produitsRepository->remove($produit, true);
+        }
+
+        return $this->redirectToRoute('app_categorie_produit_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{id}/edit', name: 'app_categorie_produit_edit', methods: ['GET', 'POST'])]

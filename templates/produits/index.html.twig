@@ -84,6 +84,7 @@
                 <div class="row">
 
                     {% for produit in produits %}
+                        {% if  produit.Authorisation == 'True' %}
                     <!-- Product item #1 -->
 
                     <div class="col-sm-6 col-md-6 col-lg-4">
@@ -111,6 +112,7 @@
                             </div><!-- /.product-content -->
                         </div><!-- /.product-item -->
                     </div><!-- /.col-lg-4 -->
+                        {% endif %}
 
 {% endfor %}
 
@@ -160,14 +162,13 @@
                             <h5 class="widget__title">Categories</h5>
                             <div class="widget-content">
                                 <ul class="list-unstyled mb-0">
+
                                     {% for Cat in categorie_produits %}
-                                        <li><a href="#"><span class="cat-count">0</span><span>{{ Cat.NomCatProduit }}</span></a></li>
+                                        {% set count =  Cat.produits|length %}
+                                        <li><a href="#"><span class="cat-count">{{ count }}</span><span>{{ Cat.NomCatProduit }}</span></a></li>
+
                                     {% endfor %}
-                                    {#                                    <li><a href="#"><span class="cat-count">0</span><span>Cardiology</span></a></li>#}
-                                    {#                                    <li><a href="#"><span class="cat-count">3</span><span>Pathology</span></a></li>#}
-                                    {#                                    <li><a href="#"><span class="cat-count">2</span><span>Laboratory</span></a></li>#}
-                                    {#                                    <li><a href="#"><span class="cat-count">4</span><span>Pediatric</span></a></li>#}
-                                    {#                                    <li><a href="#"><span class="cat-count">1</span><span>Cardiac Clinic</span></a></li>#}
+
                                 </ul>
                             </div><!-- /.widget-content -->
                         </div><!-- /.widget-categories -->
