@@ -1,0 +1,112 @@
+
+
+{#{% block body %}#}
+{#    <h1>CategorieProduit</h1>#}
+
+{#    <table class="table">#}
+{#        <tbody>#}
+{#            <tr>#}
+{#                <th>Id</th>#}
+{#                <td>{{ categorie_produit.id }}</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>NomCatProduit</th>#}
+{#                <td>{{ categorie_produit.NomCatProduit }}</td>#}
+{#            </tr>#}
+{#        </tbody>#}
+{#    </table>#}
+
+{#    <a href="{{ path('app_categorie_produit_index') }}">back to list</a>#}
+
+{#    <a href="{{ path('app_categorie_produit_edit', {'id': categorie_produit.id}) }}">edit</a>#}
+
+{#    {{ include('categorie_produit/_delete_form.html.twig') }}#}
+{#{% endblock %}#}
+
+
+{% extends 'admin.html.twig' %}
+
+{% block title %}centre index{% endblock %}
+{% block component %} <link rel="stylesheet" href="{{ asset("Card/style.css") }}" />  {% endblock %}
+{% block body %}
+
+    <div class="org-table-container">
+        <div class="org-table-head-container">
+            <div class="">
+                <h2>{{ categorie_produit.NomCatProduit}}</h2>
+            </div>
+            <div class="add-org-btn-container">
+                <a href="{{ path('app_categorie_produit_new') }}" class="add-org-btn" data-toggle="modal"><i class="fa-solid fa-plus"></i><span>cree une categorie</span></a>
+
+            </div>
+        </div>
+        <table class="org-table">
+            <thead class="org-table-head">
+            <tr>
+                <th class="org-table-th">Id</th>
+                <th class="org-table-th">Nom Produit  </th>
+                <th class="org-table-th">Brand</th>
+                <th class="org-table-th">EtatProduit</th>
+                <th class="org-table-th">PrixProduit</th>
+                <th class="org-table-th">StatusProduit</th>
+
+
+
+                {#                <th class="org-table-th">telephone</th>#}
+                {#                <th class="org-table-th">site web</th>#}
+
+                <th class="org-table-th">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for produit in produits %}
+                {% if produit.CategorieProduit == categorie_produit and produit.Authorisation == '0' %}
+
+                <tr>
+                    <td  class="org-table-td">{{ produit.id }}</td>
+                    <td  class="org-table-td">{{ produit.NomProduit }}</td>
+                    <td  class="org-table-td">{{ produit.Brand }}</td>
+                    <td  class="org-table-td">{{ produit.EtatProduit }}</td>
+                    <td  class="org-table-td">{{ produit.PrixProduit }}</td>
+                    <td  class="org-table-td">{{ produit.StatusProduit }}</td>
+
+
+
+                    {#                <td>{{ produit.EtatProduit }}</td>#}
+                    {#                <td>{{ produit.PrixProduit }}</td>#}
+                    {#                <td>{{ produit.DescriptionProduit }}</td>#}
+                    {#                <td>{{ produit.ImagePath }}</td>#}
+                    {#                <td>{{ produit.StatusProduit }}</td>#}
+                    {#                <td>{{ produit.localisationProduit }}</td>#}
+                    {#                <td>{{ produit.Brand }}</td>#}
+
+                    {#                    <td  class="org-table-td"><p class="org-table-status status-pending">{{ centre.telephoneCentre }}</p></td>#}
+
+                    {#                    <td  class="org-table-td">{{ centre.siteWebCentre }}</td>#}
+                    <td  class="org-table-td">
+                        <div class="org-icon-container">
+                            <a class="org-action-item" href="{{ path('app_produits_index_adminath', {'id': produit.id}) }}"><i class="fa-solid fa-circle-info" style="color: #0035ba"></i></a>
+                            <a class="org-action-item" href="{{ path('app_produits_edit_auth', {'id': produit.id })  }}"><i class="fa-solid fa-pencil"style="color: #FFC107"></i></a>
+{#                            <a class="org-action-item" href="#"><i class="fa-solid fa-pencil"style="color: #FFC107"></i></a>#}
+                            <form class="org-action-item" method="post" action="{{ path('app_produits_delete_admin', {'id': produit.id}) }}" onsubmit="return confirm('Are you sure you want to delete this centre?');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ produit.id) }}">
+                                <button>
+                                    <a href="{{path('app_produits_delete', {'id': produit.id}) }}"><i class="fa-solid fa-trash-can" style="color: red"></i></a>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% block messages %}
+
+        {% endblock %}
+
+
+{% endblock %}
