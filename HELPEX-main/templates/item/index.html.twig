@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+
+    {% if task.titre is defined %}
+    <h3><i class="fas fa-tasks"></i> {{ task.titre }}</h3>
+    {%  endif %}
+    <table id="example" class="table table-striped" style="width:100%">
+        <thead>
+        <tr>
+            <th>Titre</th>
+            <th>temps</th>
+            <th>status</th>
+            <th>photo</th>
+            <th>editer</th>
+            <th>supprimer</th>
+
+        </tr>
+
+        </thead>
+        <tbody>
+        {% if items is null %}
+        <h1> vous n'avez pas des items assignés !</h1>
+        {%  else %}
+        {% for item in items %}
+        <tr>
+            <td>{{ item.titre }}</td>
+            <td> {{ item.time|date('H:i:s') }}</td>
+            {% if item.iscomplete %}
+            <td style="color: green">complété</td>
+            {% else %}
+                <td style="color: red ">non complété</td>
+                {% endif %}
+            {%  if item.photo  is null%}
+                <td style="color: orangered">pas de preuve</td>
+            {%  else %}
+            <td>         <a href="{{ asset('uploads/users/'~ item.photo)}}" target="_blank">    <button class="btn-success">voir preuve</button>          </a>
+         {#   <td><button type="button" class="btn btn-success" data-mdb-toggle="modal" data-mdb-target="#exampleModal"> voir preuve
+                </button></td>#}
+                {% endif %}
+                <td><a href="{{ path('app_item_edit', {'id': item.id}) }}">  <button class="btn-sm "><i class="fas fa-edit"></i></button></a>
+                </td>
+            <td>  <form method="post" action="{{ path('app_item_delete', {'id': item.id}) }}" onsubmit="return confirm('est ce que vous étes sure de vouloir supprimer le Task?');">
+                    <input   type="hidden" name="_token" value="{{ csrf_token('delete' ~ item.id) }}">
+                     <button class=" btn-sm "><i class="fas fa-trash fa-1x"></i></button>
+                </form></td>
+
+        </tr>
+
+
+
+
+
+            <!-- Modal of new task -->
+{#
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">{{ item.titre }}</h5>
+                            <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <img src="{{ asset('uploads/ImagesItems/'~ item.photo) }}"  >
+                            <div class="modal-footer">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+#}
+
+
+
+            <!-- end modal new task -->
+
+
+
+            </div><!-- /.row -->
+
+        {% endfor %}
+        {%  endif %}
+
+        </tfoot>
+    </table>
+
+
+
+    <h1 style="color: white">white</h1>
+    <h1 style="color: white">white</h1>
+    <h1 style="color: white">white</h1>
+    <h1 style="color: white">white</h1>
+    <h1 style="color: white">white</h1>
+    <h1 style="color: white">white</h1>
+
+
+{%  endblock %}
+
+
+

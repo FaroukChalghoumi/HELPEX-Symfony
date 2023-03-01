@@ -1,0 +1,110 @@
+
+
+<div class="row">
+    <div class="col-sm-6 col-md-6 col-lg-6">
+    <div class="form-group">
+
+
+        {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+        {{ form_label(form.nomFormation,"nomFormation") }}
+        {{ form_widget(form.nomFormation,{'attr':{'class':'form-control'}}) }}
+        {{ form_errors(form.nomFormation) }}
+
+
+    </div>
+    </div>
+
+    <div class="col-sm-6 col-md-6 col-lg-6">
+
+    <div class="form-group">
+
+
+        {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+        {{ form_label(form.descriptionFormation,"descriptionFormation") }}
+        {{ form_widget(form.descriptionFormation,{'attr':{'class':'form-control'}}) }}
+        {{ form_errors(form.descriptionFormation) }}
+
+
+    </div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+
+    <div class="form-group">
+
+
+        {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+        {{ form_label(form.coutFormation,"coutFormation") }}
+        {{ form_widget(form.coutFormation,{'attr':{'class':'form-control'}}) }}
+        {{ form_errors(form.coutFormation) }}
+
+
+    </div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+
+    <div class="form-group">
+
+
+        {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+        {{ form_label(form.NombreDePlace,"NombreDePlace") }}
+        {{ form_widget(form.NombreDePlace,{'attr':{'class':'form-control'}}) }}
+        {{ form_errors(form.NombreDePlace) }}
+
+
+    </div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+
+    <div class="form-group">
+
+
+        {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+        {{ form_label(form.duree,"duree") }}
+        {{ form_widget(form.duree,{'attr':{'class':'form-control'}}) }}
+        {{ form_errors(form.duree) }}
+
+
+    </div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+
+    <div class="form-group">
+
+
+        {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+        {{ form_label(form.idCategorieFormation,"CategorieFormation") }}
+        {{ form_widget(form.idCategorieFormation,{'attr':{'class':'form-control'}}) }}
+        {{ form_errors(form.idCategorieFormation) }}
+
+
+    </div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+
+    <div class="form-group">
+
+
+        {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+        {{ form_label(form.idCentre,"Centre") }}
+        {{ form_widget(form.idCentre,{'attr':{'class':'form-control'}}) }}
+        {{ form_errors(form.idCentre) }}
+
+
+    </div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+
+        <div class="form-group">
+
+
+            {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+            {{ form_label(form.iamgeformation,"image") }}
+            {{ form_widget(form.iamgeformation,{'attr':{'class':'form-control'}}) }}
+            {{ form_errors(form.iamgeformation) }}
+
+
+        </div>
+    </div>
+    <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+</div>

@@ -1,0 +1,188 @@
+{% extends 'base.html.twig' %}
+{% block navbar %}{% endblock %}
+
+
+{% block body %}
+
+	<section class="contact-layout5 bg-overlay bg-overlay-blue-gradient pb-60">
+		<div class="bg-img"><img src="assets/images/banners/3.jpg" alt="banner"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-20 col-md-20 col-lg-50 d-flex flex-column justify-content-between">
+					<div>
+						<div class="heading heading-light mb-30">
+							<h3 class="heading__title mb-30">Helpex Pro,
+							</h3>
+							<p class="heading__desc">Helpex présente  une opportunitée idéal pour postuler dans divers domaines
+																																										et travailler en tant que freelancer et par la suite augmenter vos  revenus.
+							</p>
+						</div>
+
+					</div>
+
+
+					<div class="d-flex align-items-center">
+						<a href="{{ path('pick') }}" class="btn btn__white btn__white-style2 btn__rounded mr-30">
+							<i class="icon-arrow-left"></i>
+							<span>Retour</span>
+
+						</a>
+					</div>
+				</div>
+
+
+				<!-- SIIIIGN UPPPPPPP -->
+				<div class="class=" col-sm-20 col-md-20 col-lg-70"">
+					<div class="contact-panel mb-50">
+
+						{{ form_start(formR,{'attr':{'novalidate':'novalidate'}}) }}
+						<div class="row">
+							<div class="col-sm-12">
+								<h4 class="contact-panel__title">S'inscrire en tant que utilisateur Professionel:</h4>
+							</div>
+
+							<!--THIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIISSSSSSSSSSSS-->
+							<div class="col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+
+									{{ form_label(formR.email, 'Email') }}
+									{{ form_widget(formR.email, {'attr': {'class': 'form-control'}}) }}
+
+									{{ form_errors(formR.email) }}
+								</div>
+							</div>
+							<!--THIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIISSSSSSSSSSSS-->
+
+
+							<!-- /.col-lg-6 -->
+							<div class="col-sm-6 col-md-6 col-lg-6">
+								<div class="form-group">
+									{{ form_label(formR.password.first, 'Mot de passe') }}
+									{{ form_widget(formR.password.first, {'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(formR.password.first) }}
+								</div>
+							</div>
+							<!-- /.col-lg-6 -->
+							<div class="col-sm-6 col-md-6 col-lg-6">
+								<div class="form-group">
+									{{ form_label(formR.password.second, 'Confirmer votre mot de passe') }}
+									{{ form_widget(formR.password.second, {'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(formR.password.second) }}
+								</div>
+							</div>
+
+							<!-- /.col-lg-6 -->
+							<div class="col-sm-6 col-md-6 col-lg-6">
+								<div class="form-group">
+									{{ form_label(formR.Nom, 'Nom') }}
+									{{ form_widget(formR.Nom, {'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(formR.Nom) }}
+								</div>
+							</div>
+							<!-- /.col-lg-6 -->
+							<div class="col-sm-4 col-md-4 col-lg-4">
+								<div class="form-group">
+									{{ form_label(formR.Prenom, 'Prenom') }}
+									{{ form_widget(formR.Prenom, {'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(formR.Prenom) }}
+								</div>
+							</div>
+							<!-- /.col-lg-4 -->
+							<div class="col-sm-4 col-md-4 col-lg-4">
+								<div class="form-group ">
+									{{ form_label(formR.sexe, 'Sexe') }}
+									{{ form_widget(formR.sexe, {'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(formR.sexe) }}
+
+								</div>
+							</div>
+							<!-- /.col-lg-4 -->
+							<div class="col-sm-4 col-md-4 col-lg-4">
+								<div class="form-group ">
+									{{ form_label(formR.adresse, 'Adresse') }}
+									{{ form_widget(formR.adresse, {'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(formR.adresse) }}
+								</div>
+							</div>
+							<!-- /.col-lg-4 -->
+							<div class="col-sm-4 col-md-4 col-lg-4">
+								<div class="form-group ">
+									{{ form_label(formR.num_tel, 'Num') }}
+									{{ form_widget(formR.num_tel, {'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(formR.num_tel) }}
+
+								</div>
+							</div>
+
+							<div class="col-sm-6 col-md-6 col-lg-6">
+								<div class="form-group ">
+									{{ form_row(formR.pic,  {'attr': {'class': 'form-control'}}) }}
+								</div>
+							</div>
+
+							<div class="col-sm-6 col-md-6 col-lg-6">
+								<div class="form-group ">
+									{{ form_label(formR.bio, 'Bio') }}
+									{{ form_widget(formR.bio, {'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(formR.bio) }}
+
+
+								</div>
+							</div>
+
+							<div class="col-sm-6 col-md-6 col-lg-6">
+								<div class="form-group form-group-date ">
+									<i class="icon-calendar form-group-icon"></i>
+									{{ form_label(formR.date_naissance, 'date_naissance') }}
+									{{ form_widget(formR.date_naissance) }}
+									{{ form_errors(formR.date_naissance) }}
+
+
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-6 col-lg-6">
+								<div class="form-group ">
+									{{ form_row(formR.certif,  {'attr': {'class': 'form-control'}}) }}
+
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-6 col-lg-6">
+								<div class="form-group ">
+									{{ form_label(formR.tarif, 'tarif') }}
+									{{ form_widget(formR.tarif, {'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(formR.tarif) }}
+
+								</div>
+							</div>
+							<div class="col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group ">
+									{{ form_label(formR.filiere, 'filiere') }}
+									{{ form_widget(formR.filiere, {'attr': {'class': 'form-control'}}) }}
+									{{ form_errors(formR.filiere) }}
+
+								</div>
+							</div>
+							<!-- /.col-lg-4 -->
+							<div class="col-12">
+								<button type="submit" class="btn btn__primary btn__rounded btn__block btn__xhight mt-10">
+									<span>Finaliser l'inscription!</span>
+									<i class="icon-arrow-right"></i>
+								</button>
+								<div class="contact-result"></div>
+							</div>
+							<!-- /.col-lg-12 -->
+						</div>
+						<!-- /.row -->
+						{{ form_end(formR) }}
+
+					</div>
+				</div>
+				<!-- /.col-lg-7 -->
+			</div>
+			<!-- /.row -->
+		</div>
+		<!-- /.container -->
+	</section>
+	<!-- /.contact layout 5 -->
+{% endblock %}
+{% block footer %}{% endblock %}

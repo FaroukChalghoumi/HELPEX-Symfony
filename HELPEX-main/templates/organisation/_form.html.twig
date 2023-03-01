@@ -1,0 +1,90 @@
+
+
+    <h2>Add organisation</h2>
+    {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+    <div class="large-group">
+
+        <div class="small-group">
+
+
+
+            {{ form_label(form.NomOrg,"nom organisation") }}
+            {{ form_widget(form.NomOrg,{'attr':{'class':'form-control'}}) }}
+            {{ form_errors(form.NomOrg) }}
+
+
+        </div>
+
+
+        <div class="small-group">
+
+
+            {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+            {{ form_label(form.emailOrganisation,"email") }}
+            {{ form_widget(form.emailOrganisation,{'attr':{'class':'form-control'}}) }}
+            {{ form_errors(form.emailOrganisation) }}
+
+
+        </div>
+
+
+        <div class="small-group">
+
+
+            {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+            {{ form_label(form.numTelOrganisation,"numero tel") }}
+            {{ form_widget(form.numTelOrganisation,{'attr':{'class':'form-control'}}) }}
+            {{ form_errors(form.numTelOrganisation) }}
+
+
+        </div>
+
+        <div class="small-group">
+
+
+            {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+            {{ form_label(form.descriptionOrganisation,"Description Organisation") }}
+            {{ form_widget(form.descriptionOrganisation,{'attr':{'class':'form-control'}}) }}
+            {{ form_errors(form.descriptionOrganisation) }}
+
+
+        </div>
+
+
+        <div class="small-group">
+
+
+            {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+            {{ form_label(form.documentOrganisation,"document") }}
+            {{ form_widget(form.documentOrganisation,{'attr':{'class':'form-control'}}) }}
+            {{ form_errors(form.documentOrganisation) }}
+
+
+        </div>
+
+        <div class="small-group">
+
+            {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+            {{ form_label(form.logoOrg,"Logo Organisation") }}
+            {{ form_widget(form.logoOrg,{'attr':{'class':'form-control'}}) }}
+            {{ form_errors(form.logoOrg) }}
+
+        </div>
+        <div class="small-group">
+
+            {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+            {{ form_label(form.paymentInfo,"payment info") }}
+            {{ form_widget(form.paymentInfo,{'attr':{'class':'form-control'}}) }}
+            {{ form_errors(form.paymentInfo) }}
+
+        </div>
+
+
+        <button class="btn">{{ button_label|default('Save') }}</button>
+
+
+        {{ form_end(form) }}
+
+
+    </div>
+

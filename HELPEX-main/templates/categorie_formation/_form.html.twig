@@ -1,0 +1,27 @@
+
+<div class="container">
+    <div class="form-group">
+
+
+        {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+        {{ form_label(form.nomCategorieFormation,"nom de la nouvelle categorie") }}
+        {{ form_widget(form.nomCategorieFormation,{'attr':{'class':'form-control'}}) }}
+        {{ form_errors(form.nomCategorieFormation) }}
+
+
+    </div>
+
+    <div class="form-group">
+
+
+        {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+        {{ form_label(form.descriptionCategorieFormation,"description") }}
+        {{ form_widget(form.descriptionCategorieFormation,{'attr':{'class':'form-control'}}) }}
+        {{ form_errors(form.descriptionCategorieFormation) }}
+
+
+    </div>
+
+    <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+</div>

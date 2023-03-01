@@ -1,0 +1,119 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+
+	<div class="wrapper">
+		<div class="preloader">
+			<div class="loading">
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+		</div>
+		<!-- /.preloader -->
+
+
+		<!-- ========================
+																																												       page title 
+																																												    =========================== -->
+		<section class="page-title page-title-layout1 bg-overlay">
+			<div class="bg-img"><img src="{{ asset('images/page-titles/7.jpg' ) }}" alt="background"></div>
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12 col-md-12 col-lg-12 col-xl-5">
+						<h1 class="pagetitle__heading">Providing Care for The Sickest In Community.
+						</h1>
+						<p class="pagetitle__desc">Medcity has been present in Europe since 1990, offering innovative solutions,
+																																																																																																																																																										              specializing in medical services for treatment of medical infrastructure.
+						</p>
+						<a href="appointment.html" class="btn btn__primary btn__rounded">
+							<span>Make Appointment</span>
+							<i class="icon-arrow-right"></i>
+						</a>
+					</div>
+					<!-- /.col-xl-5 -->
+				</div>
+				<!-- /.row -->
+			</div>
+			<!-- /.container -->
+		</section>
+		<!-- /.page-title -->
+
+		<!-- ========================
+																																												        Team layout 3
+																																												    ========================== -->
+		<section class="team-layout3 pb-40">
+			<div class="container">
+				<div
+					class="row">
+					<!-- Member #1 -->
+					{% for user in ProList %}
+						<div class="col-sm-6 col-md-4 col-lg-4">
+							<div class="member">
+								<div class="member__img">
+									<img src="{{ asset('uploads/users/' ~ user.pdp) }}" alt="Professinal Image">
+								</div>
+								<!-- /.member-img -->
+								<div class="member__info">
+									<h5 class="member__name">
+										<a href="">{{ user.Nom }}
+											{{ user.Prenom }}
+										</a>
+									</h5>
+									<p class="member__job">{{ user.filiere }}</p>
+									<p class="member__desc">{{ user.bio }}</p>
+									<div class="mt-20 d-flex flex-wrap justify-content-between align-items-center">
+										<a href="{{ path('showProUser', {'id': user.id})}}" class="btn btn__secondary btn__link btn__rounded">
+											<span>Read More</span>
+											<i class="icon-arrow-right"></i>
+										</a>
+									</div>
+								</div>
+								<!-- /.member-info -->
+							</div>
+							<!-- /.member -->
+						</div>
+					{% endfor %}
+
+
+				</div>
+				<!-- /.row -->
+				<div class="row">
+					<div class="col-12 text-center">
+						<nav class="pagination-area">
+							<ul class="pagination justify-content-center">
+								<li>
+									<a class="current" href="#">1</a>
+								</li>
+								<li>
+									<a href="#">2</a>
+								</li>
+								<li>
+									<a href="#">
+										<i class="icon-arrow-right"></i>
+									</a>
+								</li>
+							</ul>
+						</nav>
+						<!-- .pagination-area -->
+					</div>
+					<!-- /.col-12 -->
+				</div>
+				<!-- /.row -->
+			</div>
+			<!-- /.container -->
+		</section>
+		<!-- /.Team layout 3  -->
+
+		<!-- ========================
+																																												      Footer
+																																												    ========================== -->
+
+	</div>
+	<!-- /.wrapper -->
+
+
+{% endblock %}

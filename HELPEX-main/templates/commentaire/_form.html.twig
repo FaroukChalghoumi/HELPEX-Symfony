@@ -1,0 +1,9 @@
+{{ form_start(form) }}
+
+<div class="form-group">
+    {{ form_label(form.description,"Laisser un commentaires") }}
+    {{ form_widget(form.description,{'attr':{'class':'form-control'}}) }}
+    {{ form_errors(form.description) }}
+</div>
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

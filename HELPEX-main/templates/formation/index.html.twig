@@ -1,0 +1,68 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}formation index{% endblock %}
+{% block component %} <link rel="stylesheet" href="{{ asset("Card/style.css") }}" />  {% endblock %}
+
+{% block body %}
+
+    <div class="org-table-container" style="">
+        <div class="org-table-head-container">
+            <div class="">
+                <h2>les formations</h2>
+            </div>
+            <div class="add-org-btn-container">
+                <a href="{{ path('app_formation_new') }}" class="add-org-btn" data-toggle="modal"><i class="fa-solid fa-plus"></i><span>cree une formation</span></a>
+
+            </div>
+        </div>
+        <table class="org-table">
+            <thead class="org-table-head">
+            <tr>
+                <th class="org-table-th">Id</th>
+                <th class="org-table-th">NomFormation</th>
+{#                <th class="org-table-th">DescriptionFormation</th>#}
+                <th class="org-table-th">CoutFormation</th>
+{#                <th class="org-table-th">NombreDePlace</th>#}
+{#                <th class="org-table-th">Duree</th>#}
+{#                <th class="org-table-th">CategorieFormation</th>#}
+{#                <th class="org-table-th">centre</th>#}
+                <th class="org-table-th">actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for formation in formations %}
+                <tr>
+                    <td class="org-table-th">{{ formation.id }}</td>
+                    <td class="org-table-th">{{ formation.nomFormation }}</td>
+{#                    <td class="org-table-th">{{ formation.descriptionFormation }}</td>#}
+                    <td class="org-table-th">{{ formation.coutFormation }}</td>
+{#                    <td class="org-table-th">{{ formation.NombreDePlace }}</td>#}
+{#                    <td class="org-table-th">{{ formation.duree }}</td>#}
+{#                    <td class="org-table-th">{{ formation.idCategorieFormation }}</td>#}
+{#                    <td class="org-table-th">{{ formation.idCentre }}</td>#}
+
+                    <td  class="org-table-td">
+                        <div class="org-icon-container">
+                            <a class="org-action-item" href="{{ path('app_formation_show', {'id': formation.id}) }}"><i class="fa-solid fa-circle-info" style="color: #0035ba"></i></a>
+                            <a class="org-action-item" href="{{ path('app_formation_edit', {'id': formation.id}) }}"><i class="fa-solid fa-pencil"style="color: #FFC107"></i></a>
+                            <form class="org-action-item" method="post" action="{{ path('app_formation_delete', {'id': formation.id}) }}" onsubmit="return confirm('Are you sure you want to delete this formation?');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ formation.id) }}">
+                                <button>
+                                    <a href="{{ path('app_formation_delete', {'id': formation.id}) }}"><i class="fa-solid fa-trash-can" style="color: red"></i></a>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+
+{% endblock %}
