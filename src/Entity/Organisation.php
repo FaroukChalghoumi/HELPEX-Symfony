@@ -6,6 +6,7 @@ use App\Repository\OrganisationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: OrganisationRepository::class)]
 class Organisation
@@ -17,6 +18,7 @@ class Organisation
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
+    #[Groups('post:read')]
     private ?string $descriptionOrganisation = null;
 
     #[ORM\Column(length: 255)]
@@ -26,6 +28,7 @@ class Organisation
         match: true
     )]
     #[Assert\NotBlank]
+    #[Groups('post:read')]
     private ?string $emailOrganisation = null;
 
     #[ORM\Column(length: 255)]
@@ -35,6 +38,7 @@ class Organisation
         match: true
     )]
     #[Assert\NotBlank]
+    #[Groups('post:read')]
     private ?string $numTelOrganisation = null;
 
     #[ORM\Column(length: 255)]
@@ -43,6 +47,7 @@ class Organisation
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
+    #[Groups('post:read')]
     private ?string $paymentInfo = null;
 
     #[ORM\OneToMany(mappedBy: 'organisation', targetEntity: CaisseOrganisation::class, orphanRemoval: true)]
@@ -57,6 +62,7 @@ class Organisation
     #[Assert\NotBlank(
         message: 'champ obligatoire'
     )]
+    #[Groups('post:read')]
     private ?string $NomOrg = null;
 
     #[ORM\Column(length: 255)]
@@ -66,6 +72,14 @@ class Organisation
     public function __construct()
     {
         $this->Caisses = new ArrayCollection();
+    }
+
+    /**
+     * @param int|null $id
+     */
+    public function setId(?int $id): void
+    {
+        $this->id = $id;
     }
 
     public function getId(): ?int
