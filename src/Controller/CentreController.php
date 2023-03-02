@@ -10,10 +10,42 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 #[Route('/centre')]
 class CentreController extends AbstractController
 {
+    //***mobilejson**
+    #[Route('/allcentres', name: 'mobileaffichercentre', methods: ['GET'])]
+    public function indexjson(NormalizerInterface $Normalizer): Response
+    {
+        $respository=$this->getDoctrine()->getRepository(Centre::class);
+        $centres=$respository->findAll();
+        $jsonContent=$Normalizer->normalize($centres,'json',['groups'=>'post:read']);
+        return  new Response(json_encode($jsonContent));
+
+
+    }
+    #[Route('/ajouterjson',name:'mobileajoutercentre',methods: ['GET','POST'])]
+    public function addcentrejson(Request $request,NormalizerInterface $Normalizer)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $centre=new Centre();
+        $centre->setNomCentre($request->get('nomCentre'));
+        $centre->setAdresseCentre($request->get('adresseCentre'));
+        $centre->setEmailCentre($request->get('emailCentre'));
+        $centre->setTelephoneCentre($request->get('telephoneCentre'));
+        $centre->setSiteWebCentre($request->get('siteWebCentre'));
+        $em->persist($centre);
+        $em->flush();
+        $jsonContent=$Normalizer->normalize($centre,'json',['groups'=>'post:read']);
+        return new Response(json_encode($jsonContent));
+
+
+    }
+
+    //*************************************************
+
     #[Route('/', name: 'app_centre_index', methods: ['GET'] ), IsGranted('ROLE_ADMIN')]
     public function index(CentreRepository $centreRepository): Response
     {
@@ -26,6 +58,8 @@ class CentreController extends AbstractController
             'centres' => $centreRepository->findAll(),
         ]);
     }
+
+
     #[Route('/front', name: 'app_centre_index_front', methods: ['GET'])]
     public function indexfront(CentreRepository $centreRepository): Response
     {

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Formation;
 use App\Entity\InscriptionFormation;
 use App\Form\InscriptionFormationType;
 use App\Repository\InscriptionFormationRepository;
@@ -13,22 +14,44 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/inscription/formation')]
 class InscriptionFormationController extends AbstractController
 {
-    #[Route('/', name: 'app_inscription_formation_index', methods: ['GET'])]
+    #[Route('/front', name: 'app_inscription_formation_index', methods: ['GET'])]
+    public function indexfront(InscriptionFormationRepository $inscriptionFormationRepository): Response
+    {
+        $user = $this->getUser();
+
+        return $this->render('inscription_formation/index_front.html.twig', [
+            'inscription_formations' => $inscriptionFormationRepository->findAll(),
+            'user'=>$user,
+        ]);
+    }
+    #[Route('/', name: 'app_inscription_formation_index_front', methods: ['GET'])]
     public function index(InscriptionFormationRepository $inscriptionFormationRepository): Response
     {
+
         return $this->render('inscription_formation/index.html.twig', [
             'inscription_formations' => $inscriptionFormationRepository->findAll(),
         ]);
     }
 
-    #[Route('/new', name: 'app_inscription_formation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, InscriptionFormationRepository $inscriptionFormationRepository): Response
+    #[Route('/new/{id}', name: 'app_inscription_formation_new', methods: ['GET', 'POST'])]
+    public function new(Formation $id,Request $request, InscriptionFormationRepository $inscriptionFormationRepository): Response
     {
+        $user = $this->getUser();
+
+
         $inscriptionFormation = new InscriptionFormation();
         $form = $this->createForm(InscriptionFormationType::class, $inscriptionFormation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //$id->getIdCentre()->getEmailCentre();
+            $inscriptionFormation->setFormations($id);
+            $inscriptionFormation->setUser($user);
+            $inscriptionFormation->setStatusFormation("a faire");
+            $inscriptionFormation->setNote(0);
+
+
+
             $inscriptionFormationRepository->save($inscriptionFormation, true);
 
             return $this->redirectToRoute('app_inscription_formation_index', [], Response::HTTP_SEE_OTHER);

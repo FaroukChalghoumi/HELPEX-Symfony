@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: InscriptionFormationRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class InscriptionFormation
 {
     #[ORM\Id]
@@ -101,5 +102,9 @@ class InscriptionFormation
         return $this;
     }
 
-
+    #[ORM\PrePersist]
+    public function onPrePersist(): void
+    {
+        $this->dateInscriptionFormation = new \DateTime();
+    }
 }

@@ -12,10 +12,11 @@ class InscriptionFormationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('dateInscriptionFormation')
-            ->add('statusFormation')
-            ->add('note')
-            ->add('formations')
+            //->add('dateInscriptionFormation')
+            //->add('statusFormation')
+            //->add('note')
+            //->add('formations')
+           // ->add('user')
         ;
     }
 
