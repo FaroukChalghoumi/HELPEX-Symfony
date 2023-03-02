@@ -1,6 +1,6 @@
 .containerDonations{
     width: 100vw;
-    height: 100vh;
+    height: max-content;
     display: grid;
     grid-template-rows: 20% 75%;
     row-gap: 5%;
