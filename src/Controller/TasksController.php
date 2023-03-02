@@ -2,10 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Accompagnement;
 use App\Entity\Tasks;
 use App\Form\TasksType;
 use App\Repository\AccompagnementRepository;
 use App\Repository\TasksRepository;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Exception\ORMException;
+use Doctrine\ORM\OptimisticLockException;
+use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +25,8 @@ class TasksController extends AbstractController
 
     #[Route('/', name: 'app_item_index', methods: ['GET']), IsGranted('ROLE_ADMIN')]
     public function index(TasksRepository $tasksRepository): Response
-    {$user = $this->getUser();
+    {
+        $user = $this->getUser();
 
         if (!$user) {
             return $this->redirectToRoute('app_login');
@@ -29,10 +37,8 @@ class TasksController extends AbstractController
     }
 
 
-
-
-    #[Route('/user_admin', name: 'app_tasks_index_ad', methods: ['GET','POST'])]
-    public function index_admin(TasksRepository $tasksRepository,Request $request): Response
+    #[Route('/user_admin', name: 'app_tasks_index_ad', methods: ['GET', 'POST'])]
+    public function index_admin(TasksRepository $tasksRepository, Request $request): Response
     {
         $user = $this->getUser();
 
@@ -40,7 +46,7 @@ class TasksController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        $color= sprintf('#%06X', mt_rand(0, 0xFFFFFF));
+        $color = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
         $task = new Tasks();
         $form = $this->createForm(TasksType::class, $task);
         $form->handleRequest($request);
@@ -52,80 +58,159 @@ class TasksController extends AbstractController
         }
 
         return $this->render('tasks/index.html.twig', [
-            'tasks' => $tasksRepository->findAll(),'randomcolor'=>$color, 'task' => $task,
+            'tasks' => $tasksRepository->findAll(), 'randomcolor' => $color, 'task' => $task,
             'form' => $form->createView(),
         ]);
     }
-    #[Route('/user_norm/{id}/{id_userP}', name: 'app_tasks_index_nor', methods: ['GET','POST'])]
-    public function indexnor(TasksRepository $tasksRepository,Request $request,AccompagnementRepository $accompagnementRepository,$id,$id_userP): Response
+
+
+
+
+    //////////////////Tasks of every user Pro / user normal //////////////////////////////
+    #[Route('/user_norm/{id_userP}', name: 'app_tasks_index_nor', methods: ['GET', 'POST'])]
+    public function TaskUserPro(UserRepository $userRepository,TasksRepository $tasksRepository, Request $request, AccompagnementRepository $accompagnementRepository,  $id_userP): Response
     {
         $user = $this->getUser();
 
         if (!$user) {
             return $this->redirectToRoute('app_login');
         }
-        //retrieve from the session the user id
-      /*  $session=$request->getSession();
-        if(!$session->has("id_user"))
-        {   $session->set("id_user")}*/
-        $tasks=[];
-        $accompagnement_list = $accompagnementRepository->findBy(["user"=> ["user_id" => $id],"user_pro"=> ["user_pro_id" =>$id_userP]]);
-        foreach ($accompagnement_list as $accompagnement) {
-            array_push($tasks, $accompagnement->getTask());
 
-        }
-        $color= sprintf('#%06X', mt_rand(0, 0xFFFFFF));
-        $task = new Tasks();
-        $form = $this->createForm(TasksType::class, $task);
-        $form->handleRequest($request);
+        $roles=array_map('trim',$user->getRoles()); //trimmed array values
+        if($roles[0]=="ROLE_USER") {
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $tasksRepository->save($task, true);
+            $user_id=[];
+            $users= $userRepository->findByEmail($user->getUserIdentifier());
+            foreach ($users as $id){
+                $user_id=$id->getId();
+            }
+            $tasks = [];
 
-            return $this->redirectToRoute('app_tasks_index_nor', [], Response::HTTP_SEE_OTHER);
-        }
+            $accompagnement_list = $accompagnementRepository->findBy(["user" => ["user_id" => $user_id], "user_pro" => ["user_pro_id" => $id_userP]]);
+            foreach ($accompagnement_list as $accompagnement) {
+                array_push($tasks, $accompagnement->getTask());
 
-        return $this->render('tasks/index.html.twig', [
-            'tasks' => $tasks,'randomcolor'=>$color, 'task' => $task,
-            'form' => $form->createView(),
-        ]);
-    }
+            }
+            $color = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
+            $task = new Tasks();
+            $form = $this->createForm(TasksType::class, $task);
+            $form->handleRequest($request);
 
+            if ($form->isSubmitted() && $form->isValid()) {
+                $tasksRepository->save($task, true);
 
-
-    #[Route('/user_normal/{id}', name: 'app_tasks_my_pro_user', methods: ['GET'])]
-    public function Mypro_users(TasksRepository $tasksRepository,Request $request,AccompagnementRepository $accompagnementRepository,$id): Response
-    {$user = $this->getUser();
-
-        if (!$user) {
-            return $this->redirectToRoute('app_login');
-        }
-        $accompagnement_list = $accompagnementRepository->findBy(["user"=> ["user_id" => $id]]);
-        $users=[];
-        foreach ($accompagnement_list as $user) {
-
-            if(!in_array($user->getUserPro(),$users)){
-                array_push($users, $user->getUserPro());
+                return $this->redirectToRoute('app_tasks_index_nor', [], Response::HTTP_SEE_OTHER);
             }
 
+            return $this->render('tasks/index.html.twig', [
+                'tasks' => $tasks, 'randomcolor' => $color, 'task' => $task,
+                'form' => $form->createView(),"role"=>"user"
+            ]);
+        }
+        if($roles[0]=="ROLE_PRO"){
+
+            $tasks = [];
+
+            $accompagnement_list =$accompagnementRepository->findByAccompagnementEmailUserPro($user->getUserIdentifier());
+
+            foreach ($accompagnement_list as $accompagnement) {
+                array_push($tasks, $accompagnement->getTask());
+
+            }
+            $color = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
+            $task = new Tasks();
+            $form = $this->createForm(TasksType::class, $task);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $tasksRepository->save($task, true);
+
+                return $this->redirectToRoute('app_tasks_index_nor', [], Response::HTTP_SEE_OTHER);
+            }
+
+            return $this->render('tasks/index.html.twig', [
+                'tasks' => $tasks, 'randomcolor' => $color, 'task' => $task,
+                'form' => $form->createView(),   "role"=>"pro"
+            ]);
+
+
+
 
         }
-
-        //dd($users);
-        return $this->render('profil_user/index.html.twig', [
-            'users' =>$users ]);
-
+       return dd("admin");
 
     }
 
 
+//////////////////////////////////////les user pro de user normal /////////////////////////////
+    #[Route('/myProUsers/', name: 'app_tasks_my_pro_user', methods: ['GET'])]
+    public function My_pro_users(TasksRepository $tasksRepository, Request $request, AccompagnementRepository $accompagnementRepository): Response
+    {
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+        $roles=array_map('trim',$user->getRoles()); //trimmed array values
 
 
 
 
 
-    #[Route('/user_pro', name: 'app_tasks_index_pro', methods: ['GET','POST'])]
-    public function indexPro(TasksRepository $tasksRepository,Request $request): Response
+
+
+        if($roles[0]=="ROLE_USER"){
+            $accompagnement_list2 = $accompagnementRepository->findByAccompagnementEmail($user->getUserIdentifier());
+            $accompagnement_list=[];
+            foreach ($accompagnement_list2 as $accompagnement){
+                if($accompagnement->isIsAccepted()!=0){
+                    array_push($accompagnement_list, $accompagnement);
+                }
+            }
+            $users = [];
+            foreach ($accompagnement_list as $user) {
+
+                if (!in_array($user->getUserPro(), $users)) {
+                    array_push($users, $user->getUserPro());
+                }
+
+
+            }
+            return $this->render('profil_user/index.html.twig', [
+                'users' => $users ,"liste"=>"des utilisateurs professionels"]);
+
+        }
+        //////////////////////////// pour les users//////////////////////Again
+        if($roles[0]=="ROLE_PRO"){
+            {
+                $accompagnement_list2 = $accompagnementRepository->findByAccompagnementEmailUserPro($user->getUserIdentifier());
+                $users = [];
+                $accompagnement_list=[];
+                foreach ($accompagnement_list2 as $accompagnement){
+                    if($accompagnement->isIsAccepted()!=0){
+                        array_push($accompagnement_list, $accompagnement);
+                    }
+                }
+                foreach ($accompagnement_list as $user) {
+
+                    if (!in_array($user->getUser(), $users)) {
+                        array_push($users, $user->getUser());
+                    }
+
+
+                }
+                return $this->render('profil_user/index.html.twig', [
+                    'users' => $users ,"liste"=>"des utilisateurs dont le quel vous étes associés"]);
+
+
+            }
+        }
+dd("admin");
+        }
+
+
+    #[Route('/user_pro', name: 'app_tasks_index_pro', methods: ['GET', 'POST'])]
+    public function indexPro(TasksRepository $tasksRepository, Request $request): Response
     {
 
         $user = $this->getUser();
@@ -133,7 +218,7 @@ class TasksController extends AbstractController
         if (!$user) {
             return $this->redirectToRoute('app_login');
         }
-        $color= sprintf('#%06X', mt_rand(0, 0xFFFFFF));
+        $color = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
         $task = new Tasks();
         $form = $this->createForm(TasksType::class, $task);
         $form->handleRequest($request);
@@ -145,30 +230,52 @@ class TasksController extends AbstractController
         }
 
         return $this->render('tasks/index.html.twig', [
-            'tasks' => $tasksRepository->findAll(),'randomcolor'=>$color, 'task' => $task,
+            'tasks' => $tasksRepository->findAll(), 'randomcolor' => $color, 'task' => $task,
             'form' => $form->createView(),
         ]);
     }
 
 
-
-
-
-
+    /**
+     * @throws OptimisticLockException
+     * @throws ORMException
+     */
     #[Route('/new', name: 'app_tasks_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, TasksRepository $tasksRepository): Response
-    {$user = $this->getUser();
+    public function new(EntityManagerInterface  $entityManager,Request $request, TasksRepository $tasksRepository,AccompagnementRepository $accompagnementRepository,UserRepository $userRepository): Response
+    {       //$this->$entityManager = $entityManager;
+
+        $user = $this->getUser();
 
         if (!$user) {
             return $this->redirectToRoute('app_login');
         }
+        $roles=array_map('trim',$user->getRoles()); //trimmed array values
+        if($roles[0]=="ROLE_USER"){
         $task = new Tasks();
         $form = $this->createForm(TasksType::class, $task);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $tasksRepository->save($task, true);
-            ///linna yilzim té5ith mi session il id béch t7oto fil tasks
+            $accompagnement = new Accompagnement();
+            $current_user=$userRepository->findByEmail($user->getUserIdentifier());
+            $accompagnement->setUser($current_user[0]);
+            $accompagnement->setIsAccepted(false);
+            //$accompagnementRepository->save($accompagnement,true);
+            $accompagnement->setTask($task);
+
+
+            $entityManager->beginTransaction(); // start a transaction
+
+                $entityManager->persist($task);
+            $entityManager->flush();
+                $entityManager->persist($accompagnement);
+            $entityManager->flush(); // save both entities
+
+                $entityManager->commit();
+
+
+
 
             return $this->redirectToRoute('app_accompagnement_new', [], Response::HTTP_SEE_OTHER);
         }
@@ -176,12 +283,17 @@ class TasksController extends AbstractController
         return $this->renderForm('tasks/new.html.twig', [
             'task' => $task,
             'form' => $form,
-        ]);
+        ]);}
+        else{
+            return $this->redirectToRoute('app_login');
+        }
     }
+
 
     #[Route('/{id}', name: 'app_tasks_show', methods: ['GET'])]
     public function show(Tasks $task): Response
-    {$user = $this->getUser();
+    {
+        $user = $this->getUser();
 
         if (!$user) {
             return $this->redirectToRoute('app_login');
@@ -193,7 +305,8 @@ class TasksController extends AbstractController
 
     #[Route('/{id}/edit', name: 'app_tasks_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Tasks $task, TasksRepository $tasksRepository): Response
-    {$user = $this->getUser();
+    {
+        $user = $this->getUser();
 
         if (!$user) {
             return $this->redirectToRoute('app_login');
@@ -205,12 +318,9 @@ class TasksController extends AbstractController
             $tasksRepository->save($task, true);
             //raja3ha kima kénit next time
             /*return $this->redirectToRoute('app_tasks_index', [], Response::HTTP_SEE_OTHER);*/
-            return $this->redirect('http://127.0.0.1:8000/tasks/user_norm/5/5');
+           // return $this->redirect('http://127.0.0.1:8000/tasks/user_norm/5/5');
 
         }
-
-
-
 
 
         return $this->render('tasks/edit.html.twig', [
@@ -221,13 +331,23 @@ class TasksController extends AbstractController
 
     #[Route('/{id}', name: 'app_tasks_delete', methods: ['POST'])]
     public function delete(Request $request, Tasks $task, TasksRepository $tasksRepository): Response
-    {$user = $this->getUser();
+    {
+        $user = $this->getUser();
 
         if (!$user) {
             return $this->redirectToRoute('app_login');
         }
-        if ($this->isCsrfTokenValid('delete'.$task->getId(), $request->request->get('_token'))) {
-            $tasksRepository->remove($task, true);
+
+        if ($this->isCsrfTokenValid('delete' . $task->getId(), $request->request->get('_token'))) {
+            try {
+                $tasksRepository->remove($task, true);
+
+            } catch (Exception $exception) {
+                $this->addFlash('warning', 'attention! task non vide !');
+                //return $this->redirectToRoute('app_tasks_index');
+               // return $this->redirect('http://127.0.0.1:8000/tasks/user_norm/5/6');
+
+            }
         }
 
         return $this->redirectToRoute('app_tasks_index', [], Response::HTTP_SEE_OTHER);
@@ -238,7 +358,8 @@ class TasksController extends AbstractController
 
     #[Route('admin/{id}/edit', name: 'app_tasks_edit_admin', methods: ['GET', 'POST']), IsGranted('ROLE_ADMIN')]
     public function editAdmin(Request $request, Tasks $task, TasksRepository $tasksRepository): Response
-    {$user = $this->getUser();
+    {
+        $user = $this->getUser();
 
         if (!$user) {
             return $this->redirectToRoute('app_login');
@@ -258,4 +379,6 @@ class TasksController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+
 }

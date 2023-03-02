@@ -24,7 +24,6 @@
         {% for task in tasks %}
 
                 <tr>
-
             <th scope="row "> {{ task.id }}</th>
             <td class="font-italic "> {{ task.titre}}</td>
             <td> {{ task.startDate ? task.startDate|date('Y-m-d') : '' }}</td>
@@ -47,6 +46,7 @@
 
 
 </tr>
+
         {% endfor %}
 
 

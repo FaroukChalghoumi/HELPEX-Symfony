@@ -22,12 +22,13 @@
 
 {% block body %}
 
+    <h2 class="text-primary text-center">Listes {{ liste}} </h2>
     <section class="team-layout1 pb-40">
         <div class="container">
             <div class="row">
                 {% for user in users %}
 
-
+            {%  if user is not null %}
                 <!-- Member #1 -->
                 <div class="col-sm-6 col-md-4 col-lg-4">
                     <div class="member">
@@ -42,16 +43,24 @@
                             </div><!-- /.member-hover -->
                         </div><!-- /.member-img -->
                         <div class="member__info">
-                            <h5 class="member__name">  <a href="{{ path('app_tasks_index_nor', {'id':5,'id_userP':user.id}) }}">{{ user.Nom }}   {{ user.Prenom }}</a></h5>
+                            <h5 class="member__name">
+                                <a href="{{ path('app_tasks_index_nor', {'id_userP':user.id}) }}">{{ user.Nom }}   {{ user.Prenom }}</a></h5>
+                            {% if user.filiere  is not null %}
                             <p class="member__job">Specialist: {{ user.filiere }}</p>
+                            {%  endif %}
+                            {% if user.tarif is not null %}
                             <p class="member__job" style="color: #0a58ca">Tarif: {{ user.tarif }}</p>
-
+{%  endif %}
+                            {% if user.bio is not null %}
                             <p class="member__desc">bio: {{ user.bio  }}</p>
+                            {%  endif %}
+
                             <p class="member__desc">téléphone: {{ user.numtel }}</p>
 
                         </div><!-- /.member-info -->
                     </div><!-- /.member -->
                 </div><!-- /.col-lg-4 -->
+                    {%  endif %}
                 {% endfor %}
             </div> <!-- /.row -->
             <div class="row">

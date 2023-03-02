@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Controller;
+use App\Entity\Accompagnement;
 use App\Entity\User;
 use App\Form\EditYourProfileType;
+use App\Repository\AccompagnementRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
@@ -75,19 +78,67 @@ public function ProUsers(UserRepository $userRepo): Response
 
 
     #[Route('professionals/{id}', name: 'showProUser', methods: ['GET'])]
-    public function show(User $User): Response
-    {
+    public function show(User $User,AccompagnementRepository $accompagnementRepository,Security $security): Response
+    {$role="unkown";
         $entityManager = $this->getDoctrine()->getManager();
         $User = $entityManager->getRepository(User::class)->find($User);
-        
-
+       $tasks= $this->get_tasks($accompagnementRepository,$security) ;
+            $is_auth= $this->getUser();
+        $roles=array_map('trim',  $is_auth->getRoles());
+        if($roles[0]=="ROLE_USER"){  $role="user";}
+        if($roles[0]=="ROLE_PROR"){  $role="pro";}
         return $this->render('user/front/ProfileProuser.html.twig', [
-            'user' => $User,
+            'user' => $User,'tasks'=>$tasks ,"auth"=>$is_auth,'role'=>$role
             
         ]);
     }
 
-    #[Route('/YourProfile', name: 'YourProfile')]
+    public function get_tasks(AccompagnementRepository $accompagnementRepository,Security $security)
+    {
+        $user = $this->getUser();
+        if($user){
+        $user_id = $user->getUserIdentifier();
+
+        $tasks = [];
+
+        $accompagnement_list = $accompagnementRepository->findByAccompagnementEmail($user_id);
+
+        foreach ($accompagnement_list as $accompagnement) {
+            if ($accompagnement->getUserPro() == null) {
+                array_push($tasks, $accompagnement->getTask());
+            }
+        }
+        return $tasks ;}
+    }
+//////////////////////////////////////////ajouter un accomapgnement via button////////////////////////////////////
+    #[Route('add_accom', name: 'Accomp', methods: ['POST'])]
+    public function addAc(Request $request,AccompagnementRepository $accompagnementRepository,UserRepository $userRepository)
+    {
+        if ($request->getMethod() == 'POST') {
+            $isChecked = $request->request->get('my_checkbox');
+            $hidd_user=$request->request->get('hidd_user');
+
+            if ($isChecked) {
+                $accompagnement = $accompagnementRepository->findOneByEmailTask($this->getUser()->getUserIdentifier(),$isChecked) ;
+                $user_pro=$userRepository->find($hidd_user);
+
+               // $accompagnementRepository->save($accompagnement, true);
+              //  dd($accompagnement);
+
+                $roles=array_map('trim',$this->getUser()->getRoles()); //trimmed array values
+                if($roles[0]=="ROLE_USER"){
+                        $accompagnement->setUserPro($user_pro);
+                        $accompagnementRepository->save($accompagnement,true);}
+                return $this->redirectToRoute('showProUser', ["id"=>$hidd_user], Response::HTTP_SEE_OTHER);
+
+
+            } else {
+               dd("error");
+
+            }
+    }}
+
+        #[Route('/YourProfile', name: 'YourProfile')]
 
     public function YourProfile(): Response
     {

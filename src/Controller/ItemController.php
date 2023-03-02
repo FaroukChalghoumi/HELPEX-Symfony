@@ -7,24 +7,53 @@ use App\Entity\Tasks;
 use App\Form\ItemType;
 use App\Repository\ItemRepository;
 use App\Repository\TasksRepository;
+use Dompdf\Dompdf;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Dompdf\Options;
 
 #[Route('/item')]
 class ItemController extends AbstractController
 {
     #[Route('/', name: 'app_item_index', methods: ['GET'])]
-    public function index(ItemRepository $itemRepository): Response
+    public function index(ItemRepository $itemRepository,DomPdf $domPdf): Response
     {
+        $domPdf = new DomPdf();
+
+        $pdfOptions = new Options();
+
+        $pdfOptions->set('defaultFont', 'Garamond');
+
+        $domPdf->setOptions($pdfOptions);
+
         return $this->render('item/index.html.twig', [
             'items' => $itemRepository->findAll(),
         ]);
+
+
+
+
     }
+
+    #[Route('/json', name: 'jsonAllItem', methods: ['GET'])]
+    public function indexj(ItemRepository $itemRepository,NormalizerInterface $normalizable): Response
+    {
+        $items=$itemRepository->findAll();
+
+        //$serilizer=new serializer([new ObjectNormalizer()]);
+        //$var=$serilizer->normalize($items);
+        $jsonContent=$normalizable->normalize($items,'json',['groups'=>'item']);
+        return  new Response(json_encode($jsonContent));
+    }
+
 
 
     #[Route('/task/{id}', name: 'app_task_items', methods: ['GET'])]

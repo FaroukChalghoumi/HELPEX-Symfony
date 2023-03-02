@@ -31,7 +31,7 @@ class Accompagnement
 
 
     #[ORM\ManyToOne(inversedBy: 'accompagnements_pro')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $user_pro = null;
 
 
