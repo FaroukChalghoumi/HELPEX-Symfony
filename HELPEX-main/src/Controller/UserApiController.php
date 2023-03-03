@@ -123,6 +123,65 @@ return new Response("exception".$ex->getMessage());
 } 
 
 
+#[Route('/user/EditProfile', name: 'edit_profile')]
+public function EditProfile(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+{
+
+    $id=$request->get("id");
+    $email=$request->query->get("email");
+    $password=$request->query->get("password");
+    $Nom=$request->query->get("Nom");
+    $Prenom=$request->query->get("Prenom");
+    $adresse=$request->query->get("adresse");
+    $num_tel=$request->query->get("num_tel");
+    //$pdp=$request->query->get("pdp");
+    $bio=$request->query->get("bio");
+    //$date_naissance=$request->query->get("date_naissance");
+    $diplome=$request->query->get("diplome");
+    $tarif=$request->query->get("tarif");
+
+    $em=$this->getDoctrine()->getManager();
+    $user=$em->getRepository(User::class)->find($id);
+    //img
+    if($request->files->get("pdp")!=null){
+        $file=$request->files->get("pdp");
+        $fileName=$file->getClientOriginalName();
+        $file->move(
+            $fileName
+        );
+        $user->setpdp($fileName);
+    }
+    
+
+    $user->setEmail($email);
+    $user->setPassword(
+    $passwordEncoder->encodePassword($user,$password) 
+    );
+    $user->setNom($Nom);
+    $user->setPrenom($Prenom);
+    $user->setAdresse($adresse);
+    $user->setNumTel($num_tel);
+    $user->setBio(strval($bio));
+    //$user->setDateNaissance(new DateTimeInterface($date_naissance));
+    $user->setDiplome($diplome);
+    $user->setTarif(floatval($tarif));
+
+
+    try{
+        $em=$this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+         
+        return new JsonResponse("profile updated!", 200);
+        } catch (\Exception $ex){
+        return new Response("exception".$ex->getMessage());
+        }
+}
+
+
+
+
+
 #[Route('/user/signin', name: 'signin')]
 public function signin(Request $request)
 {
