@@ -50,6 +50,50 @@ class UserController extends AbstractController
     }
 
 
+    #[Route('admin/users/pros', name: 'backProUsers'), IsGranted('ROLE_ADMIN')]
+    public function backProUsers(UserRepository $userRepo): Response
+    {
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+        
+        $role1= 'ROLE_PRO' ;
+       
+
+        return $this->render('user/back/prousers.html.twig', [
+            'user' => $this->getUser(),
+            //'usersList' => $userRepo->findAll(),
+            'ProList' => $userRepo->findPros([$role1]),
+           // 'ClientList' => $userRepo->findPros([$role2])
+
+        ]);
+    }
+
+
+    #[Route('admin/users/clients', name: 'CliUsers'), IsGranted('ROLE_ADMIN')]
+    public function CliUsers(UserRepository $userRepo): Response
+    {
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+        
+        $role2= 'ROLE_USER' ;
+       
+
+        return $this->render('user/back/clients.html.twig', [
+            'user' => $this->getUser(),
+            //'usersList' => $userRepo->findAll(),
+            //'ProList' => $userRepo->findPros([$role1]),
+            'ClientList' => $userRepo->findPros([$role2])
+
+        ]);
+    }
+
+
     ///////////////////////FRONTBABY/////////////
 
     #[Route('/professionals', name: 'ProUsers')]
