@@ -4,6 +4,8 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\EditYourProfileType;
 use App\Repository\UserRepository;
+use App\Entity\Filiere;
+use App\Repository\FiliereRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,6 +16,8 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 use Symfony\UX\Chartjs\Model\Chart;
+use Doctrine\ORM\EntityManagerInterface;
+
 
 
 class UserController extends AbstractController
@@ -30,7 +34,7 @@ class UserController extends AbstractController
     //////////////////////backbackbackBABY////////////
 
     #[Route('admin/users', name: 'AllUsers'), IsGranted('ROLE_ADMIN')]
-    public function AllUsers(UserRepository $userRepo, ChartBuilderInterface $chartBuilder): Response
+    public function AllUsers(UserRepository $userRepo,FiliereRepository $filRepo, ChartBuilderInterface $chartBuilder): Response
     {
         $user = $this->getUser();
 
@@ -78,7 +82,8 @@ class UserController extends AbstractController
             'datasets' => [
                 [
                     'label' => 'User Role',
-                    'backgroundColor' => ['#36A2EB', '#FF6384'],
+                    'backgroundColor' => ['#a9acdf', '#0c1154
+                    '],
                     'data' => [$prousersCount,$cliusersCount]
                 ]
             ]
@@ -94,14 +99,26 @@ class UserController extends AbstractController
 
         /////////////////DOUGHNUTTT
 
+$Filieres= $filRepo->findAll();
+$FilNom=[];
+$FilCount=[];
+
+      foreach ($Filieres as $Filiere) {
+        $FilNom[]= $Filiere->getNomFiliere();
+        $FilCount[]= count($Filiere->getUsers());
+
+
+      }
+
+
         $Dchart = $chartBuilder->createChart(Chart::TYPE_DOUGHNUT);
         $Dchart->setData([
-            'labels' => ['Infermiers', 'Kinés', 'Aide Soignant'],
+            'labels' => $FilNom,             
             'datasets' => [
                 [
                     'label' => 'Utilisateurs Pro selon Filieres',
-                    'backgroundColor' => ['#36A2EB', '#FF6384','#009900'],
-                    'data' => [76,27,49],
+                    'backgroundColor' => ['#24ccc3', '#5358BF','#FF6384','#009900'],
+                    'data' =>$FilCount ,
                 ]
             ]
         ]);
@@ -121,8 +138,55 @@ class UserController extends AbstractController
     }
 
 
+    #[Route('admin/users/pros/{id}', name: 'DisableUser', methods : ['POST'] ), IsGranted('ROLE_ADMIN')]
+    public function submitForm(Request $request, EntityManagerInterface $entityManager,UserRepository $userRepo)
+    {
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+        
+
+
+        $isEnabled = $request->request->get('isEnabled');
+        $users = $entityManager->getRepository(User::class)->findAll();
+
+        // Loop through the IDs of the enabled users and update the database
+        foreach ($users as $user) {
+            $isEnabledForUser = in_array($user->getId(), $isEnabled);
+            $user->setIsEnabled($isEnabledForUser);
+            $entityManager->persist($user);
+        }
+        // Flush the changes to the database
+        $entityManager->flush();
+        // Redirect to the original page
+
+
+        //////////////////lists
+        $role1= 'ROLE_PRO' ;
+        $role2= 'ROLE_USER' ;
+
+    
+
+        return $this->render('user/back/prousers.html.twig', [
+            'user' => $this->getUser(),
+            //'usersList' => $userRepo->findAll(),
+            'ProList' => $userRepo->findPros([$role1]),
+           'ClientList' => $userRepo->findPros([$role2])
+
+        ]);
+    }
+
+
+
+
+
+
+
+
     #[Route('admin/users/pros', name: 'backProUsers'), IsGranted('ROLE_ADMIN')]
-    public function backProUsers(UserRepository $userRepo): Response
+    public function backProUsers(UserRepository $userRepo,Request $request): Response
     {
         $user = $this->getUser();
 
@@ -131,6 +195,29 @@ class UserController extends AbstractController
         }
         
         $role1= 'ROLE_PRO' ;
+
+
+        // /////////////////updateenabled
+        // $enabledUserIds = $request->request->get('isEnabled');
+
+        // if (is_array($enabledUserIds)) {
+        //     // Update the isEnabled attribute for all enabled users
+        //     foreach ($enabledUserIds as $userId) {
+        //         $user = $this->getDoctrine()->getRepository(User::class)->find($userId);
+        //         $user->setIsEnabled(true);
+        //         $this->getDoctrine()->getManager()->flush();
+        //     }
+        
+        //     // Update the isEnabled attribute for all disabled users
+        //     $users = $userRepo->findAll();
+        //     $disabledUserIds = array_diff(array_column($users, 'id'), $enabledUserIds);
+        //     foreach ($disabledUserIds as $userId) {
+        //         $user = $this->getDoctrine()->getRepository(User::class)->find($userId);
+        //         $user->setIsEnabled(false);
+        //         $this->getDoctrine()->getManager()->flush();
+        //     }
+        // }
+
        
 
         return $this->render('user/back/prousers.html.twig', [
@@ -138,6 +225,48 @@ class UserController extends AbstractController
             //'usersList' => $userRepo->findAll(),
             'ProList' => $userRepo->findPros([$role1]),
            // 'ClientList' => $userRepo->findPros([$role2])
+
+        ]);
+    }
+
+
+
+    #[Route('admin/users/clients/{id}', name: 'DisableUserCli', methods : ['POST'] ), IsGranted('ROLE_ADMIN')]
+    public function submitForm1(Request $request, EntityManagerInterface $entityManager,UserRepository $userRepo)
+    {
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+        
+
+
+        $isEnabled = $request->request->get('isEnabled');
+        $users = $entityManager->getRepository(User::class)->findAll();
+
+        // Loop through the IDs of the enabled users and update the database
+        foreach ($users as $user) {
+            $isEnabledForUser = in_array($user->getId(), $isEnabled);
+            $user->setIsEnabled($isEnabledForUser);
+            $entityManager->persist($user);
+        }
+        // Flush the changes to the database
+        $entityManager->flush();
+        // Redirect to the original page
+
+
+        //////////////////lists
+       // $role1= 'ROLE_PRO' ;
+        $role2= 'ROLE_USER' ;
+
+    
+
+        return $this->render('user/back/clients.html.twig', [
+            'user' => $this->getUser(),
+            //'usersList' => $userRepo->findAll(),
+            //'ProList' => $userRepo->findPros([$role1]),
+           'ClientList' => $userRepo->findPros([$role2])
 
         ]);
     }
