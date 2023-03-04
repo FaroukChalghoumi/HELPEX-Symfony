@@ -12,7 +12,8 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-
+use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
+use Symfony\UX\Chartjs\Model\Chart;
 
 
 class UserController extends AbstractController
@@ -29,7 +30,7 @@ class UserController extends AbstractController
     //////////////////////backbackbackBABY////////////
 
     #[Route('admin/users', name: 'AllUsers'), IsGranted('ROLE_ADMIN')]
-    public function AllUsers(UserRepository $userRepo): Response
+    public function AllUsers(UserRepository $userRepo, ChartBuilderInterface $chartBuilder): Response
     {
         $user = $this->getUser();
 
@@ -37,14 +38,84 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
         
+        $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
+
+        $chart->setData([
+            'labels' => ['February', 'March', 'April'],
+            'datasets' => [
+                [
+                    'label' => 'My First dataset',
+                    'backgroundColor' => 'rgb(255, 99, 132)',
+                    'borderColor' => 'rgb(255, 99, 132)',
+                    'data' => [ 20, 5, 45],
+                ],
+            ],
+        ]);
+
+        $chart->setOptions([
+            'scales' => [
+                'y' => [
+                    'suggestedMin' => 0,
+                    'suggestedMax' => 100,
+                ],
+            ],
+        ]);
+
+//////////////PIECHART
+        $allusers = $userRepo->findAll();
         $role1= 'ROLE_PRO' ;
         $role2= 'ROLE_USER' ;
+        $prousers = $userRepo->findPros([$role1]);
+        $cliusers =$userRepo->findPros([$role2]);
+
+        $allusersCount = count($allusers);
+        $prousersCount = count($prousers);
+        $cliusersCount = count($cliusers);
+
+        $Piechart = $chartBuilder->createChart(Chart::TYPE_PIE);
+        $Piechart->setData([
+            'labels' => ['Professional Users', 'Clients'],
+            'datasets' => [
+                [
+                    'label' => 'User Role',
+                    'backgroundColor' => ['#36A2EB', '#FF6384'],
+                    'data' => [$prousersCount,$cliusersCount]
+                ]
+            ]
+        ]);
+
+
+        $Piechart->setOptions([
+           
+            'width' => 500,
+            'height' => 500,
+        ]);
+
+
+        /////////////////DOUGHNUTTT
+
+        $Dchart = $chartBuilder->createChart(Chart::TYPE_DOUGHNUT);
+        $Dchart->setData([
+            'labels' => ['Infermiers', 'Kinés', 'Aide Soignant'],
+            'datasets' => [
+                [
+                    'label' => 'Utilisateurs Pro selon Filieres',
+                    'backgroundColor' => ['#36A2EB', '#FF6384','#009900'],
+                    'data' => [76,27,49],
+                ]
+            ]
+        ]);
+
+
+       
+
 
         return $this->render('user/back/allusers.html.twig', [
             'user' => $this->getUser(),
             'usersList' => $userRepo->findAll(),
-            'ProList' => $userRepo->findPros([$role1]),
-            'ClientList' => $userRepo->findPros([$role2])
+            'chart' => $chart,
+            'PieChart' =>  $Piechart,
+            'DChart' =>  $Dchart,
 
         ]);
     }

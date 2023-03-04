@@ -1,0 +1,5 @@
+{
+    "require": {
+        "symfony/ux-chartjs": "^2.7"
+    }
+}

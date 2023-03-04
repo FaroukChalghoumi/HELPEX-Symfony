@@ -12,16 +12,32 @@
 
 		<div class="org-table-head-container">
 			<div class="">
-				<h4>Nombre Total des utilisateurs:
-					{{ usersList|length }}
+				<h4>Evolution des inscriptions à Helpex:
 				</h4>
+				<h6>Nombre total des utilisateurs :
+					{{ usersList|length }}
+				</h6>
 
 			</div>
 
 		</div>
 		<div class="row">
 
-			<div class="col-sm-12 col-md-12 col-lg-8"></div>
+			<div class="col-sm-12 col-md-12 col-lg-8">
+				<div style="margin-bottom: 80px;">{{ render_chart(chart) }}</div>
+				<div class="row" style="margin-bottom: 80px;">
+					<div class="col-sm-12 col-md-6">
+						<h6 style="text-align: center;">utilisateurs selon role :
+						</h6>
+						{{ render_chart(PieChart) }}</div>
+					<div class="col-sm-12 col-md-6">
+						<h6 style="text-align: center;">utilisateurs selon filiere :
+						</h6>
+						{{ render_chart(DChart) }}</div>
+				</div>
+
+
+			</div>
 
 
 			<!-- LEES FIIIILLLLLTERSSSSSSSSSSS -->
