@@ -297,7 +297,7 @@ $FilCount=[];
     ///////////////////////FRONTBABY/////////////
 
     #[Route('/professionals', name: 'ProUsers')]
-public function ProUsers(UserRepository $userRepo): Response
+public function ProUsers(UserRepository $userRepo, FiliereRepository $filiereRepository): Response
     {
        // $user = $this->getUser();
 
@@ -311,7 +311,8 @@ public function ProUsers(UserRepository $userRepo): Response
 
         return $this->render('user/front/professionals.html.twig', [
             'user' => $this->getUser(),
-            'ProList' => $userRepo->findPros([$role])
+            'ProList' => $userRepo->findPros([$role]),
+            'filieres' => $filiereRepository->findAll(),
 
         ]);
     }
