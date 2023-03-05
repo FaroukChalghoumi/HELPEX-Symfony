@@ -2,6 +2,7 @@
 
 {% block component %}
     <link href="{{asset("PaymentPopup/style.css") }}" rel="stylesheet">
+    <link href="{{asset("Donations/donations.css") }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 {% endblock %}
@@ -125,20 +126,20 @@
                                                     <div class="box-progress-bar" style="border: black .001rem solid">
                                                         <span class="box-progress" style="width: {{ (caisse_organisation.montantCaisseOrg/caisse_organisation.goal*100) }}%; background-color: #34c471"></span>
                                                     </div>
-                                                    <p class="box-progress-percentage fancybox__desc">{{ (caisse_organisation.montantCaisseOrg*100/caisse_organisation.goal)|number_format(2, '.', '') }}%</p>
+                                                    <p class="box-progress-percentage fancybox__title">{{ (caisse_organisation.montantCaisseOrg*100/caisse_organisation.goal)|number_format(2, '.', '') }}%</p>
                                                 </div>
                                                 <div id="contact">Donate !</div>
 
                                                 <div id="contactForm">
 
-                                                    <small>Type the amount u can donate</small>
+                                                    <h5>Type the amount u can donate</h5>
 
 
-                                                    <form action="{{ path('app_donations_payment') }}">
+                                                    <form action="{{ path('app_donations_payment',{'id': caisse_organisation.id}) }}">
                                                         <label for="amount">Amount:</label>
-                                                        <input type="number" name="amount" id="amount">
+                                                        <input type="number" name="amount" id="amount" max="{{ caisse_organisation.goal-caisse_organisation.montantCaisseOrg }}">
                                                         <input class="formBtn" type="submit" />
-                                                        <input class="formBtn" type="reset" />
+
                                                     </form>
                                                 </div>
 

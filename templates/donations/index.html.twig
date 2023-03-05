@@ -2,8 +2,12 @@
 
 {% block component %}
     <link href="{{asset("Donations/donations.css") }}" rel="stylesheet">
+    <link href="{{asset("PaymentPopup/style.css") }}" rel="stylesheet">
 
 {% endblock %}
+{% block jsimports %}
+    <script src="{{asset("PaymentPopup/script.js") }}"></script>
+{% endblock%}
 {% block body %}
 
 <div class="containerDonations">
@@ -31,8 +35,19 @@
                         </div>
                     </div>
                     <div class="donate-btn-container">
-                        <div class="donate-btn">
-                           <a href="{{ path('app_donations_payment') }}" style="color: white;">Donate !</a>
+                        <div id="contact">Donate !</div>
+
+                        <div id="contactForm">
+
+                            <h5>Type the amount u can donate</h5>
+
+
+                            <form action="{{ path('app_donations_payment',{'id': caisse_organisation.id}) }}">
+                                <label for="amount">Amount:</label>
+                                <input type="number" name="amount" id="amount" max="{{ caisse_organisation.goal-caisse_organisation.montantCaisseOrg }}">
+                                <input class="formBtn" type="submit" />
+
+                            </form>
                         </div>
                     </div>
                 </div>
