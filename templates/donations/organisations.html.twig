@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block component %}
+    <link href="{{asset("Donations/donations.css") }}" rel="stylesheet">
+
+{% endblock %}
+{% block body %}
+    <div style="height: max-content;">
+        <div class="row">
+            {% for organisation in organisations %}
+                <div class="col-sm-12 col-md-6 col-lg-4">
+                    <div class="service-item">
+                        <div class="service__icon">
+                            <span><img class="icon-heart2" style="width: 60px;height: 60px"src="{{ asset("uploads/brochures/" ~ organisation.logoOrg) }}" ></span>
+
+                        </div>
+                        <div class="service__content">
+                            <h4 class="service__title">{{ organisation.NomOrg }}</h4>
+                            <p class="service__desc">{{ organisation.descriptionOrganisation }}
+                            </p>
+                            <ul class="list-items list-items-layout1 list-unstyled" >
+                                <li>Numero Tel: {{ organisation.numTelOrganisation }}</li>
+                                <li>Payment Info: {{ organisation.paymentInfo }}</li>
+
+                            </ul>
+                            <a href="{{ path('app_donations_ViewOrg',{'id': organisation.id}) }}" class="btn btn__secondary btn__outlined btn__rounded">
+                                <span>Details</span>
+                                <i class="icon-arrow-right"></i>
+                            </a>
+                        </div><!-- /.service__content -->
+                    </div><!-- /.service-item -->
+                </div><!-- /.col-lg-4 -->
+            {% endfor %}
+        </div><!-- /.row -->
+    </div>
+
+
+{% endblock %}
+

@@ -1,0 +1,164 @@
+{% extends 'base.html.twig' %}
+
+{% block component %}
+    <link href="{{asset("PaymentPopup/style.css") }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+{% endblock %}
+{% block jsimports %}
+    <script src="{{asset("PaymentPopup/script.js") }}"></script>
+{% endblock%}
+
+{% block body %}
+
+
+        <section class="page-title page-title-layout5">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h1 class="pagetitle__heading">{{ organisation.NomOrg }}</h1>
+                        <nav>
+                            <ol class="breadcrumb mb-0">
+                                <li class="breadcrumb-item"><a href="{{ path('app_test') }}">Home</a></li>
+                                <li class="breadcrumb-item"><a href="{{ path('app_donations_organisations') }}">Organisations</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">{{ organisation.NomOrg }}</li>
+                            </ol>
+                        </nav>
+                    </div><!-- /.col-12 -->
+                </div><!-- /.row -->
+            </div><!-- /.container -->
+        </section><!-- /.page-title -->
+
+        <section class="pt-120 pb-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-4">
+                        <aside class="sidebar has-marign-right">
+                            <div class="widget widget-member">
+                                <div class="member mb-0">
+                                    <div class="member__img">
+                                        <img src="{{ asset("uploads/brochures/" ~ organisation.logoOrg) }}" alt="member img">
+                                    </div><!-- /.member-img -->
+                                    <div class="member__info">
+                                        <h5 class="member__name"><a href="#">{{ organisation.NomOrg }}</a></h5>
+                                        <p class="member__job">Organisation</p>
+                                        <p class="member__desc"> {{ organisation.descriptionOrganisation|length > 20 ? organisation.descriptionOrganisation|slice(0, 20) ~ '...' : organisation.descriptionOrganisation  }}</p>
+                                        <div class="mt-20 d-flex flex-wrap justify-content-between align-items-center">
+                                            <ul class="social-icons list-unstyled mb-0">
+                                                <li><a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a></li>
+                                                <li><a href="#" class="twitter"><i class="fab fa-twitter"></i></a></li>
+                                                <li><a href="#" class="phone"><i class="fas fa-phone-alt"></i></a></li>
+                                            </ul><!-- /.social-icons -->
+                                        </div>
+                                    </div><!-- /.member-info -->
+                                </div><!-- /.member -->
+                            </div><!-- /.widget-member -->
+
+                        </aside><!-- /.sidebar -->
+                    </div><!-- /.col-lg-4 -->
+                    <div class="col-sm-12 col-md-12 col-lg-8">
+                        <div class="text-block mb-50">
+                            <h5 class="text-block__title">Description</h5>
+                            <p class="text-block__desc mb-20">{{ organisation.descriptionOrganisation|length > 250 ? organisation.descriptionOrganisation|slice(0, 250) : organisation.descriptionOrganisation  }}</p>
+                        </div><!-- /.text-block -->
+                        <ul class="details-list list-unstyled mb-60">
+                            <li>
+                                <h5 class="details__title">Email</h5>
+                                <div class="details__content">
+                                    <p class="mb-0">{{ organisation.emailOrganisation }}</p>
+                                </div>
+                            </li>
+                            <li>
+                                <h5 class="details__title">Numero telephone: </h5>
+                                <div class="details__content">
+                                    <p class="mb-0">{{ organisation.numTelOrganisation }}</p>
+                                </div>
+                            </li>
+
+                        </ul>
+                        <div class="text-block mb-50">
+                            <h5 class="text-block__title">Nos causes</h5>
+
+                        </div><!-- /.text-block -->
+                        <div class="pricing-widget-layout3 mb-70">
+                            <h5 class="pricing__title">Goals</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <ul class="pricing__list list-unstyled mb-0">
+                                        {% for caisse_organisation in Caisses %}
+                                            {% if loop.index < 6 %}
+                                            <li><span>{{ caisse_organisation.description }}</span><span class="price">{{ caisse_organisation.goal }} DT</span></li>
+                                            {% endif %}
+
+                                        {% endfor %}
+
+                                    </ul><!-- /.pricing__list -->
+                                </div><!-- /.col-md-6 -->
+                                <div class="col-md-6">
+                                    <ul class="pricing__list list-unstyled mb-0">
+                                        {% for caisse_organisation in Caisses %}
+                                            {% if loop.index > 6 and loop.index < 12 %}
+                                                <li><span>{{ caisse_organisation.description }}</span><span class="price">{{ caisse_organisation.goal }} DT</span></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul><!-- /.pricing__list -->
+                                </div><!-- /.col-md-6 -->
+                            </div><!-- /.pricing-widget-layout3 -->
+                        </div><!-- /.text-block -->
+                        <div class="text-block mb-50">
+                            <h5 class="text-block__title">Tous les Caisses</h5>
+                        </div>
+                        <div class="fancybox-layout2">
+                            <div class="row">
+                                {% for caisse_organisation in Caisses %}
+                                    <div class="col-sm-6">
+                                        <!-- fancybox item #1 -->
+                                        <div class="fancybox-item ">
+                                            <div class="fancybox__icon">
+                                                <i class="fa-solid fa-handshake-angle"></i>
+                                            </div>
+                                            <div class="fancybox__content">
+                                                <h4 class="fancybox__title">{{ caisse_organisation.description }}</h4>
+
+                                                <div>
+                                                    <div class="box-progress-bar" style="border: black .001rem solid">
+                                                        <span class="box-progress" style="width: {{ (caisse_organisation.montantCaisseOrg/caisse_organisation.goal*100) }}%; background-color: #34c471"></span>
+                                                    </div>
+                                                    <p class="box-progress-percentage fancybox__desc">{{ (caisse_organisation.montantCaisseOrg*100/caisse_organisation.goal)|number_format(2, '.', '') }}%</p>
+                                                </div>
+                                                <div id="contact">Donate !</div>
+
+                                                <div id="contactForm">
+
+                                                    <small>Type the amount u can donate</small>
+
+
+                                                    <form action="{{ path('app_donations_payment') }}">
+                                                        <label for="amount">Amount:</label>
+                                                        <input type="number" name="amount" id="amount">
+                                                        <input class="formBtn" type="submit" />
+                                                        <input class="formBtn" type="reset" />
+                                                    </form>
+                                                </div>
+
+                                            </div><!-- /.fancybox-content -->
+
+                                        </div><!-- /.fancybox-item -->
+                                    </div><!-- /.col-sm-6 -->
+                                {% endfor %}
+                            </div><!-- /.row -->
+                        </div><!-- /.fancybox-layout2 -->
+                    </div><!-- /.col-lg-8 -->
+                </div><!-- /.row -->
+            </div><!-- /.container -->
+        </section>
+
+
+
+        <button id="scrollTopBtn"><i class="fas fa-long-arrow-alt-up"></i></button>
+
+
+
+{% endblock %}
+

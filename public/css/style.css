@@ -369,7 +369,6 @@ textarea {
 }
 
 .mb-50 {
-  margin-bottom: -46px !important;
   margin-top: 21px !important;
 }
 
@@ -7888,7 +7887,7 @@ textarea.form-control {
 }
 
 .service-item .list-items {
-  margin-bottom: -46px !important;
+
   margin-top: 21px !important;
 }
 
