@@ -6,9 +6,11 @@ use App\Entity\Formation;
 use App\Entity\InscriptionFormation;
 use App\Form\InscriptionFormationType;
 use App\Repository\InscriptionFormationRepository;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/inscription/formation')]
@@ -97,5 +99,21 @@ class InscriptionFormationController extends AbstractController
         }
 
         return $this->redirectToRoute('app_inscription_formation_index', [], Response::HTTP_SEE_OTHER);
+    }
+    #[Route('/payment', name: 'app_inscription_formation_mail')]
+    public function Payment(MailerInterface $mailer,InscriptionFormationRepository $inscriptionFormationRepository): Response
+    {
+        $email = (new TemplatedEmail());
+
+        $email->subject('Demo message using the Symfony Mailer library.');
+        $email->from('oussema.ayari.2001@gmail.com');
+        $email->to('ahmedbelhajhassen22@gmail.com');
+        $email->text('This is an important message!');
+        $mailer->send($email);
+
+        return $this->renderForm('inscription_formation/index_front.html.twig', [
+            'inscription_formation' => $inscriptionFormationRepository->findAll(),
+
+        ]);
     }
 }
