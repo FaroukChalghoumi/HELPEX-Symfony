@@ -32,8 +32,11 @@
 
 
                     <td>
-                        <a href="{{ path('app_inscription_formation_show', {'id': inscription_formation.id}) }}">show</a>
+                        <a href="{{ path('app_inscription_formation_show_front', {'id': inscription_formation.id}) }}">show</a>
                         <a href="{{ path('app_inscription_formation_edit', {'id': inscription_formation.id}) }}">edit</a>
+                        <a href="{{ path('pdf_inscription', {'id': inscription_formation.id}) }}">imprimer</a>
+
+
                     </td>
                 </tr>
 

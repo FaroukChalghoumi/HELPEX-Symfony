@@ -80,15 +80,14 @@
 
                             <p class="service__desc">{{ formation.descriptionFormation | striptags | slice(0, 60) }}...
                             </p>
-                            <a href="{{ path('app_formation_show_front', {'id': formation.id}) }}" class="btn btn__secondary btn__outlined btn__rounded">
+                            <a href={{ path('app_formation_show_front', {'id': formation.id}) }} class="btn btn__secondary btn__outlined btn__rounded">
                                 <span>Read More</span>
                                 <i class="icon-arrow-right"></i>
                             </a>
-                            <a href="{{ path('app_inscription_formation_new') }}" class="btn btn__secondary btn__outlined btn__rounded">
-                            <span>kjjsdbkcs</span>
+                            <a href={{ path('app_inscription_formation_new', {'id': formation.id}) }} class="btn btn__secondary btn__outlined btn__rounded">
+                            <span>s'inscrire</span>
                             <i class="icon-arrow-right"></i>
                             </a>
-
                         </div>
 
 
