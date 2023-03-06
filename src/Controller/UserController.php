@@ -128,7 +128,11 @@ public function ProUsers(UserRepository $userRepo): Response
                 $roles=array_map('trim',$this->getUser()->getRoles()); //trimmed array values
                 if($roles[0]=="ROLE_USER"){
                         $accompagnement->setUserPro($user_pro);
-                        $accompagnementRepository->save($accompagnement,true);}
+                        $accompagnementRepository->save($accompagnement,true);
+
+
+
+                }
                 return $this->redirectToRoute('showProUser', ["id"=>$hidd_user], Response::HTTP_SEE_OTHER);
 
 

@@ -8,6 +8,7 @@ use App\Form\ItemType;
 use App\Repository\ItemRepository;
 use App\Repository\TasksRepository;
 use Dompdf\Dompdf;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -57,7 +58,7 @@ class ItemController extends AbstractController
 
 
     #[Route('/task/{id}', name: 'app_task_items', methods: ['GET'])]
-    public function find_items(ItemRepository $itemRepository ,TasksRepository $tasksRepository,$id): Response
+    public function find_items(Request $request,ItemRepository $itemRepository ,TasksRepository $tasksRepository,$id,PaginatorInterface $paginator): Response
     {$user = $this->getUser();
 
         if (!$user) {
@@ -66,6 +67,12 @@ class ItemController extends AbstractController
 
         $items=$itemRepository->findBy(['tasks'=>$id]);
         $task =$tasksRepository->findOneBy(['id'=>$id]);
+
+        $items = $paginator->paginate(
+            $items, /* query NOT result */
+            $request->query->getInt('page', 1),
+            2
+        );
         //dd($items);
         return $this->render('item/index.html.twig', [
             'items' =>$items ,'task'=>$task
@@ -74,7 +81,63 @@ class ItemController extends AbstractController
 
 
 
+
+
     }
+
+
+
+
+    #[Route('/task/download/{id}', name: 'app_item_download', methods: ['GET'])]
+    public function down( ItemRepository $itemRepository,$id): Response
+    {
+        // On définit les options du PDF
+        $pdfOptions = new Options();
+
+        // Police par défaut
+        $pdfOptions->set('defaultFont', 'Arial');
+        $pdfOptions->setIsRemoteEnabled(true);
+
+        // On instancie Dompdf
+        $dompdf = new Dompdf($pdfOptions);
+        $item=$itemRepository->findAll();
+
+
+
+
+        $context = stream_context_create([
+            'ssl' => [
+                'verify_peer' => FALSE,
+                'verify_peer_name' => FALSE,
+                'allow_self_signed' => TRUE
+            ]
+        ]);
+        $dompdf->setHttpContext($context);
+
+        // On génère le html
+        $html = $this->renderView('item/download.html.twig', [
+            'items' => $item,
+
+        ]);
+
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        // On génère un nom de fichier
+        $fichier = 'items'.'.pdf';
+
+        // On envoie le PDF au navigateur
+        $dompdf->stream($fichier, [
+            'Attachment' => true
+        ]);
+
+        return new Response();
+    }
+
+
+
+
 
     #[Route('admin/task/{id}', name: 'app_task_items_admin', methods: ['GET']), IsGranted('ROLE_ADMIN')]
     public function find_items_admin(ItemRepository $itemRepository ,TasksRepository $tasksRepository,$id): Response

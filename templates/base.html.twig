@@ -38,6 +38,13 @@
 			<script src="{{ asset('build/jquery.js') }}"></script>
 			<script src="{{ asset('build/popper.js') }}"></script>
 			<script src="{{ asset('build/bootstrap.js') }}"></script>
+			<script>
+				const eventSource = new EventSource("{{ mercure('https://example.com/.well-known/mercure')|escape('js') }}");
+				eventSource.onmessage = event => {
+					// Will be called every time an update is published by the server
+					console.log(JSON.parse(event.data));
+				}
+			</script>
 
 		{% endblock %}
 	</head>
@@ -459,5 +466,6 @@
 			{% endblock %}
 
 		</body>
+
 	</body>
 </html></body></html></body></html></body></html></body></html></div> </body></html></body></html>

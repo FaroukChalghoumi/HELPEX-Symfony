@@ -6,6 +6,7 @@
 
     {% if task.titre is defined %}
     <h3><i class="fas fa-tasks"></i> {{ task.titre }}</h3>
+        <a href="{{path('app_item_download', {'id': task.id})}}" target="_blank">    <button class="btn-success">download pdf</button>          </a>
     {%  endif %}
     <table id="example" class="table table-striped" style="width:100%">
         <thead>
@@ -52,7 +53,6 @@
 
 
 
-
             <!-- Modal of new task -->
 {#
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -85,9 +85,11 @@
         {% endfor %}
         {%  endif %}
 
+
+
         </tfoot>
     </table>
-
+    {{knp_pagination_render(items, 'pagination.html.twig') }}
 
 
     <h1 style="color: white">white</h1>
