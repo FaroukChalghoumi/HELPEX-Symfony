@@ -27,7 +27,7 @@ class TestController extends AbstractController
     public function sendEmail(MailerInterface $mailer): Response
     {
         $email = (new Email())
-            ->from('eya.filali@esprit.tn')
+            ->from('oussema.ayari.2001@gmail.com')
             ->to('filalieya@gmail.com')
             //->cc('cc@example.com')
             //->bcc('bcc@example.com')
