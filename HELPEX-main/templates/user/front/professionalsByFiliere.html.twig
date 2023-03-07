@@ -17,22 +17,20 @@
 
 
 		<!-- ========================
-																																																																																																				       page title 
-																																																																																																				    =========================== -->
+																																																																												       page title 
+																																																																												    =========================== -->
 		<section class="page-title page-title-layout1 bg-overlay">
 			<div class="bg-img"><img src="{{ asset('images/page-titles/7.jpg' ) }}" alt="background"></div>
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-12 col-md-12 col-lg-12 col-xl-5">
-						<h1 class="pagetitle__heading">Helpex,Fournir des soins médicaux aux plus malades de notre communauté.
+						<h1 class="pagetitle__heading">Providing Care for The Sickest In Community.
 						</h1>
-						<p class="pagetitle__desc">
-
-
-							Consultez nos professionels.
+						<p class="pagetitle__desc">Medcity has been present in Europe since 1990, offering innovative solutions,
+																																																																																																																																																																																																																																																																										              specializing in medical services for treatment of medical infrastructure.
 						</p>
 						<a href="appointment.html" class="btn btn__primary btn__rounded">
-							<span>Faites Accompagnement</span>
+							<span>Make Appointment</span>
 							<i class="icon-arrow-right"></i>
 						</a>
 					</div>
@@ -45,8 +43,8 @@
 		<!-- /.page-title -->
 
 		<!-- ========================
-																																																																																																				        Team layout 3
-																																																																																																				    ========================== -->
+																																																																												        Team layout 3
+																																																																												    ========================== -->
 		<section class="team-layout3 pb-40">
 			<div class="container">
 				<div class="row">
@@ -55,23 +53,23 @@
 						<div
 							class="row">
 							<!-- Member #1 -->
-							{% for user in ProList %}
+							{% for pro in prouser %}
 								<div class="col-sm-6 col-md-4 col-lg-4">
 									<div class="member">
 										<div class="member__img">
-											<img src="{{ asset('uploads/users/' ~ user.pdp) }}" alt="Professinal Image">
+											<img src="{{ asset('uploads/users/' ~ pro.pdp) }}" alt="Professinal Image">
 										</div>
 										<!-- /.member-img -->
 										<div class="member__info">
 											<h5 class="member__name">
-												<a href="">{{ user.Nom }}
-													{{ user.Prenom }}
+												<a href="">{{ pro.Nom }}
+													{{ pro.Prenom }}
 												</a>
 											</h5>
-											<p class="member__job">{{ user.filiere }}</p>
-											<p class="member__desc">{{ user.bio }}</p>
+											<p class="member__job">{{ pro.filiere }}</p>
+											<p class="member__desc">{{ pro.bio }}</p>
 											<div class="mt-20 d-flex flex-wrap justify-content-between align-items-center">
-												<a href="{{ path('showProUser', {'id': user.id})}}" class="btn btn__secondary btn__link btn__rounded">
+												<a href="{{ path('showProUser', {'id': pro.id})}}" class="btn btn__secondary btn__link btn__rounded">
 													<span>Read More</span>
 													<i class="icon-arrow-right"></i>
 												</a>
@@ -92,20 +90,9 @@
 					<div class="col-sm-12 col-md-12 col-lg-4">
 						<aside class="sidebar has-marign-left sticky-top">
 							<div class="widget widget-services">
-								<h5 class="widget__title">Filtres:</h5>
+								<h5 class="widget__title">Filtrer Selon Filiere:</h5>
 								<div class="widget-content">
 									<ul class="list-unstyled mb-0">
-										<div class="sorting-options d-flex flex-wrap justify-content-between align-items-center mb-30">
-											<select>
-												<option selected="" value="0">Par Regions</option>
-												<option value="1">ariana</option>
-												<option value="2">bizerte</option>
-												<option value="3">gabes</option>
-												<option value="1">sfax</option>
-												<option value="2">tunis</option>
-												<option value="3">sousse</option>
-											</select>
-										</div>
 										<li>
 											<a href="{{ path('ProUsers') }}">
 												<span>Afficher Tous</span>
@@ -114,33 +101,18 @@
 										</li>
 										{% for filiere in filieres %}
 											<li>
-												<a href="">
+												<a href="{{ path('showByFiliere', {'id': filiere.id}) }}">
 													<span>{{filiere.NomFiliere}}</span>
 													<i class="icon-arrow-right"></i>
 												</a>
 											</li>
 										{% endfor %}
 									</ul>
-
 								</div>
 							</div>
 
-
-							<!-- <div class="sorting-options d-flex flex-wrap justify-content-between align-items-center mb-30">
-																						<span>Showing 1:9 of 45 product</span>
-																						<select>
-																							<option selected="" value="0">Sort by latest</option>
-																							<option value="1">Sort by Popular</option>
-																							<option value="2">Sort by highest Price
-																							</option>
-																							<option value="3">Sort by lowest Price
-																							</option>
-																						</select>
-																					</div> -->
-
-
 						</aside>
-
+						<!-- /.sidebar -->
 					</div>
 
 				</div>
@@ -150,8 +122,8 @@
 		<!-- /.Team layout 3  -->
 
 		<!-- ========================
-																																																																																																			      Footer
-																																																																																																			    ========================== -->
+																																																																											      Footer
+																																																																											    ========================== -->
 
 	</div>
 	<!-- /.wrapper -->

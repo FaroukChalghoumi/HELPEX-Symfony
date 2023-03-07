@@ -404,5 +404,24 @@ public function ProUsers(UserRepository $userRepo, FiliereRepository $filiereRep
         ]);
     }
 
+ 
     
+  
+
+
+    #[Route('/professionals/filiere/{id}', name: 'showByFiliere')]
+    public function showByFiliere($id,UserRepository $repo,FiliereRepository $filiereRepository) : Response {
+
+        $pro = $repo->findByFiliere($id);
+        return $this->render('user/front/professionalsbyFiliere.html.twig', [
+            'prouser' => $pro,
+            'user' => $this->getUser(),
+            'ProList' => $repo->findPros(['ROLE_PRO']),
+            'filieres' => $filiereRepository->findAll(),
+
+        ]);
+    }
+
+
+
 }
