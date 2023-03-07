@@ -12,11 +12,27 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Validator\Constraints\DateTimeInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use App\Repository\UserRepository;
+
+
 
 
 
 class UserApiController extends AbstractController
 {
+
+    #[Route('/usersall', name: 'usersall', methods: ['GET'])]
+    public function indexjson(UserRepository $Urep, NormalizerInterface $Normalizer): Response
+    {
+       $users=$Urep->findAll();
+        // $users = $this->getDoctrine()->getRepository(User::class)->findAll();
+        $jsonContent=$Normalizer->normalize($users,'json',['groups'=>'post:read']);
+        return  new Response(json_encode($jsonContent));
+
+    }
+
+
     #[Route('/user/signupClient', name: 'signup_client')]
     public function signupClient(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -137,7 +153,7 @@ public function EditProfile(Request $request, UserPasswordEncoderInterface $pass
     //$pdp=$request->query->get("pdp");
     $bio=$request->query->get("bio");
     //$date_naissance=$request->query->get("date_naissance");
-    $diplome=$request->query->get("diplome");
+    //$diplome=$request->query->get("diplome");
     $tarif=$request->query->get("tarif");
 
     $em=$this->getDoctrine()->getManager();
@@ -163,7 +179,7 @@ public function EditProfile(Request $request, UserPasswordEncoderInterface $pass
     $user->setNumTel($num_tel);
     $user->setBio(strval($bio));
     //$user->setDateNaissance(new DateTimeInterface($date_naissance));
-    $user->setDiplome($diplome);
+    //$user->setDiplome($diplome);
     $user->setTarif(floatval($tarif));
 
 
@@ -204,5 +220,10 @@ else {
 return new Response("user not found");
 }
 }
+
+
+
+
+
 
 }
