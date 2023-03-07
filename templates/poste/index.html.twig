@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Poste index{% endblock %}
+
+{% block body %}
+ <!-- ========================
+       page title 
+    =========================== -->
+    <section class="page-title page-title-layout5 bg-overlay">
+      <div class="bg-img"><img src="{{asset("images/page-titles/8.jpg") }}" alt="background"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h1 class="pagetitle__heading">Health Essentials</h1>
+            <nav>
+              <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Blog</li>
+              </ol>
+            </nav>
+          </div><!-- /.col-12 -->
+        </div><!-- /.row -->
+      </div><!-- /.container -->
+    </section><!-- /.page-title -->
+    <!-- ========================
+       page title 
+    =========================== -->
+         <div class="post-container" style="white-space: nowrap; overflow-x: scroll;display: flex; flex-wrap: wrap;">
+          <a class="btn btn__secondary btn__link btn__block" style="margin-top: 20px;"href="{{ path('app_postefront_new') }}">
+          <span>Make a poste</span> 
+          </a>
+         
+           <div class="widget widget-categories">
+                <h5 class="widget__title">Categories</h5>
+                <div class="widget-content">
+                  <ul class="list-unstyled mb-0">
+                {% for categorie in categoriepostes %}
+                {% set postesCount = categorie.postes|length %}
+                    <li><a href="#"><span class="cat-count">{{ postesCount }}</span><span>{{ categorie.topic }}</span></a></li>
+                {% endfor %}
+                  </ul>
+                </div><!-- /.widget-content -->
+              </div><!-- /.widget-categories -->
+              
+          <div class="col-sm-12 col-md-6 col-lg-4">
+          
+           
+           {% for poste in postes %}
+         {% if loop.index % 3 == 1 %}<div style="width: 80%;">{% endif %}
+            <div class="post-item" style="display: inline-block; margin-right: 10px; vertical-align: top; white-space: normal;flex-basis: calc(33.33% - 20px); margin: 10px;">
+              <div class="post__img">
+                <a href="{{ path('app_postecommentaire_show', {'id': poste.id}) }}">
+                <img src="{{ asset('uploads/users/' ~ poste.multimedia) }}" alt="post image" loading="lazy">
+                </a>
+              </div><!-- /.post__img -->
+              <div class="post__body">
+                <div class="post__meta-cat">
+                  <a href="#">{{ poste.categorie }}</a><a href="#">  {{ poste.compteurvote }}</a>
+                </div><!-- /.blog-meta-cat -->
+                <div class="post__meta d-flex">
+                  <span class="post__meta-date">{{ poste.date ? poste.date|date('Y-m-d') : '' }}</span>
+                  <a class="post__meta-author" href="#">John Ezak</a>
+                </div>
+                <h4 class="post__title"><a href="#">{{ poste.titre }}</a></h4>
+                <p class="post__desc">{{  poste.description|length > 100 ? poste.description|slice(0, 100) ~ '...' : poste.description  }}
+                </p>
+                <a href="{{ path('app_postecommentaire_show', {'id': poste.id}) }}" class="btn btn__secondary btn__link btn__rounded">
+                  <span>Check comments</span>
+                  <i class="icon-arrow-right"></i>
+                </a>
+                <a href="{{ path('app_frontposte_edit', {'id': poste.id}) }}" class="btn btn__secondary btn__link btn__rounded">
+                  <span>Modify Poste</span>
+                  <i class="icon-arrow-right"></i>
+                </a>
+              </div><!-- /.post__body -->
+            </div><!-- /.post-item -->
+                {% if loop.index % 3 == 0 or loop.last %}</div>{% endif %}
+              
+                    {% endfor %}
+
+          </div><!-- /.col-lg-4 -->
+    </div>
+{% endblock %}

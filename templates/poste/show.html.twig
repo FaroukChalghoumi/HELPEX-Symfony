@@ -1,0 +1,73 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Poste{% endblock %}
+
+{% block body %}
+    <h1>Poste</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ poste.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ poste.titre }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ poste.date ? poste.date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ poste.description }}</td>
+            </tr>
+            <tr>
+                <th>Multimedia</th>
+                <td>{{ poste.multimedia }}</td>
+            </tr>
+            <tr>
+                <th>Likes</th>
+                <td>{{ poste.compteurvote }}</td>
+            </tr>
+        </tbody>
+    </table>
+<table class="org-table" style=" margin-top: 30px;">
+            <thead class="org-table-head">
+            <tr>
+                <th class="org-table-th">Id</th>
+                <th class="org-table-th">Description</th>
+                <th class="org-table-th">Date</th>
+                <th class="org-table-th">Actions</th>
+                
+            </tr>
+            </thead>
+            <tbody>
+            {% for commentaire in commentaires %}
+                <tr>
+                    <td  class="org-table-td">{{ commentaire.id }}</td>
+                    <td  class="org-table-td">{{  commentaire.description|length > 50 ? commentaire.description|slice(0, 50) ~ '...' : commentaire.description  }}</td>
+                    <td  class="org-table-td">{{ commentaire.date ? commentaire.date|date('Y-m-d') : '' }}</td> 
+                    <td  class="org-table-td">
+                        <div class="org-icon-container">
+                            <form class="org-action-item" method="post" action="{{ path('app_commentaire_delete', {'id': commentaire.id }) }}" onsubmit="return confirm('Are you sure you want to delete this centre?');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ commentaire.id ) }}">
+                                <button>
+                                    <a href="{{ path('app_poste_delete', {'id': poste.id }) }}"><i class="fa-solid fa-trash-can" style="color: red"></i></a>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    <a href="{{ path('app_poste_index') }}">back to list</a>
+
+    
+{% endblock %}

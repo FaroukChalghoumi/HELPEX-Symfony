@@ -1,0 +1,32 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+
+
+    <div class="col-7">
+        {{  form_label ( form.NomCatProduit,'NomCatProduit' ,{ 'attr': {'class': 'contact-panel__title'}}) }}
+
+        {% if form_errors(form.NomCatProduit) is not empty  %}
+            {{  form_errors( form.NomCatProduit ,{ 'attr': {'class': 'contact-panel__title'}}) }}
+        {% else %}
+
+        {% endif %}
+
+        {{  form_widget ( form.NomCatProduit ,{ 'attr': {'class': 'form-control'}}) }}
+
+</div>
+
+<div class ="row">
+
+
+<div class="col-3">
+    <button class="btn btn__secondary btn__rounded btn__block btn__xhight mt-10">{{ button_label|default('Save') }}</button>
+
+</div>
+    <div class="col-3">
+        <a class="btn btn__primary btn__rounded ml-30 mt-20" href="{{ path('app_categorie_produit_index') }}">back to list</a>
+    </div>
+</div>
+<div class ="row">
+
+</div>
+{{ form_end(form) }}

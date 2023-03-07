@@ -1,0 +1,13 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Edit CategorieFormation{% endblock %}
+
+{% block body %}
+    <h1>modifier CategorieFormation</h1>
+
+    {{ include('categorie_formation/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_categorie_formation_index') }}">back to list</a>
+
+    {{ include('categorie_formation/_delete_form.html.twig') }}
+{% endblock %}

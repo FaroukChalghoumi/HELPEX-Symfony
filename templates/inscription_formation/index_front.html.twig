@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}InscriptionFormation index{% endblock %}
+
+{% block body %}
+    <h1>InscriptionFormation index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>DateInscriptionFormation</th>
+            <th>StatusFormation</th>
+            <th>Note</th>
+            <th>formation</th>
+            <th>user</th>
+
+
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for inscription_formation in inscription_formations %}
+            {% if inscription_formation.user == user %}
+                <tr>
+                    <td>{{ inscription_formation.id }}</td>
+                    <td>{{ inscription_formation.dateInscriptionFormation ? inscription_formation.dateInscriptionFormation|date('Y-m-d') : '' }}</td>
+                    <td>{{ inscription_formation.statusFormation }}</td>
+                    <td>{{ inscription_formation.note }}</td>
+                    <td>{{inscription_formation.formations }}</td>
+                    <td>{{inscription_formation.user }}</td>
+
+
+                    <td>
+                        <a href="{{ path('app_inscription_formation_show_front', {'id': inscription_formation.id}) }}">show</a>
+                        <a href="{{ path('app_inscription_formation_edit_front', {'id': inscription_formation.id}) }}">edit</a>
+                        <a href="{{ path('pdf_inscription', {'id': inscription_formation.id}) }}">imprimer</a>
+
+
+                    </td>
+                </tr>
+
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
