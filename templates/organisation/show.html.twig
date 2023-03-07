@@ -18,7 +18,8 @@
                 <span class="status-type">Nombre total des caisses</span>
             </div>
             <div class="item-status">
-                <span class="status-number">0</span>
+                {% set sum = Caisses|reduce((sum, item) => sum + item.montantCaisseOrg, 0) %}
+                <span class="status-number">{{ sum }} TND</span>
                 <span class="status-type">Montant total des caisses</span>
             </div>
         </div>
@@ -71,8 +72,8 @@
                     </div>
                     <div class="project-box-content-header">
                         <p class="box-content-subheader"><span class="box-content-header">Description:</span> {{  caisse_organisation.description|length > 10 ?  caisse_organisation.description|slice(0, 10) ~ '...' :  caisse_organisation.description  }}</p>
-                        <p class="box-content-subheader"><span class="box-content-header">Montant:</span>{{ caisse_organisation.montantCaisseOrg }} </p>
-                        <p class="box-content-subheader"><span class="box-content-header">Goal:</span>{{ caisse_organisation.goal }} </p>
+                        <p class="box-content-subheader"><span class="box-content-header">Montant:</span> {{ caisse_organisation.montantCaisseOrg }}TND</p>
+                        <p class="box-content-subheader"><span class="box-content-header">Goal:</span> {{ caisse_organisation.goal }}TND</p>
                     </div>
                     <div class="box-progress-wrapper">
                         <p class="box-progress-header">Progress</p>
@@ -124,4 +125,7 @@
 
 
 {% endblock %}
+{% block sideTitle %} Stats {% endblock %}
+{% block sidecontent %}
 
+{% endblock %}

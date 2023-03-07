@@ -8,9 +8,11 @@
 
     {{ include('organisation/_form.html.twig',) }}
 {% endblock %}
+{% block sideTitle %} Stats {% endblock %}
+{% block sidecontent %}
 
-
-{% block javascripts %}
+{% endblock %}
+{% block jsimports %}
     {{ encore_entry_script_tags('app') }}
     <script src="{{asset("admin/js/script.js") }}"></script>
     <script src="{{asset("Popup/script.js") }}"></script>

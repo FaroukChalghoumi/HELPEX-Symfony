@@ -8,9 +8,12 @@
 
     {{ include('organisation/_form.html.twig',{'button_label':'Update'}) }}
 {% endblock %}
+{% block sideTitle %} Stats {% endblock %}
+{% block sidecontent %}
 
+{% endblock %}
 
-{% block javascripts %}
+{% block jsimports %}
     {{ encore_entry_script_tags('app') }}
     <script src="{{asset("admin/js/script.js") }}"></script>
     <script src="{{asset("Popup/script.js") }}"></script>

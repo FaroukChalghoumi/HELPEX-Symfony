@@ -252,10 +252,7 @@ button, a {
     justify-content: center;
     align-items: center;
 
-    &:hover {
-      background-color: var(--link-color-hover);
-      color: var(--link-color-active);
-    }
+
 
     &.active {
       background-color: var(--link-color-active-bg);
