@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1>Statistiques</h1>
+        <canvas id="categories" width="400" height="100"></canvas>
+
+      {#  <canvas id="annonces" width="400" height="100"></canvas>#}
+    </div>
+    <script>
+        let categories = document.querySelector("#categories")
+        let complete = "{{ complete|raw }}";
+        let notcomplete = "{{ notcomplete|raw }}";
+        let categGraph = new Chart(categories, {
+            type: "pie",
+            data: {
+                labels: ["complete","not complete"],
+                datasets: [{
+                    label: "pourcentage de completation de taches",
+                    data:[complete,notcomplete] ,
+                    backgroundColor: {{ categColor|raw }}
+                }]
+            }
+        })
+    </script>
+
+{% endblock %}

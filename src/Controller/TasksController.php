@@ -18,6 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 #[Route('/tasks')]
 class TasksController extends AbstractController
@@ -36,7 +37,15 @@ class TasksController extends AbstractController
         ]);
     }
 
+    #[Route('/json', name: 'jsonAllTasks', methods: ['GET'])]
+    public function indexj(TasksRepository $tasksRepository,NormalizerInterface $normalizable): Response
+    {
+        $tasksRepository=$tasksRepository->findAll();
 
+
+        $jsonContent=$normalizable->normalize($tasksRepository,'json',['groups'=>'tasks']);
+        return  new Response(json_encode($jsonContent));
+    }
     #[Route('/user_admin', name: 'app_tasks_index_ad', methods: ['GET', 'POST'])]
     public function index_admin(TasksRepository $tasksRepository, Request $request): Response
     {
@@ -85,10 +94,18 @@ class TasksController extends AbstractController
                 $user_id=$id->getId();
             }
             $tasks = [];
-
+            $valid=0;
+            $non_valid=0;
             $accompagnement_list = $accompagnementRepository->findBy(["user" => ["user_id" => $user_id], "user_pro" => ["user_pro_id" => $id_userP]]);
             foreach ($accompagnement_list as $accompagnement) {
                 array_push($tasks, $accompagnement->getTask());
+
+                if($accompagnement->getTask()->isIsValid()){
+                    $valid=+1;
+                }else{
+                    $non_valid=+1;
+                }
+
 
             }
             $color = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
@@ -99,12 +116,12 @@ class TasksController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 $tasksRepository->save($task, true);
 
-                return $this->redirectToRoute('app_tasks_index_nor', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_tasks_index_nor', ["valid"=>$valid,"n_valid"=>$non_valid,"user_pro"=>$id_userP], Response::HTTP_SEE_OTHER);
             }
 
             return $this->render('tasks/index.html.twig', [
                 'tasks' => $tasks, 'randomcolor' => $color, 'task' => $task,
-                'form' => $form->createView(),"role"=>"user"
+                'form' => $form->createView(),"role"=>"user","valid"=>$valid,"n_valid"=>$non_valid,"user_pro"=>$id_userP
             ]);
         }
         if($roles[0]=="ROLE_PRO"){
@@ -162,22 +179,32 @@ class TasksController extends AbstractController
         if($roles[0]=="ROLE_USER"){
             $accompagnement_list2 = $accompagnementRepository->findByAccompagnementEmail($user->getUserIdentifier());
             $accompagnement_list=[];
+            $femmels=0;
+            $males=0;
             foreach ($accompagnement_list2 as $accompagnement){
                 if($accompagnement->isIsAccepted()!=0){
                     array_push($accompagnement_list, $accompagnement);
                 }
             }
             $users = [];
+            $categColor=[];
             foreach ($accompagnement_list as $user) {
 
                 if (!in_array($user->getUserPro(), $users)) {
                     array_push($users, $user->getUserPro());
+                    array_push( $categColor, '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT));
+
+                    if($user->getUserPro()->getSexe()=="femme"){
+                        $femmels=+1;
+                    }
+                    else{$males=+1 ;}
+
                 }
 
 
             }
             return $this->render('profil_user/index.html.twig', [
-                'users' => $users ,"liste"=>"des utilisateurs professionels"]);
+                'users' => $users ,"liste"=>"des utilisateurs professionels","femme"=>$femmels,"male"=>$males,"categColor"=>$categColor]);
 
         }
         //////////////////////////// pour les users//////////////////////Again
@@ -234,14 +261,62 @@ dd("admin");
             'form' => $form->createView(),
         ]);
     }
+    #[Route('/new', name: 'app_tasks_new_vide', methods: ['GET', 'POST'])]
+    public function newvide(EntityManagerInterface  $entityManager,Request $request, TasksRepository $tasksRepository,AccompagnementRepository $accompagnementRepository,UserRepository $userRepository): Response
+    {       //$this->$entityManager = $entityManager;
+
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+        $roles=array_map('trim',$user->getRoles()); //trimmed array values
+        if($roles[0]=="ROLE_USER"){
+            $task = new Tasks();
+            $form = $this->createForm(TasksType::class, $task);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $tasksRepository->save($task, true);
+                $accompagnement = new Accompagnement();
+                $current_user=$userRepository->findByEmail($user->getUserIdentifier());
+                $accompagnement->setUser($current_user[0]);
+                $accompagnement->setIsAccepted(false);
+                //$accompagnementRepository->save($accompagnement,true);
+                $accompagnement->setTask($task);
+
+
+                $entityManager->beginTransaction(); // start a transaction
+
+                $entityManager->persist($task);
+                $entityManager->flush();
+                $entityManager->persist($accompagnement);
+                $entityManager->flush(); // save both entities
+
+                $entityManager->commit();
+
+
+
+
+                return $this->redirectToRoute('ProUsers', [], Response::HTTP_SEE_OTHER);
+            }
+
+            return $this->renderForm('tasks/new.html.twig', [
+                'task' => $task,
+                'form' => $form,
+            ]);}
+        else{
+            return $this->redirectToRoute('app_login');
+        }
+    }
 
 
     /**
      * @throws OptimisticLockException
      * @throws ORMException
      */
-    #[Route('/new', name: 'app_tasks_new', methods: ['GET', 'POST'])]
-    public function new(EntityManagerInterface  $entityManager,Request $request, TasksRepository $tasksRepository,AccompagnementRepository $accompagnementRepository,UserRepository $userRepository): Response
+    #[Route('/new/{idP}', name: 'app_tasks_new', methods: ['GET', 'POST'])]
+    public function new($idP,EntityManagerInterface  $entityManager,Request $request, TasksRepository $tasksRepository,AccompagnementRepository $accompagnementRepository,UserRepository $userRepository): Response
     {       //$this->$entityManager = $entityManager;
 
         $user = $this->getUser();
@@ -260,7 +335,8 @@ dd("admin");
             $accompagnement = new Accompagnement();
             $current_user=$userRepository->findByEmail($user->getUserIdentifier());
             $accompagnement->setUser($current_user[0]);
-            $accompagnement->setIsAccepted(false);
+            $accompagnement->setIsAccepted(true);
+            $accompagnement->setUserPro($userRepository->find($idP));
             //$accompagnementRepository->save($accompagnement,true);
             $accompagnement->setTask($task);
 
@@ -289,6 +365,8 @@ dd("admin");
         }
     }
 
+
+    //new task vide
 
     #[Route('/{id}', name: 'app_tasks_show', methods: ['GET'])]
     public function show(Tasks $task): Response

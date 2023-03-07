@@ -5,6 +5,7 @@
     <div class="bg-img"><img src="{{asset("tasks/2.jpg") }}" alt="background"></div>
     <div class="container">
         <div class="row">
+
             <div class="col-sm-12 col-md-12 col-lg-6 offset-lg-3">
                 <div class="heading text-center mb-60">
                     <h3 class="heading__title">Fournir des soins médicaux aux plus malades de notre communauté.</h3>
@@ -19,8 +20,45 @@
 
                 </div><!-- /.heading -->
             </div><!-- /.col-lg-6 -->
+            <div class="col-sm-12 col-md-12 col-lg-6 offset-lg-3">
+
+                <canvas id="categories" width="400" height="100"></canvas>
+
+                {#  <canvas id="annonces" width="400" height="100"></canvas>#}
+{% if valid is defined and n_valid is defined %}
+                <script>
+                    let categories = document.querySelector("#categories")
+                    let valid = "{{ valid|raw }}";
+                    let nvalid = "{{ n_valid|raw }}";
+                    let categGraph = new Chart(categories, {
+                        type: "pie",
+                        data: {
+                            labels: ["valid","non valid"],
+                            datasets: [{
+                                label: "pourcentage de validation des tasks",
+                                data:[valid,nvalid] ,
+                                backgroundColor:["#4682B4","#FF6347"]
+                            }]
+                        }
+                    })
+                </script>
+                {%  endif %}
+            </div>
         </div><!-- /.row -->
+        {%  if user_pro is defined %}
         <div class="row">
+            <!-- As a link -->
+
+            <nav class="navbar navbar-light bg-light">
+                <a class="navbar-brand" href="{{ path('app_tasks_new', {'idP':user_pro}) }}"><i  style="color: #00d084" class="fa fa-plus-circle" aria-hidden="true"> attribuer des tasks</i>
+                </a>
+            </nav>
+            {% endif  %}
+
+
+        </div>
+        <div class="row">
+
             <!-- service item #1 -->
             {% for task in tasks %}
             <div class="col-sm-12 col-md-6 col-lg-4">

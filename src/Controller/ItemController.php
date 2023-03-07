@@ -7,11 +7,14 @@ use App\Entity\Tasks;
 use App\Form\ItemType;
 use App\Repository\ItemRepository;
 use App\Repository\TasksRepository;
+use DateTimeImmutable;
 use Dompdf\Dompdf;
 use Knp\Component\Pager\PaginatorInterface;
+use Lcobucci\JWT\Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -43,17 +46,67 @@ class ItemController extends AbstractController
 
 
     }
+    #[Route('/json/ajout', name: 'addItemJSON')]
+    public function ajouterItem(Request $request,TasksRepository $tasksRepository)
 
-    #[Route('/json', name: 'jsonAllItem', methods: ['GET'])]
-    public function indexj(ItemRepository $itemRepository,NormalizerInterface $normalizable): Response
     {
-        $items=$itemRepository->findAll();
+        $item=new Item();
+        $titre = $request->query->get("titre");
+        $is_complete = $request->query->get("is_complete");
+        $time = $request->query->get("time");
+        $task_id = $request->query->get("taskid");
+
+        $em = $this->getDoctrine()->getManager();
+        $item->setTitre($titre);
+
+        $newformat = DateTimeImmutable::createFromFormat('H:i:s', $time);
+        $item->setTime($newformat);
+        $item->setIsComplete($is_complete)
+        ;
+        $item->setTasks($tasksRepository->find($task_id));
+
+
+        $em->persist($item);
+        $em->flush();
+        // $serializer = new Serializer([new ObjectNormalizer()]);
+        // $formatted = $serializer->normalize($item);
+        return new JsonResponse("ok");
+
+    }
+    #[Route('/editerJson/{id}', name: 'editerItemJson')]
+
+    public function modifieritemJson(Request $request,ItemRepository $itemRepository) {
+        $em = $this->getDoctrine()->getManager();
+        $item = $itemRepository
+            ->find($request->get("id"));
+        $titre = $request->query->get("titre");
+        $is_complete = $request->query->get("is_complete");
+        $time = $request->query->get("time");
+
+        $item->setTitre($titre);
+        $newformat = DateTimeImmutable::createFromFormat('H:i:s', $time);
+        $item->setTime($newformat);
+        $item->setIsComplete($is_complete);
+
+        $em->persist($item);
+        $em->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        //$formatted = $serializer->normalize($reclamation);
+        return new JsonResponse("item modifiee avec success.");
+
+    }
+
+    #[Route('/json/{t}', name: 'jsonAllItem', methods: ['GET'])]
+    public function indexj($t,ItemRepository $itemRepository,NormalizerInterface $normalizable): Response
+    {
+        $items=$itemRepository->findBy(['tasks'=>$t]);
 
         //$serilizer=new serializer([new ObjectNormalizer()]);
         //$var=$serilizer->normalize($items);
         $jsonContent=$normalizable->normalize($items,'json',['groups'=>'item']);
         return  new Response(json_encode($jsonContent));
     }
+
 
 
 
@@ -73,10 +126,55 @@ class ItemController extends AbstractController
             $request->query->getInt('page', 1),
             2
         );
-        //dd($items);
+
+
+        //////////////////stat
+
+        $complete=[] ;
+        $non_complet=[];
+
+        $categNom = [];
+        $categColor = [];
+        $categCount = [];
+        foreach ($items as $item){
+            array_push( $categColor, '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT));
+            if($item->isIsComplete()==1){
+                array_push($non_complet,$item) ;
+            }
+            else{ array_push($complete,$item) ;}
+        }
+
+        $countnon_complet=count($non_complet);
+        $countcomplet=count($complete);
+        $pourcentage=0;
+        if (($countcomplet+$countnon_complet)!=0)
+        {            $pourcentage=$countcomplet*100/($countcomplet+$countnon_complet);
+         }
+
+        // On "démonte" les données pour les séparer tel qu'attendu par ChartJS
+        foreach($items as $categorie){
+            array_push( $categNom,$categorie->getTitre());
+            array_push(  $categCount,8*rand(10,100));
+
+
+        }
+
+
+
         return $this->render('item/index.html.twig', [
-            'items' =>$items ,'task'=>$task
+            'items' =>$items ,'task'=>$task,'categNom' => json_encode($categNom),
+            'categColor' => json_encode($categColor),
+            'categCount' => json_encode($categCount),
+            "complete"=>json_encode($countcomplet),
+            "notcomplete"=>json_encode($countnon_complet),"pourcentage"=>$pourcentage
         ]);
+
+
+
+
+
+
+
 
 
 
@@ -155,8 +253,8 @@ class ItemController extends AbstractController
     }
 
 
-    #[Route('/new', name: 'app_item_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ItemRepository $itemRepository,SluggerInterface $slugger,TasksRepository $tasksRepository): Response
+    #[Route('/new/{idT}', name: 'app_item_new', methods: ['GET', 'POST'])]
+    public function new($idT,Request $request, ItemRepository $itemRepository,SluggerInterface $slugger,TasksRepository $tasksRepository): Response
     {$user = $this->getUser();
 
         if (!$user) {
@@ -168,7 +266,7 @@ class ItemController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $task=$form->get('tasks')->getData();
-            $id_task=$task->getId();
+            //$id_task=$task->getId();
 
             $pictureFile = $form->get('photo')->getData();
             if ($pictureFile) {
@@ -186,9 +284,10 @@ class ItemController extends AbstractController
                 }
                 $item->setPhoto($newFilename);
             }
+            $item->setTasks($tasksRepository->find($idT));
             $itemRepository->save($item, true);
 
-            return $this->redirect('http://127.0.0.1:8000/item/task/'.$id_task);
+            return $this->redirect('http://127.0.0.1:8000/item/task/'.$idT);
         }
 
         return $this->renderForm('item/new.html.twig', [
@@ -239,13 +338,13 @@ class ItemController extends AbstractController
                 $item->setPhoto($newFilename);
             }
 
-
+            //$item->setTitre("hhhhhhhhhhhhhh9999999");
             $itemRepository->save($item, true);
 
             return $this->redirect('http://127.0.0.1:8000/item/task/'.$task_id);
         }
 
-        return $this->renderForm('item/edit_admin.html.twig', [
+        return $this->renderForm('item/edit.html.twig', [
             'item' => $item,
             'form' => $form,
 

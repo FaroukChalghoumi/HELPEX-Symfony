@@ -15,9 +15,10 @@
 			{{ encore_entry_link_tags('app') }}
 			<link rel="stylesheet" href="{{ asset('build/app.css') }}">
 			<link rel="stylesheet" href="{{ asset('build/bootstrap.css') }}">
-
+		<!--importants-->
 			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.css" integrity="sha256-uq9PNlMzB+1h01Ij9cx7zeE2OR2pLAfRw3uUUOOPKdA=" crossorigin="anonymous">
-
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous">
+			<!--importants-->
 			<link href="{{asset("images/favicon/favicon.png") }}" rel="icon">
 			<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&amp;family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet">
 			<link href="{{asset("css/use.fontawesome.com/releases/v5.15.3/css/all.css") }}" rel="stylesheet">
@@ -30,9 +31,10 @@
 			<script src="{{asset("js/jquery-3.5.1.min.js") }}"></script>
 			<script src="{{asset("js/plugins.js") }}"></script>
 			<script src="{{asset("js/main.js") }}"></script>
-
+			<!--importants-->
 			<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.js" integrity="sha256-DBxkGZLxKsLKhz054qUpBqtotG00r9AELGpSigJujLg=" crossorigin="anonymous"></script>
-
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
+			<!--importants-->
 
 
 			<script src="{{ asset('build/jquery.js') }}"></script>
@@ -207,7 +209,7 @@
 
 										<ul class="dropdown-menu">
 											<li class="nav__item">
-												<a class="nav__item-link" href="{{ path('app_tasks_my_pro_user')}}">liste utilisatuers</a>
+												<a class="nav__item-link" href="{{ path('app_tasks_my_pro_user')}}">mon Espace</a>
 											</li>
 											<li class="nav__item">
 
@@ -215,12 +217,10 @@
 											</li>
 											<!-- /.nav-item -->
 											<li class="nav__item">
-												<a class="nav__item-link" href="{{ path('app_tasks_new')}}">ajouter task for user only</a>
+												<a class="nav__item-link" href="{{ path('app_tasks_new_vide')}}">ajouter task for user only</a>
 											</li>
 
-											<li class="nav__item">
-												<a class="nav__item-link" href="{{ path('app_item_new')}}">ajouter item for user only</a>
-											</li>
+
 											<li class="nav__item">
 												<a class="nav__item-link" href="{{ path('app_calendrier')}}">calandrier</a>
 											</li>

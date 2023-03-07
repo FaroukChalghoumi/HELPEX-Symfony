@@ -18,7 +18,6 @@ class Item
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\NotBlank]
     #[Assert\Length(
         min: 5,
         max: 50,
@@ -38,9 +37,11 @@ class Item
     private ?bool $is_complete = null;
 
     #[ORM\ManyToOne(inversedBy: 'list_items')]
-    #[Assert\NotBlank]
     private Tasks $tasks ;
 
+
+
+    #[Groups(['item'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo = null;
 

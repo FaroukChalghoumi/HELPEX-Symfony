@@ -21,8 +21,80 @@
  {% endblock %}
 
 {% block body %}
+    <section class="page-title page-title-layout1 bg-overlay" >
+        <div class="bg-img"></div>
+        <div class="container">
+            <div class="row">
+                <h2 class="text-primary text-center">Listes {{ liste}} </h2>
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5" >
+                    {% if is_granted('ROLE_USER') %}
+                    <h1>Statistiques</h1>
+                    <canvas id="gender" width="400" height="100"></canvas>
 
-    <h2 class="text-primary text-center">Listes {{ liste}} </h2>
+                    {#  <canvas id="annonces" width="400" height="100"></canvas>#}
+                </div>
+                {% endif %}
+                <div class="card col-sm-12 col-md-12 col-lg-12 col-xl-5" style="width: 18rem;  background: linear-gradient(45deg,#4099ff,#73b4ff);  border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    border: none;
+    margin-bottom: 30px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;">
+
+
+                            <div class="card-block">
+                                <h6 class="m-b-20"></h6>
+                                <h2 class="text">
+                                    {% if is_granted('ROLE_PRO') %}
+
+                                        nombre de mes clients
+
+                                    {% elseif is_granted('ROLE_USER') %}
+                                        nombre de professionnels
+
+                                    {% endif %}
+                                    &nbsp;<i class="fa fa-user-md" aria-hidden="true"></i>
+                                    <span>{{ users|length }}</span></h2>
+                            </div>
+
+
+                    </div>
+                </div>
+
+
+            {% if is_granted('ROLE_USER') %}
+                {%  if femme is defined and male is defined %}
+                <script>
+                    let gender = document.querySelector("#gender")
+                    let femme = "{{ femme|raw }}";
+                    let male = "{{ male|raw }}";
+                    let categGraph = new Chart(gender, {
+                        type: "bar",
+                        data: {
+                            labels: ["femme","homme"],
+                            datasets: [{
+                                label: "pourcentage par gender",
+                                data:[femme,male] ,
+                                backgroundColor: ["#483D8B","#00CED1"]
+                            }]
+                        }
+                    })
+                </script>
+                    {%  endif %}
+            {% endif %}
+                </div>
+                <!-- /.col-xl-5 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+
+
+
+
     <section class="team-layout1 pb-40">
         <div class="container">
             <div class="row">
