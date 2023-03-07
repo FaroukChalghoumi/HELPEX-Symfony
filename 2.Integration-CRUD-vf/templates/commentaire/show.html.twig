@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commentaire{% endblock %}
+
+{% block body %}
+<section class="page-title pt-30 pb-30 text-center">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-12">
+            <nav>
+              <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="blog.html">Blog</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ poste.titre }}</li>
+              </ol>
+            </nav>
+          </div><!-- /.col-12 -->
+        </div><!-- /.row -->
+      </div><!-- /.container -->
+    </section><!-- /.page-title -->
+
+    <!-- ======================
+      Blog Single
+    ========================= -->
+    <section class="blog blog-single pt-0 pb-80">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-8">
+            <div class="post-item mb-0">
+              <div class="post__img">
+                  <img src="{{ asset('uploads/users/' ~ poste.multimedia) }}" alt="post image" loading="lazy">
+              </div><!-- /.post-img -->
+              <div class="post__body pb-0">
+                <div class="post__meta-cat">
+                  <a href="#">{{ poste.categorie }}</a><a href="#">   {{ poste.compteurvote }}</a>
+                </div><!-- /.blog-meta-cat -->
+                <div class="post__meta d-flex align-items-center mb-20">
+                  <span class="post__meta-date">{{ poste.date ? poste.date|date('Y-m-d') : '' }}</span>
+                  <a class="post__meta-author" href="#">Martin King</a>
+                </div><!-- /.blog-meta -->
+                <h1 class="post__title mb-30">
+                  {{ poste.titre }}
+                </h1>
+                <div class="post__desc">
+                  <p>{{ poste.description }}</p>
+                </div><!-- /.blog-desc -->
+              </div>
+            </div><!-- /.post-item -->
+            <div class="d-flex flex-wrap justify-content-between border-top border-bottom pt-30 pb-30 mb-40">
+              <div class="blog-share d-flex flex-wrap align-items-center">
+                <strong class="mr-20 color-heading">Share</strong>
+                <ul class="list-unstyled social-icons d-flex mb-0">
+                  <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                  <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                  <li><a href="#"><i class="fab fa-google"></i></a></li>
+                </ul>
+              </div><!-- /.blog-share -->
+            </div>
+            <div class="blog-author d-flex flex-wrap mb-70">
+              <div class="blog-author__avatar">
+                <img src="assets/images/blog/author/1.jpg" alt="avatar">
+              </div><!-- /.author-avatar  -->
+              <div class="blog-author__content">
+                <h6 class="blog-author__name">Mahmoud Baghagho</h6>
+                <p class="blog-author__bio">Founded by Begha over many cups of tea at her kitchen table in 2009, our
+                  brand promise is simple: to
+                  provide powerful digital marketing solutions to small and medium businesses.</p>
+                <ul class="social-icons list-unstyled mb-0">
+                  <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                  <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                  <li><a href="#"><i class="fab fa-vimeo-v"></i></a> </li>
+                  <li><a href="#"><i class="fab fa-linkedin"></i></a> </li>
+                </ul>
+              </div><!-- /.author-content  -->
+            </div><!-- /.blog-author  -->
+            {% for commentaire in commentaires %}
+            <div class="blog-comments mb-70">
+              <h5 class="blog-widget__title">       </h5>
+              <ul class="comments-list list-unstyled">
+                <li class="comment__item">
+                  <div class="comment__content">
+                    <h5 class="comment__author">Author</h5>
+                    <span class="comment__date">{{ commentaire.date ? commentaire.date|date('Y-m-d') : '' }}</span>
+                    <p class="comment__desc">  {{ commentaire.description }}</p>
+                   <a href="{{ path('app_commentaire_edit', {'id': commentaire.id}) }}">edit</a>
+                  </div>
+                                  {% endfor %}
+                </li><!-- /.comment -->
+              </ul><!-- /.comments-list -->
+            </div><!-- /.blog-comments -->
+            <div class="blog-widget blog-comments-form mb-30">
+                                      {{ include('commentaire/_form.html.twig') }}
+              <form>
+                <div class="row">
+                  <div class="col-sm-12 col-md-4 col-lg-4">
+                  <div class="col-12">
+                    <div class="form-group">
+                    </div><!-- /.form-group -->
+                  </div><!-- /.col-lg-12 -->
+                </div><!-- /.row -->
+              </form>
+            </div><!-- /.blog-comments-form -->
+          </div><!-- /.col-lg-8 -->
+        </div><!-- /.row -->
+      </div><!-- /.container -->
+    </section><!-- /.blog Single -->
+    
+{% endblock %}

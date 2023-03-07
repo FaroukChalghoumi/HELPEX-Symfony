@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Produits{% endblock %}
+
+{% block body %}
+
+    <div class="contact-panel__info d-flex flex-column justify-content-between bg-overlay bg-overlay-primary-gradient">
+        <div class="bg-img"><img src="{{ asset("images/banners/1.jpg") }}" alt="banner"></div>
+        {#       <section class="google-map py-0">#}
+        {#           <iframe frameborder="0" height="500" width="100%"#}
+        {#                   src="https://maps.google.com/maps?q=Suite%20100%20San%20Francisco%2C%20LA%2094107%20United%20States&amp;t=m&amp;z=10&amp;output=embed&amp;iwloc=near"></iframe>#}
+        {#       </section><!-- /.GoogleMap -->#}
+        {#       </section>#}
+        <br>
+        <br>
+        <br>
+        <br>
+        <section class="contact-layout2 pt-0 ">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="contact-panel d-flex flex-wrap">
+                            <a class="btn btn__primary btn__rounded ml-30" href="{{ path('app_produits_marketplace') }}">back to list</a>
+                            <h4 class="contact-panel__title">Update product here </h4>
+                            {{ include('produits/_form.html.twig', {'button_label': 'Update'}) }}
+                            {{ include('produits/_delete_form.html.twig', {'button_label': 'Delete'}) }}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,234 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Formation{% endblock %}
+
+{% block body %}
+
+    <section class="page-title  page-title-layout7 bg-overlay pb-0">
+
+    </section><!-- /.page-title -->
+    <section class="pt-120 pb-80">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-8">
+                    <div class="text-block mb-50">
+                        <h5 class="text-block__title">{{ formation.nomFormation }}</h5>
+
+                        <p class="text-block__desc mb-20">{{ formation.descriptionFormation }}</p>
+                    </div><!-- /.text-block -->
+                    <div class="video-banner-layout2 bg-overlay mb-70">
+                        {% if formation.iamgeformation  is not empty %}
+                            <img src={{ asset('uploads/users/' ~ formation.iamgeformation) }} alt="Formation" loading="lazy">
+                        {% else %}
+                            <img src={{ asset('uploads/users/NoImage.jpg' ) }} alt="Product" loading="lazy">
+                        {% endif %}
+                        <a class="video__btn video__btn-white popup-video" href="https://www.youtube.com/watch?v=nrJtHemSPW4">
+                            <div class="video__player">
+                                <i class="fa fa-play"></i>
+                            </div>
+                            <span class="video__btn-title color-white">Watch Our Video!</span>
+                        </a>
+                    </div><!-- /.video-banner -->
+
+
+
+
+{#                    <div id="accordion" class="mb-70">#}
+{#                        <div class="accordion-item opened">#}
+{#                            <div class="accordion__header" data-toggle="collapse" data-target="#collapse3">#}
+{#                                <a class="accordion__title" href="#">What Payment Methods Are Available?</a>#}
+{#                            </div><!-- /.accordion-item-header -->#}
+{#                            <div id="collapse3" class="collapse show" data-parent="#accordion">#}
+{#                                <div class="accordion__body">#}
+{#                                    <p>With any financial product that you buy, it is important that you know you are getting the best#}
+{#                                        advice from a reputable company as often</p>#}
+{#                                </div><!-- /.accordion-item-body -->#}
+{#                            </div>#}
+{#                        </div><!-- /.accordion-item -->#}
+{#                        <div class="accordion-item">#}
+{#                            <div class="accordion__header" data-toggle="collapse" data-target="#collapse1">#}
+{#                                <a class="accordion__title" href="#">Which Plan Is Right For Me?</a>#}
+{#                            </div><!-- /.accordion-item-header -->#}
+{#                            <div id="collapse1" class="collapse" data-parent="#accordion">#}
+{#                                <div class="accordion__body">#}
+{#                                    <p>With any financial product that you buy, it is important that you know you are getting the best#}
+{#                                        advice from a reputable company as often</p>#}
+{#                                </div><!-- /.accordion-item-body -->#}
+{#                            </div>#}
+{#                        </div><!-- /.accordion-item -->#}
+{#                        <div class="accordion-item">#}
+{#                            <div class="accordion__header" data-toggle="collapse" data-target="#collapse2">#}
+{#                                <a class="accordion__title" href="#">Do I have to commit to a contract?</a>#}
+{#                            </div><!-- /.accordion-item-header -->#}
+{#                            <div id="collapse2" class="collapse" data-parent="#accordion">#}
+{#                                <div class="accordion__body">#}
+{#                                    <p>With any financial product that you buy, it is important that you know you are getting the best#}
+{#                                        advice from a reputable company as often</p>#}
+{#                                </div><!-- /.accordion-item-body -->#}
+{#                            </div>#}
+{#                        </div><!-- /.accordion-item -->#}
+{#                        <div class="accordion-item">#}
+{#                            <div class="accordion__header" data-toggle="collapse" data-target="#collapse4">#}
+{#                                <a class="accordion__title" href="#">What if I pick the wrong plan?</a>#}
+{#                            </div><!-- /.accordion-item-header -->#}
+{#                            <div id="collapse4" class="collapse" data-parent="#accordion">#}
+{#                                <div class="accordion__body">#}
+{#                                    <p>With any financial product that you buy, it is important that you know you are getting the best#}
+{#                                        advice from a reputable company as often</p>#}
+{#                                </div><!-- /.accordion-item-body -->#}
+{#                            </div>#}
+{#                        </div><!-- /.accordion-item -->#}
+{#                        <div class="accordion-item">#}
+{#                            <div class="accordion__header" data-toggle="collapse" data-target="#collapse5">#}
+{#                                <a class="accordion__title" href="#">Any contracts or commitments?</a>#}
+{#                            </div><!-- /.accordion-item-header -->#}
+{#                            <div id="collapse5" class="collapse" data-parent="#accordion">#}
+{#                                <div class="accordion__body">#}
+{#                                    <p>With any financial product that you buy, it is important that you know you are getting the best#}
+{#                                        advice from a reputable company as often</p>#}
+{#                                </div><!-- /.accordion-item-body -->#}
+{#                            </div>#}
+{#                        </div><!-- /.accordion-item -->#}
+{#                    </div><!-- /#accordion -->#}
+                    <div class="widget-plan">
+                        <div class="widget__body">
+                            <h5 class="widget__title">nombre de place: {{ formation.NombreDePlace }}</h5>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="plan__items">
+                                        <ul class="list-items list-items-layout2 list-unstyled mb-0">
+                                            <li>Review your medical records.</li>
+                                            <li>Check and test blood pressure.</li>
+                                            <li>Run tests such as blood tests.</li>
+                                        </ul>
+                                    </div>
+                                </div><!-- /.col-md-6 -->
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="plan__items">
+                                        <ul class="list-items list-items-layout2 list-unstyled mb-0">
+                                            <li>Check and test lung function.</li>
+                                            <li>Narrowing of the arteries.</li>
+                                            <li>Other specialized tests.</li>
+                                        </ul>
+                                    </div>
+                                </div><!-- /.col-md-6 -->
+                            </div><!-- /.row -->
+                        </div><!-- /.widget__body -->
+                        <div class="widget__footer d-flex flex-wrap justify-content-between align-items-center">
+                            <div class="plan__price">{{ formation.coutFormation }}dt<span class="period"></span></div>
+                            <div class="plan__price">durée: {{ formation.duree }}<span class="period">\h</span></div>
+
+
+                            <div class="d-flex align-items-center">
+{#                                <a href="#" class="btn btn__secondary btn__rounded mr-30">#}
+{#                                    <span>Purchase Now</span> <i class="icon-arrow-right"></i>#}
+{#                                </a>#}
+{#                                <a href="#" class="btn btn__primary btn__link">#}
+{#                                    <i class="icon-arrow-right icon-filled"></i> <span>Explore Other Plans</span>#}
+{#                                </a>#}
+                            </div>
+                        </div><!-- /.widget__footer -->
+                    </div><!-- /.widget-plan -->
+
+                    <section class="contact-layout4 bg-overlay bg-overlay-primary-gradient pb-50 pb-50">
+                        <div class="bg-img"><img src={{ asset("images/banners/3.jpg") }} alt="banner"></div>
+                    </section><!-- /.contact layout 2 -->
+                </div><!-- /.col-lg-8 -->
+                <div class="col-sm-12 col-md-12 col-lg-4">
+                    <aside class="sidebar has-marign-left sticky-top">
+                        <div class="widget widget-services">
+                            <h5 class="widget__title">Medical Services</h5>
+                            <div class="widget-content">
+                                <ul class="list-unstyled mb-0">
+                                    <li><a href="#"><span>Neurology Clinic</span><i class="icon-arrow-right"></i></a></li>
+                                    <li><a href="#"><span>Cardiology Clinic</span><i class="icon-arrow-right"></i></a></li>
+                                    <li><a href="#"><span>Pathology Clinic</span><i class="icon-arrow-right"></i></a></li>
+                                    <li><a href="#"><span>Laboratory Clinic</span><i class="icon-arrow-right"></i></a></li>
+                                    <li><a href="#"><span>Pediatric Clinic</span><i class="icon-arrow-right"></i></a></li>
+                                    <li><a href="#"><span>Cardiac Clinic</span><i class="icon-arrow-right"></i></a></li>
+                                </ul>
+                            </div><!-- /.widget-content -->
+                        </div><!-- /.widget-services -->
+                        <div class="widget widget-help bg-overlay bg-overlay-secondary-gradient">
+                            <div class="bg-img"><img src={{ asset("images/banners/5.jpg") }} alt="background"></div>
+                            <div class="widget-content">
+                                <div class="widget__icon">
+                                    <i class="icon-call3"></i>
+                                </div>
+                                <h4 class="widget__title">pour plus d'info</h4>
+                                <p class="widget__desc">
+                                </p>
+                                <a href="tel:+201061245741" class="phone__number">
+                                    <i class="icon-phone"></i> <span>{{ formation.idCentre.telephoneCentre }}</span>
+                                </a>
+{#                            </div><!-- /.widget-content -->#}
+{#                        </div><!-- /.widget-help -->#}
+{#                        <div class="widget widget-schedule">#}
+{#                            <div class="widget-content">#}
+{#                                <div class="widget__icon">#}
+{#                                    <i class="icon-charity2"></i>#}
+{#                                </div>#}
+{#                                <h4 class="widget__title">Opening Hours</h4>#}
+{#                                <ul class="time__list list-unstyled mb-0">#}
+{#                                    <li><span>Monday - Friday</span><span>8.00 - 7:00 pm</span></li>#}
+{#                                    <li><span>Saturday</span><span>9.00 - 10:00 pm</span></li>#}
+{#                                    <li><span>Sunday</span><span>10.00 - 12:00 pm</span></li>#}
+{#                                </ul>#}
+{#                            </div><!-- /.widget-content -->#}
+{#                        </div><!-- /.widget-schedule -->#}
+{#                        <div class="widget widget-reports">#}
+{#                            <a href="#" class="btn btn__primary btn__block">#}
+{#                                <i class="icon-pdf-file"></i>#}
+{#                                <span>2020 Patient Reports</span>#}
+{#                            </a>#}
+{#                        </div>#}
+{#                    </aside><!-- /.sidebar -->#}
+{#                </div><!-- /.col-lg-4 -->#}
+{#            </div><!-- /.row -->#}
+{#        </div><!-- /.container -->#}
+    </section>
+{#    <h1>Formation</h1>#}
+
+{#    <table class="table">#}
+{#        <tbody>#}
+{#        <tr>#}
+{#            <th>Id</th>#}
+{#            <td>{{ formation.id }}</td>#}
+{#        </tr>#}
+{#        <tr>#}
+{#            <th>NomFormation</th>#}
+{#            <td>{{ formation.nomFormation }}</td>#}
+{#        </tr>#}
+{#        <tr>#}
+{#            <th>DescriptionFormation</th>#}
+{#            <td>{{ formation.descriptionFormation }}</td>#}
+{#        </tr>#}
+{#        <tr>#}
+{#            <th>CoutFormation</th>#}
+{#            <td>{{ formation.coutFormation }}</td>#}
+{#        </tr>#}
+{#        <tr>#}
+{#            <th>NombreDePlace</th>#}
+{#            <td>{{ formation.NombreDePlace }}</td>#}
+{#        </tr>#}
+{#        <tr>#}
+{#            <th>Duree</th>#}
+{#            <td>{{ formation.duree }}</td>#}
+{#        </tr>#}
+{#        <tr>#}
+{#            <th>category foramtion</th>#}
+{#            <td>{{ formation.idCategorieFormation }}</td>#}
+{#        </tr>#}
+{#        <tr>#}
+{#            <th>centre</th>#}
+{#            <td>{{ formation.idCentre }}</td>#}
+{#        </tr>#}
+{#        </tbody>#}
+{#    </table>#}
+    <a href="{{ path('app_formation_index_front') }}" class="btn btn__primary btn__link">
+        <i class="icon-arrow-right icon-filled"></i> <span>Explore Other Plans</span>
+    </a>
+
+
+{% endblock %}

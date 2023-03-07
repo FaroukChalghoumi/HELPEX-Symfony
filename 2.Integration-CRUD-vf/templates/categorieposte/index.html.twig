@@ -1,0 +1,60 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}centre index{% endblock %}
+{% block component %} <link rel="stylesheet" href="{{ asset("Card/style.css") }}" />  {% endblock %}
+{% block body %}
+
+    <div class="org-table-container">
+        <div class="org-table-head-container"style=" font-size: 16px;">
+            <div class="">
+                 <p class="app-name"style=" font-size: 30px;">Les Categories</p>
+            </div>
+            <div class="add-org-btn-container"style=" margin-top: 30px;">
+                <a href="{{ path('app_categorieposte_new') }}" class="add-org-btn" data-toggle="modal"><i class="fa-solid fa-plus"></i><span>cree une nouvelle categorie</span></a>
+
+            </div>
+        </div>
+        <table class="org-table"style=" margin-top: 30px;">
+            <thead class="org-table-head">
+            <tr>
+                <th class="org-table-th">Id</th>
+                <th class="org-table-th">Topic </th>
+{#                <th class="org-table-th">telephone</th>#}
+{#                <th class="org-table-th">site web</th>#}
+
+                <th class="org-table-th">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for categorieposte in categoriepostes %}
+                <tr>
+                    <td  class="org-table-td">{{ categorieposte.id }}</td>
+                    <td  class="org-table-td">{{ categorieposte.topic }}</td>
+{#                    <td  class="org-table-td"><p class="org-table-status status-pending">{{ centre.telephoneCentre }}</p></td>#}
+
+{#                    <td  class="org-table-td">{{ centre.siteWebCentre }}</td>#}
+                    <td  class="org-table-td">
+                        <div class="org-icon-container">
+                            <a class="org-action-item" href="{{ path('app_categorieposte_show', {'id': categorieposte.id }) }}"><i class="fa-solid fa-circle-info" style="color: #0035ba"></i></a>
+                            <a class="org-action-item" href="{{ path('app_categorieposte_edit', {'id': categorieposte.id }) }}"><i class="fa-solid fa-pencil"style="color: #FFC107"></i></a>
+                            <form class="org-action-item" method="post" action="{{ path('app_categorieposte_delete', {'id': categorieposte.id }) }}" onsubmit="return confirm('Are you sure you want to delete this centre?');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ categorieposte.id ) }}">
+                                <button>
+                                    <a href="{{ path('app_categorieposte_delete', {'id': categorieposte.id }) }}"><i class="fa-solid fa-trash-can" style="color: red"></i></a>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+
+{% endblock %}
