@@ -28,7 +28,7 @@
           <div class="col-sm-12 col-md-12 col-lg-8">
             <div class="post-item mb-0">
               <div class="post__img">
-                  <img src="{{ asset('uploads/pictures/' ~ poste.multimedia) }}" alt="post image" loading="lazy">
+                  <img src="{{ asset('uploads/users/' ~ poste.multimedia) }}" alt="post image" loading="lazy">
               </div><!-- /.post-img -->
               <div class="post__body pb-0">
                 <div class="post__meta-cat">
@@ -36,7 +36,7 @@
                 </div><!-- /.blog-meta-cat -->
                 <div class="post__meta d-flex align-items-center mb-20">
                   <span class="post__meta-date">{{ poste.date ? poste.date|date('Y-m-d') : '' }}</span>
-                  <a class="post__meta-author" href="#">Martin King</a>
+                  <a class="post__meta-author" href="#">{{ poste.user }}</a>
                 </div><!-- /.blog-meta -->
                 <h1 class="post__title mb-30">
                   {{ poste.titre }}
@@ -79,7 +79,7 @@
               <ul class="comments-list list-unstyled">
                 <li class="comment__item">
                   <div class="comment__content">
-                    <h5 class="comment__author">Author</h5>
+                    <h5 class="comment__author">{{ commentaire.user }}</h5>
                     <span class="comment__date">{{ commentaire.date ? commentaire.date|date('Y-m-d') : '' }}</span>
                     <p class="comment__desc">  {{ commentaire.description }}</p>
                    <a href="{{ path('app_commentaire_edit', {'id': commentaire.id}) }}">edit</a>

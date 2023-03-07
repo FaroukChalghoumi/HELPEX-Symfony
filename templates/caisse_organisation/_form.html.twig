@@ -1,0 +1,32 @@
+
+
+<h2>Add Caisse</h2>
+{{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+<div class="large-group">
+
+    <div class="small-group">
+
+
+        {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+        {{ form_label(form.goal,"Goal") }}
+        {{ form_widget(form.goal,{'attr':{'class':'form-control'}}) }}
+        {{ form_errors(form.goal) }}
+
+
+    </div>
+    <div class="small-group">
+
+
+        {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+        {{ form_label(form.description,"Description de la cause") }}
+        {{ form_widget(form.description,{'attr':{'class':'form-control'}}) }}
+        {{ form_errors(form.description) }}
+
+
+    </div>
+    {{ form_end(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+
+
+</div>
+

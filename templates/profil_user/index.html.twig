@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+ {% block css %}
+     <head>
+         <meta charset="UTF-8" />
+         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+         <meta name="description" content="Medcity - Medical Healthcare HTML5 Template">
+         <link href="assets/images/favicon/favicon.png" rel="icon">
+         <title>Medcity - Medical Healthcare HTML5 Template</title>
+
+         <link rel="stylesheet"
+               href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&amp;family=Roboto:wght@400;700&amp;display=swap">
+         <link rel="stylesheet" href="{{ asset("massets/css/libraries.css") }}" />
+         <link rel="stylesheet" href="{{ asset("massets/css/use.fontawesome.com/releases/v5.15.3/css/all.css") }}" />
+         <link rel="stylesheet" href="{{ asset("massets/css/style.css") }}" />
+         {#
+         <link rel="stylesheet" href="{{ asset("") }}" />
+         #}
+
+     </head>
+ {% endblock %}
+
+{% block body %}
+
+    <section class="team-layout1 pb-40">
+        <div class="container">
+            <div class="row">
+                {% for user in users %}
+
+
+                <!-- Member #1 -->
+                <div class="col-sm-6 col-md-4 col-lg-4">
+                    <div class="member">
+                        <div class="member__img">
+                            <img src="{{ asset('uploads/users/'~ user.pdp) }}"  >
+                            <div class="member__hover">
+                                <ul class="social-icons list-unstyled mb-0">
+                                    <li><a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="#" class="twitter"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#" class="phone"><i class="fas fa-phone-alt"></i></a></li>
+                                </ul><!-- /.social-icons -->
+                            </div><!-- /.member-hover -->
+                        </div><!-- /.member-img -->
+                        <div class="member__info">
+                            <h5 class="member__name">  <a href="{{ path('app_tasks_index_nor', {'id':5,'id_userP':user.id}) }}">{{ user.Nom }}   {{ user.Prenom }}</a></h5>
+                            <p class="member__job">Specialist: {{ user.filiere }}</p>
+                            <p class="member__job" style="color: #0a58ca">Tarif: {{ user.tarif }}</p>
+
+                            <p class="member__desc">bio: {{ user.bio  }}</p>
+                            <p class="member__desc">téléphone: {{ user.numtel }}</p>
+
+                        </div><!-- /.member-info -->
+                    </div><!-- /.member -->
+                </div><!-- /.col-lg-4 -->
+                {% endfor %}
+            </div> <!-- /.row -->
+            <div class="row">
+                <div class="col-12 text-center">
+                    <nav class="pagination-area">
+                        <ul class="pagination justify-content-center">
+                            <li><a class="current" href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#"><i class="icon-arrow-right"></i></a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+

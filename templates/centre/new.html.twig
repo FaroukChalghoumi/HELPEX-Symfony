@@ -1,0 +1,30 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}New Centre{% endblock %}
+
+{% block body %}
+    <section class="contact-layout2 pt-0">
+
+        <div class="row">
+            <div class="align-content-center">
+                <div class="contact-panel align-content-center">
+                    <form class=" align-content-center" method="post" id="contactForm" novalidate="novalidate">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h4 class="contact-panel__title">créer un nouveau centre</h4>
+
+                            </div>
+
+                            {{ include('centre/_form.html.twig') }}
+
+                        </div><!-- /.row -->
+                    </form>
+
+                </div>
+            </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+
+    </section><!-- /.contact layout 2 -->
+
+    <a href="{{ path('app_centre_index') }}">back to list</a>
+{% endblock %}

@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 
 class PosteType extends AbstractType
 {
@@ -21,7 +22,10 @@ class PosteType extends AbstractType
                 'required' => false,
             ])
             ->add('categorie')
-
+            ->add('captcha', CaptchaType::class, array(
+                'width' => 200,
+                'height' => 50,
+                'length' => 5))
         ;
     }
 

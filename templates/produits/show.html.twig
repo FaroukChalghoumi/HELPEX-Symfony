@@ -1,0 +1,195 @@
+{% extends 'base.html.twig' %}
+
+{#{% block title %}Produits{% endblock %}#}
+
+{#{% block body %}#}
+{#    <h1>Produits</h1>#}
+
+{#    <table class="table">#}
+{#        <tbody>#}
+{#            <tr>#}
+{#                <th>Id</th>#}
+{#                <td>{{ produit.id }}</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>NomProduit</th>#}
+{#                <td>{{ produit.NomProduit }}</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>EtatProduit</th>#}
+{#                <td>{{ produit.EtatProduit }}</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>PrixProduit</th>#}
+{#                <td>{{ produit.PrixProduit }}</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>DescriptionProduit</th>#}
+{#                <td>{{ produit.DescriptionProduit }}</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>ImagePath</th>#}
+{#                <td>{{ produit.ImagePath }}</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>StatusProduit</th>#}
+{#                <td>{{ produit.StatusProduit }}</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>LocalisationProduit</th>#}
+{#                <td>{{ produit.localisationProduit }}</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>Brand</th>#}
+{#                <td>{{ produit.Brand }}</td>#}
+{#            </tr>#}
+{#        </tbody>#}
+{#    </table>#}
+
+{#    <a href="{{ path('app_produits_index') }}">back to list</a>#}
+
+{#    <a href="{{ path('app_produits_edit', {'id': produit.id}) }}">edit</a>#}
+
+{#    {{ include('produits/_delete_form.html.twig') }}#}
+{#{% endblock %}#}
+{% block title %}Produit Show{% endblock %}
+
+{% block body %}
+
+    <!-- ========================
+       page title
+    =========================== -->
+    <section class="page-title pt-30 pb-30">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mt-0">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Cart</li>
+                        </ol>
+                    </nav>
+
+
+
+    <!-- ========================
+   shop single
+=========================== -->
+
+                                <div class="row product-item-single">
+                                    <div class="col-sm-6">
+                                        <div class="product__img">
+                                            <img src={{ asset('uploads/users/' ~ produit.ImagePath) }} class="zoomin" alt="product" loading="lazy" style="visibility: visible;">
+                                        </div><!-- /.product-img -->
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <h1 class="product__title">{{ produit.NomProduit }}</h1>
+                                        <div class="product__meta-review mb-20">
+                  <span class="product__rating">
+                    <i class="fa fa-star active"></i>
+                    <i class="fa fa-star active"></i>
+                    <i class="fa fa-star active"></i>
+                    <i class="fa fa-star active"></i>
+                    <i class="fa fa-star"></i>
+                  </span>
+                                            <span>4 Review(s)</span>
+                                            <a href="#">Add Review</a>
+                                        </div><!-- /.product-meta-review -->
+                                        <span class="product__price mb-20">{{ produit.PrixProduit }} DT</span>
+                                        <div class="product__desc">
+                                            <p>
+                                                {{ produit.DescriptionProduit }}
+                                            </p>
+                                        </div><!-- /.product-desc -->
+
+                                        <div class="product__quantity d-flex mb-30">
+                                            <a class="btn btn__secondary btn__rounded" href="#">Request Client</a>
+                                        </div><!-- /.product-quantity -->
+
+                                        <div class="product__quantity d-flex mb-30">
+                                        <a href="{{ path('app_produits_edit', {'id':produit.id})}}" class="btn btn__secondary btn__rounded">Editer mon poste</a>
+                                        </div><!-- /.product-quantity -->
+                                        <div class="product__meta-details">
+                                            <ul class="list-unstyled mb-30">
+                                                <li><span>IdProduit :</span> <span>#{{ produit.id }}</span></li>
+                                                <li><span>Category :</span> <span> Implant intraoculaire</span></li>
+                                                <li><span>Etat Produit :</span> <span> {{ produit.EtatProduit }}  </span></li>
+                                                <li><span>Client Contacts :</span> <span> You can contact me here  </span></li>
+                                            </ul>
+                                        </div><!-- /.product__meta-details -->
+                                        <ul class="social-icons list-unstyled mb-0">
+                                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                        </ul><!-- /.social-icons -->
+                                    </div>
+                                </div><!-- /.row -->
+                                <div class="product__details mt-100">
+                                    <nav class="nav nav-tabs">
+                                        <a class="nav__link active" data-toggle="tab" href="#Description">Description</a>
+                                        <a class="nav__link" data-toggle="tab" href="#Details">Details</a>
+                                        <a class="nav__link" data-toggle="tab" href="#Reviews">Reviews (3)</a>
+                                    </nav>
+                                    <div class="tab-content mb-50" id="nav-tabContent">
+                                        <div class="tab-pane fade active show" id="Description">
+                                            <p>{{ produit.DescriptionProduit }}.</p>
+                                        </div><!-- /.desc-tab -->
+                                        <div class="tab-pane fade" id="Details">
+                                            <p>{{ produit.DescriptionProduit }} </p>
+                                            <p>as described in Web
+                                                Design Trends 2015 &amp; 2016, vision dominates a lot of our subconscious interpretation of the world
+                                                around us. On top of that, pleasing images create a better user experience.
+                                                At League Agency, we shows only the best websites and portfolios built completely with passion,
+                                                simplicity &amp; creativity !</p>
+                                        </div><!-- /.details-tab -->
+                                        <div class="tab-pane fade" id="Reviews">
+                                            <form class="reviews__form">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Name">
+                                                </div><!-- /.form-group -->
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Email">
+                                                </div><!-- /.form-group -->
+                                                <div class="form-group">
+                                                    <textarea class="form-control" placeholder="Review"></textarea>
+                                                </div><!-- /.form-group -->
+                                                <button type="submit" class="btn btn__primary btn__rounded">Submit</button>
+                                            </form>
+                                        </div><!-- /.reviews-tab -->
+                                    </div>
+                                </div><!-- /.product-tabs -->
+                                <h6 class="related__products-title text-center-xs mb-25">Related Products</h6>
+                                <div class="row">
+
+                                    <!-- Product item #1 -->
+                                    <div class="col-sm-6 col-md-6 col-lg-3">
+                                        <div class="product-item">
+                                            <div class="product__img">
+                                                <img src="assets/images/products/2.jpg" alt="Product" loading="lazy">
+                                                <div class="product__action">
+                                                    <a href="#" class="btn btn__primary btn__rounded">
+                                                        <i class="icon-cart"></i> <span>Add To Cart</span>
+                                                    </a>
+                                                </div><!-- /.product-action -->
+                                            </div><!-- /.product-img -->
+                                            <div class="product__info">
+                                                <h4 class="product__title"><a href="#">Biotin Complex</a></h4>
+                                                <span class="product__price">$12,99</span>
+                                            </div><!-- /.product-content -->
+                                        </div><!-- /.product-item -->
+                                    </div><!-- /.col-lg-3 -->
+
+                                </div><!-- /.row -->
+                            </div><!-- /.col-12 -->
+                        </div><!-- /.row -->
+
+         </div><!-- /.container -->
+    </section><!-- /.shop single -->
+
+
+
+
+
+
+{% endblock %}

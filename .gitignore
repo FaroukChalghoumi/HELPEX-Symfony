@@ -12,7 +12,6 @@
 ###> phpunit/phpunit ###
 /phpunit.xml
 .phpunit.result.cache
-/node_moduels
 ###< phpunit/phpunit ###
 
 ###> symfony/phpunit-bridge ###

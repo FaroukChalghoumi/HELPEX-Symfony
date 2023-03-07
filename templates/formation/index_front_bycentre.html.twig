@@ -1,0 +1,138 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}formations index{% endblock %}
+
+{% block body %}
+
+    <section class="page-title">
+        <div class="bg-img"><img src={{ asset("images/page-titles/4.jpg") }} alt="background"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-9 col-xl-5">
+                    <h1 class="pagetitle__heading">Providing Care for The Sickest In Community.</h1>
+                    <p class="pagetitle__desc">Medcity has been present in Europe since 1990, offering innovative
+                        solutions, specializing in medical services for treatment of medical infrastructure.
+                    </p>
+                    <ul class="features-list list-unstyled mb-0 d-flex flex-wrap justify-content-between">
+                        <!-- feature item #1 -->
+                        <li class="feature-item">
+                            <div class="feature__icon">
+                                <i class="icon-heart"></i>
+                            </div>
+                            <h2 class="feature__title">Examination</h2>
+                        </li><!-- /.feature-item-->
+                        <!-- feature item #2 -->
+                        <li class="feature-item">
+                            <div class="feature__icon">
+                                <i class="icon-medicine"></i>
+                            </div>
+                            <h2 class="feature__title">Prescription </h2>
+                        </li><!-- /.feature-item-->
+                        <!-- feature item #3 -->
+                        <li class="feature-item">
+                            <div class="feature__icon">
+                                <i class="icon-heart2"></i>
+                            </div>
+                            <h2 class="feature__title">Cardiogram</h2>
+                        </li><!-- /.feature-item-->
+                        <!-- feature item #4 -->
+                        <li class="feature-item">
+                            <div class="feature__icon">
+                                <i class="icon-blood-test"></i>
+                            </div>
+                            <h2 class="feature__title">Blood Pressure</h2>
+                        </li><!-- /.feature-item-->
+                    </ul><!-- /.features-list -->
+                </div><!-- /.col-xl-5 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section><!-- /.page-title -->
+
+    <section class="services-layout2 pt-130">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-6 offset-lg-3">
+                    <div class="heading text-center mb-60">
+                        <h3 class="headingtitle">Providing Medical Care For The Sickest In Our Community.</h3>
+                    </div><!-- /.heading -->
+                </div><!-- /.col-lg-6 -->
+            </div><!-- /.row -->
+
+            <div class="row">
+                <!-- service item #1 -->
+                {% for formation in formations %}
+                    <div class="col-sm-12 col-md-6 col-lg-4">
+                        <div class="service-item">
+                            <div class="service__img">
+                                {% if formation.iamgeformation  is not empty %}
+                                    <div>
+                                        <a href="blog-single-post.html">                             <img src={{ asset('uploads/users/' ~ formation.iamgeformation) }} alt="Formation" loading="lazy">
+                                        </a>
+                                    </div>
+                                {% else %}
+                                    <img src={{ asset('uploads/NoImage.jpg' ) }} alt="Product" loading="lazy">
+                                {% endif %}
+                                {#                        <img src="{{ asset("images/services/1.jpg")}}" alt="img" loading="lazy">#}
+                            </div><!-- /.serviceimg -->
+
+                            <div class="service__content">
+                                <h4 class="service__title">{{ formation.nomFormation }}</h4>
+
+                                <p class="service__desc">{{ formation.descriptionFormation | striptags | slice(0, 60) }}...
+                                </p>
+                                <a href={{ path('app_formation_show_front', {'id': formation.id}) }} class="btn btn__secondary btn__outlined btn__rounded">
+                                <span>Read More</span>
+                                <i class="icon-arrow-right"></i>
+                                </a>
+                            </div>
+
+
+                        </div><!-- /.service-item -->
+                    </div><!-- /.col-lg-4 -->
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+
+
+    {#    <table class="table">#}
+    {#        <thead>#}
+    {#        <tr>#}
+    {#        <tr>Id</tr>#}
+    {#        <th>NomFormation</th>#}
+    {#        <th>DescriptionFormation</th>#}
+    {#        <th>CoutFormation</th>#}
+    {#        <th>NombreDePlace</th>#}
+    {#        <th>Duree</th>#}
+    {#        <th>CategorieFormation</th>#}
+    {#        <th>centre</th>#}
+    {#        <th>actions</th>#}
+    {#        </tr>#}
+    {#        </thead>#}
+    {#        <tbody>#}
+    {#        {% for formation in formations %}#}
+    {#            <tr>#}
+    {#                <td>{{ formation.id }}</td>#}
+    {#                <td >{{ formation.nomFormation }}</td>#}
+    {#                <td >{{ formation.descriptionFormation }}</td>#}
+    {#                <td >{{ formation.coutFormation }}</td>#}
+    {#                <td>{{ formation.NombreDePlace }}</td>#}
+    {#                <td>{{ formation.duree }}</td>#}
+    {#                <td>{{ formation.idCategorieFormation }}</td>#}
+    {#                <td>{{ formation.idCentre }}</td>#}
+
+    {#                    <a href="{{ path('app_formation_show', {'id': formation.id}) }}">show</a>#}
+    {#                    <a href="{{ path('app_formation_edit', {'id': formation.id}) }}">edit</a>#}
+    {#                </td>#}
+    {#            </tr>#}
+    {#        {% else %}#}
+    {#            <tr>#}
+    {#                <td colspan="10">no records found</td>#}
+    {#            </tr>#}
+    {#        {% endfor %}#}
+    {#        </tbody>#}
+    {#    </table>#}
+
+    {#    <a href="{{ path('app_formation_new') }}">Create new</a>#}
+{% endblock %}

@@ -11,13 +11,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 #[Route('/categorieposte')]
 class CategorieposteController extends AbstractController
 {
-    #[Route('/', name: 'app_categorieposte_index', methods: ['GET'])]
+    #[Route('/', name: 'app_categorieposte_index', methods: ['GET']),IsGranted('ROLE_ADMIN')]
     public function index(CategorieposteRepository $categorieposteRepository): Response
     {
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
         return $this->render('categorieposte/index.html.twig', [
             'categoriepostes' => $categorieposteRepository->findAll(),
         ]);
@@ -30,9 +35,13 @@ class CategorieposteController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_categorieposte_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'app_categorieposte_new', methods: ['GET', 'POST']),IsGranted('ROLE_ADMIN')]
     public function new(Request $request, CategorieposteRepository $categorieposteRepository): Response
     {
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
         $categorieposte = new Categorieposte();
         $form = $this->createForm(CategorieposteType::class, $categorieposte);
         $form->handleRequest($request);
@@ -49,17 +58,25 @@ class CategorieposteController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_categorieposte_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_categorieposte_show', methods: ['GET']),IsGranted('ROLE_ADMIN')]
     public function show(Categorieposte $categorieposte): Response
     {
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
         return $this->render('categorieposte/show.html.twig', [
             'categorieposte' => $categorieposte,
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_categorieposte_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_categorieposte_edit', methods: ['GET', 'POST']),IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, Categorieposte $categorieposte, CategorieposteRepository $categorieposteRepository): Response
     {
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
         $form = $this->createForm(CategorieposteType::class, $categorieposte);
         $form->handleRequest($request);
 
@@ -75,9 +92,13 @@ class CategorieposteController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_categorieposte_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_categorieposte_delete', methods: ['POST']),IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, Categorieposte $categorieposte, CategorieposteRepository $categorieposteRepository): Response
     {
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
         if ($this->isCsrfTokenValid('delete'.$categorieposte->getId(), $request->request->get('_token'))) {
             $categorieposteRepository->remove($categorieposte, true);
         }

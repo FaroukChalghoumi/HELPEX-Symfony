@@ -1,4 +1,0 @@
-# config/parameters.yaml
-
-parameters:
-    pictures_directory: '%kernel.project_dir%/public/uploads/pictures'

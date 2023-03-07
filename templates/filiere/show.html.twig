@@ -1,0 +1,41 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Filiere
+{% endblock %}
+
+{% block body %}
+	<h1>Filiere</h1>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ filiere.id }}</td>
+			</tr>
+			<tr>
+				<th>NomFiliere</th>
+				<td>{{ filiere.NomFiliere }}</td>
+			</tr>
+			<tr>
+				<th>DescriptionFiliere</th>
+				<td>{{ filiere.DescriptionFiliere }}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_filiere_index') }}">back to list</a>
+
+	<a href="{{ path('app_filiere_edit', {'id': filiere.id}) }}">edit</a>
+
+
+	<h1>Users in
+		{{ filiere.NomFiliere }}</h1>
+
+	<ul>
+		{% for user in users %}
+			<li>{{ user.email }}</li>
+		{% endfor %}
+	</ul>
+
+	{{ include('filiere/_delete_form.html.twig') }}
+{% endblock %}

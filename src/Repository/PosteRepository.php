@@ -38,7 +38,15 @@ class PosteRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
+    public function getBycategory($id)  {
+        $qb= $this->createQueryBuilder('f')
+            ->join('f.categorie','c')
+            ->addSelect('c')
+            ->where('c.id=:id')
+            ->setParameter('id',$id);
+        return $qb->getQuery()
+            ->getResult();
+    }
 //    /**
 //     * @return Poste[] Returns an array of Poste objects
 //     */

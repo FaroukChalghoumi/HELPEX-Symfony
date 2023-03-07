@@ -14,9 +14,13 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/commentaire')]
 class CommentaireController extends AbstractController
 {
-    #[Route('/backend', name: 'app_commentaire_index', methods: ['GET'])]
+    #[Route('/backend', name: 'app_commentaire_index', methods: ['GET']),IsGranted('ROLE_ADMIN')]
     public function index(CommentaireRepository $commentaireRepository): Response
     {
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
         return $this->render('commentaire/index.html.twig', [
             'commentaires' => $commentaireRepository->findAll(),
         ]);
@@ -25,6 +29,10 @@ class CommentaireController extends AbstractController
     #[Route('/new', name: 'app_commentaire_new', methods: ['GET', 'POST'])]
     public function new(Request $request, CommentaireRepository $commentaireRepository): Response
     {
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
         $commentaire = new Commentaire();
         $form = $this->createForm(CommentaireType::class, $commentaire);
         $form->handleRequest($request);
@@ -69,15 +77,23 @@ class CommentaireController extends AbstractController
     #[Route('front/{id}', name: 'app_commentairefront_delete', methods: ['POST'])]
     public function deletefront(Request $request, Commentaire $commentaire, CommentaireRepository $commentaireRepository): Response
     {
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
         if ($this->isCsrfTokenValid('delete'.$commentaire->getId(), $request->request->get('_token'))) {
             $commentaireRepository->remove($commentaire, true);
         }
 
         return $this->redirectToRoute('app_poste_front_index', [], Response::HTTP_SEE_OTHER);
     }
-    #[Route('back/{id}', name: 'app_commentaire_delete', methods: ['POST'])]
+    #[Route('back/{id}', name: 'app_commentaire_delete', methods: ['POST']),IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, Commentaire $commentaire, CommentaireRepository $commentaireRepository): Response
     {
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
         if ($this->isCsrfTokenValid('delete'.$commentaire->getId(), $request->request->get('_token'))) {
             $commentaireRepository->remove($commentaire, true);
         }
