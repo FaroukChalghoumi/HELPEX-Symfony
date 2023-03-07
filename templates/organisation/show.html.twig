@@ -11,7 +11,7 @@
 {% block body %}
     <div class="projects-section-header">
         <div>
-            <img style="width: 50px;height: 50px"src="{{ asset("uploads/brochures/" ~ organisation.logoOrg) }}" ><br> <br>
+            <img style="width: 50px;height: 50px"src="{{ asset("uploads/users/" ~ organisation.logoOrg) }}" ><br> <br>
         </div>
         <p>Details sur {{ organisation.NomOrg }}</p>
         <p class="time">Tel: {{ organisation.numTelOrganisation }}</p>
@@ -55,7 +55,7 @@
         <span style="font-weight: bold;">Payment Info</span> : {{ organisation.paymentInfo }} <br> <br>
     </div>
     <div>
-        <span style="font-weight: bold;">Document de legitimité</span> :  <a href="{{ asset('uploads/brochures/' ~ organisation.documentOrganisation) }}">View Document (PDF)</a><br> <br>
+        <span style="font-weight: bold;">Document de legitimité</span> :  <a href="{{ asset('uploads/users/' ~ organisation.documentOrganisation) }}">View Document (PDF)</a><br> <br>
     </div>
 
     <br> <br>
