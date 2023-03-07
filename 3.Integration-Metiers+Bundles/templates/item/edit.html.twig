@@ -1,0 +1,9 @@
+
+{% block body %}
+
+
+    {{ include('item/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_item_index') }}">back to list</a>
+
+{% endblock %}

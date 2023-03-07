@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New InscriptionFormation{% endblock %}
+
+{% block body %}
+    <h1> InscriptionFormation</h1>
+
+    {{ include('inscription_formation/_form.html.twig') }}
+
+    <a href="{{ path('app_inscription_formation_index') }}">back to list</a>
+{% endblock %}

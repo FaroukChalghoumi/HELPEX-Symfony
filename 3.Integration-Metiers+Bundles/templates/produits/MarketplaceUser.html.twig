@@ -1,0 +1,123 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MarketPllace Profile{% endblock %}
+
+
+{% block body %}
+
+    <section class="page-title page-title-layout6">
+        <div class="bg-img"><img src={{ asset("images/backgrounds/7.jpg") }} alt="background"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 d-flex flex-wrap justify-content-end align-items-center">
+                    <div class="testimonials__rating mr-30">
+                        <div class="testimonials__rating-inner d-flex align-items-center">
+                            <span class="total__rate">4.9</span>
+                            <div>
+                                <span class="overall__rate">Zocdoc Overall Rating</span>
+                                <span>, based on 7541 reviews.</span>
+                            </div>
+                        </div><!-- /.testimonials__rating-inner -->
+                    </div><!-- /.testimonials__rating -->
+                    {% if app.user == user %}
+                    <a href="{{ path('app_produits_new') }}"  class="btn btn__white btn__rounded">Add Product</a>
+                    {% endif %}
+                </div><!-- /.col-12 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section><!-- /.page-title -->
+
+
+
+
+
+    <section class="pt-120 pb-80">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-4">
+                    <aside class="sidebar has-marign-right">
+                        <div class="widget widget-member shifted-top">
+                            <div class="member mb-0">
+                                <div class="member__img">
+                                    {% if user.pdp is not null %}
+                                        <img src="{{ asset('uploads/users/' ~ user.pdp) }}" alt="User Image">
+                                    {% else %}
+                                        <img src="{{ asset('images/noauth.jpg') }}" alt="User Image">
+                                    {% endif %}
+                                </div><!-- /.member-img -->
+                                <div class="member__info">
+                                    <h5 class="member__name">{{ user.Nom }} {{ user.Prenom }}</h5>
+                                    <p class="member__job">Client / Seller</p>
+                                    <p class="member__desc">{{ user.bio }}</p>
+                                    <div class="mt-20 d-flex flex-wrap justify-content-between align-items-center">
+                                        <ul class="social-icons list-unstyled mb-0">
+                                            <li><a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a></li>
+                                            <li><a href="#" class="twitter"><i class="fab fa-twitter"></i></a></li>
+                                            <li><a href="#" class="phone"><i class="fas fa-phone-alt"></i></a></li>
+                                        </ul><!-- /.social-icons -->
+                                    </div>
+                                </div><!-- /.member-info -->
+                            </div><!-- /.member -->
+                        </div><!-- /.widget-member -->
+
+
+
+                    </aside>
+
+
+                </div><!-- /.col-sm-12 col-md-12 col-lg-4 -->
+
+
+
+            </div><!-- /.row -->
+
+        </div><!-- /.container -->
+
+    </section>
+
+
+    <section class="team-layout2 pb-40">
+        <div class="container">
+            <div class="row">
+                {% for produit in produits %}
+                    {% if produit.user == user %}
+
+                        <div class="col-sm-6 col-md-4 col-lg-4">
+                            <div class="member">
+                                <div class="member__img">
+                                    {% if produit.ImagePath  is not empty %}
+                                        <img src={{ asset('uploads/users/' ~ produit.ImagePath) }} alt="Product" loading="lazy">
+                                    {% else %}
+                                        <img src={{ asset('uploads/No_Image_Available.jpg' ) }} alt="Product" loading="lazy">
+                                    {% endif %}
+
+                                </div><!-- /.member-img -->
+                                <div class="member__info">
+                                    <h5 class="member__name">{{ produit.NomProduit }}</h5>
+                                    <p class="member__job">{{ produit.CategorieProduit }}</p>
+                                    <p class="member__desc">{{ produit.DescriptionProduit | striptags | slice(0, 55) }}...</p>
+                                    <div class="mt-20 d-flex flex-wrap justify-content-between align-items-center">
+                                        <a href="{{ path('app_produits_show', {'id': produit.id}) }}" class="btn btn__secondary btn__link btn__rounded">
+                                            <span>Show</span>
+                                            <i class="icon-arrow-right"></i>
+                                        </a>
+                                        <ul class="social-icons list-unstyled mb-0">
+                                            <li><a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a></li>
+                                            <li><a href="#" class="twitter"><i class="fab fa-twitter"></i></a></li>
+                                            <li><a href="#" class="phone"><i class="fas fa-phone-alt"></i></a></li>
+                                        </ul><!-- /.social-icons -->
+                                    </div>
+                                </div><!-- /.member-info -->
+                            </div><!-- /.member -->
+                        </div><!-- /.col-lg-4 -->
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+{% endblock %}

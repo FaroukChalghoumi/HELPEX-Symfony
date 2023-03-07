@@ -1,0 +1,213 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+	<!-- ========================
+																																															       page title 
+																																															    =========================== -->
+	<section class="page-title page-title-layout6">
+		<div class="bg-img">
+			<img src="{{ asset('images/backgrounds/2.jpg') }}" alt="User Image">
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-12 d-flex flex-wrap justify-content-end align-items-center">
+					{% if is_granted('ROLE_PRO')%}
+						<div class="testimonials__rating mr-30">
+							<div class="testimonials__rating-inner d-flex align-items-center">
+								<span class="total__rate">{{app.user.tarif}}</span>
+
+							</div>
+							<!-- /.testimonials__rating-inner -->
+						</div>
+					{% endif %}
+					<!-- /.testimonials__rating -->
+					<a href="{{ path('YourProfileEdit', {'id':app.user.id})}}" class="btn btn__white btn__rounded">Editer mon profile</a>
+				</div>
+				<!-- /.col-12 -->
+			</div>
+			<!-- /.row -->
+		</div>
+		<!-- /.container -->
+	</section>
+	<!-- /.page-title -->
+
+	<section class="pt-120 pb-80">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 col-md-12 col-lg-4">
+					<aside class="sidebar has-marign-right">
+						<div class="widget widget-member shifted-top">
+							<div class="member mb-0">
+								<div class="member__img">
+									{% if app.user.pdp is not null %}
+										<img src="{{ asset('uploads/users/' ~ app.user.pdp) }}" alt="User Image">
+									{% else %}
+										<img src="{{ asset('images/noauth.jpg') }}" alt="User Image">
+									{% endif %}
+								</div>
+								<!-- /.member-img -->
+								<div class="member__info">
+									<h5 class="member__name">
+										<a href="">{{ app.user.Nom }}
+											{{ app.user.Prenom }}</a>
+									</h5>
+									{% if is_granted('ROLE_PRO')%}
+										<p class="member__job">{{ app.user.filiere }}</p>
+									{% endif %}
+									<a href="" class="phone__number">
+										<i class="icon-phone"></i>
+										<span>{{ app.user.NumTel }}</span>
+									</a>
+
+									<div class="mt-20 d-flex flex-wrap justify-content-between align-items-center">
+										<ul class="social-icons list-unstyled mb-0">
+											<li>
+												<a href="#" class="facebook">
+													<i class="fab fa-facebook-f"></i>
+												</a>
+											</li>
+											<li>
+												<a href="#" class="twitter">
+													<i class="fab fa-twitter"></i>
+												</a>
+											</li>
+											<li>
+												<a href="#" class="phone">
+													<i class="fas fa-phone-alt"></i>
+												</a>
+											</li>
+										</ul>
+										<!-- /.social-icons -->
+									</div>
+								</div>
+								<!-- /.member-info -->
+							</div>
+							<!-- /.member -->
+						</div>
+						<!-- /.widget-member -->
+
+						<!-- /.widget-help -->
+
+						<div class="widget widget-reports">
+							<a href="#" class="btn btn__primary btn__block">
+								<i class="icon-eye-file"></i>
+								<span>Mes Accompagnements</span>
+							</a>
+						</div>
+
+						<div class="widget widget-help bg-overlay bg-overlay-primary-gradient">
+							<div class="bg-img"><img src={{ asset('images/banners/5.jpg') }} alt="background"></div>
+							<div class="widget-content">
+								<div class="widget__icon">
+									<i class="icon-call3"></i>
+								</div>
+								<h4 class="widget__title">Emergency Cases</h4>
+								<p class="widget__desc">Please feel welcome to contact our friendly reception staff with any general
+																																																																								                    or medical enquiry call us.
+								</p>
+								<a href="tel:+201061245741" class="phone__number">
+									<i class="icon-phone"></i>
+									<span>01061245741</span>
+								</a>
+							</div>
+							<!-- /.widget-content -->
+						</div>
+						<!-- /.widget-help -->
+
+
+					</aside>
+					<!-- /.sidebar -->
+				</div>
+				<!-- /.col-lg-4 -->
+				<div class="col-sm-12 col-md-12 col-lg-8">
+
+					<section class="contact-layout4 bg-overlay bg-overlay-secondary-gradient pb-50 pb-50">
+						<div class="bg-img"><img src="{{ asset('images/page-titles/7.jpg' ) }}" alt="background"></div>
+						<div class="contact-panel mb-0">
+							<form class="contact-panel__form" method="post" action="http://7oroof.com/demos/medcity/assets/php/contact.php" id="contactForm">
+								<div class="row">
+									<div class="col-sm-12">
+										<h4 class="contact-panel__title">Bio</h4>
+										<p class="contact-panel__desc mb-30">
+											{{ app.user.bio }}
+										</p>
+									</div>
+								</div>
+								<!-- /.row -->
+								<ul class="details-list list-unstyled mb-60">
+
+									<li>
+										<h5 class="details__title">adresse</h5>
+										<div class="details__content">
+											<p class="mb-0">{{ app.user.adresse }}
+											</p>
+										</div>
+									</li>
+
+									<li>
+										<h5 class="details__title">date naissance</h5>
+										<div class="details__content">
+											<p class="mb-0">{{ user.DateNaissance ? user.DateNaissance|date('Y-m-d') : '' }}
+											</p>
+										</div>
+									</li>
+									<li>
+										<h5 class="details__title">numero</h5>
+										<div class="details__content">
+											<p class="mb-0">{{ app.user.NumTel }}
+											</p>
+										</div>
+									</li>
+									{% if is_granted('ROLE_PRO')%}
+
+										<li>
+											<h5 class="details__title">Specialité</h5>
+											<div class="details__content">
+												<p class="mb-0">{{ app.user.filiere }}
+												</p>
+											</div>
+										</li>
+
+										<li>
+											<h5 class="details__title">Diplomé</h5>
+											<div class="details__content">
+												<p class="mb-0">{{ app.user.isEnabled ? 'oui' : 'False' }}
+												</p>
+											</div>
+										</li>
+										<li>
+											<h5 class="details__title">Diplomé</h5>
+											<div class="details__content">
+												<p class="mb-0">{{ app.user.tarif}}
+												</p>
+											</div>
+										</li>
+									{% endif %}
+
+									<li>
+										<h5 class="details__title">Office</h5>
+										<div class="details__content">
+											<p class="mb-0">2307 Beverley Rd Brooklyn, New York 11226 United States.</p>
+										</div>
+									</li>
+									<li>
+										<h5 class="details__title">University</h5>
+										<div class="details__content">
+											<p class="mb-0">Harvard University</p>
+										</div>
+									</li>
+								</ul>
+							</form>
+						</div>
+					</section>
+					<!-- /.contact layout 2 -->
+				</div>
+				<!-- /.col-lg-8 -->
+			</div>
+			<!-- /.row -->
+		</div>
+		<!-- /.container -->
+	</section>
+{% endblock %}

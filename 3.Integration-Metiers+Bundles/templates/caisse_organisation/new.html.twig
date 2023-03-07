@@ -1,0 +1,13 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}New CaisseOrganisation{% endblock %}
+{% block component %}
+    <link rel="stylesheet" href="{{ asset("build/css/orgForm.css") }}" />
+{% endblock %}
+{% block body %}
+    <h1>Create new CaisseOrganisation</h1>
+
+    {{ include('caisse_organisation/_form.html.twig') }}
+
+    <a href="{{ path('app_caisse_organisation_index') }}">back to list</a>
+{% endblock %}
