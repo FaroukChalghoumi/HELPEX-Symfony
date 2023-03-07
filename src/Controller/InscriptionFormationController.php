@@ -4,9 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Formation;
 use App\Entity\InscriptionFormation;
+use App\Form\InscriptionFormationfront;
 use App\Form\InscriptionFormationType;
 use App\Repository\InscriptionFormationRepository;
 use App\Service\PdfService;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Endroid\QrCode\Builder\BuilderInterface;
 use Endroid\QrCode\Color\Color;
 use Endroid\QrCode\Encoding\Encoding;
@@ -22,7 +25,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/inscription/formation')]
 class InscriptionFormationController extends AbstractController
 {
-    #[Route('/front', name: 'app_inscription_formation_index', methods: ['GET'])]
+    #[Route('/front', name: 'app_inscription_formation_index_front', methods: ['GET'])]
     public function indexfront(InscriptionFormationRepository $inscriptionFormationRepository): Response
     {
         $user = $this->getUser();
@@ -32,7 +35,7 @@ class InscriptionFormationController extends AbstractController
             'user'=>$user,
         ]);
     }
-    #[Route('/', name: 'app_inscription_formation_index_front', methods: ['GET'])]
+    #[Route('/', name: 'app_inscription_formation_index', methods: ['GET'])]
     public function index(InscriptionFormationRepository $inscriptionFormationRepository): Response
     {
 
@@ -42,8 +45,32 @@ class InscriptionFormationController extends AbstractController
     }
     #[Route('/pdf/{id}', name: 'pdf_inscription', methods: ['GET', 'POST'])]
 public function genererpdfinscription(InscriptionFormation $inscriptionFormation, PdfService $pdf){
-        $html=$this->render('inscription_formation/show.html.twig',['inscription_formation'=>$inscriptionFormation]);
-        $pdf->showPdfFile($html);
+        //$html=$this->render('inscription_formation/show_pdf.html.twig',['inscription_formation'=>$inscriptionFormation]);
+       // $pdf->showPdfFile($html);
+        $options = new Options();
+        $options->set('defaultFont', 'Arial');
+
+        $dompdf = new Dompdf($options);
+
+        $html = $this->renderView('inscription_formation/show_pdf.html.twig', [
+            'name' => 'John Doe'
+        ]);
+
+        $dompdf->loadHtml($html);
+
+        $dompdf->setPaper('A4', 'portrait');
+
+        $dompdf->render();
+
+        $filename = 'custom_pdf.pdf';
+        return new Response(
+            $dompdf->output(),
+            200,
+            array(
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'attachment; filename="' . $filename . '"'
+            )
+        );
     }
     #[Route('/new/{id}', name: 'app_inscription_formation_new', methods: ['GET', 'POST'])]
     public function new(/*TexterInterface $texter*/ BuilderInterface $qrBuilder ,MailerInterface $mailer,Formation $id,Request $request, InscriptionFormationRepository $inscriptionFormationRepository): Response
@@ -71,8 +98,13 @@ public function genererpdfinscription(InscriptionFormation $inscriptionFormation
             $email->subject('nouvelle inscription a votre formation');
             $email->from('oussema.ayari.2001@gmail.com');
             $email->to('ahmedbelhajhassen22@gmail.com');
-            $email->text($user->getUsername(),$user->getUserIdentifier());
+            //$email->text($user->getUsername(),$user->getUserIdentifier());
+            $email->htmlTemplate('emails/template.html.twig');
+            $email->context([
+                'name' => 'ahmed',
+            ]);
             $mailer->send($email);
+
             $inscriptionFormation->setFormations($id);
             $inscriptionFormation->setUser($user);
             $inscriptionFormation->setStatusFormation("a faire");
@@ -82,7 +114,7 @@ public function genererpdfinscription(InscriptionFormation $inscriptionFormation
 
             $inscriptionFormationRepository->save($inscriptionFormation, true);
 
-            return $this->redirectToRoute('app_inscription_formation_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_inscription_formation_index_front', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('inscription_formation/new.html.twig', [
@@ -125,6 +157,8 @@ public function genererpdfinscription(InscriptionFormation $inscriptionFormation
         ]);
     }
 
+
+
     #[Route('/{id}/edit', name: 'app_inscription_formation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, InscriptionFormation $inscriptionFormation, InscriptionFormationRepository $inscriptionFormationRepository): Response
     {
@@ -132,12 +166,35 @@ public function genererpdfinscription(InscriptionFormation $inscriptionFormation
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $inscriptionFormation->setAutorisation(false);
             $inscriptionFormationRepository->save($inscriptionFormation, true);
 
             return $this->redirectToRoute('app_inscription_formation_index', [], Response::HTTP_SEE_OTHER);
         }
 
+
+
         return $this->renderForm('inscription_formation/edit.html.twig', [
+            'inscription_formation' => $inscriptionFormation,
+            'form' => $form,
+        ]);
+    }
+    #[Route('/{id}/edit/front', name: 'app_inscription_formation_edit_front', methods: ['GET', 'POST'])]
+    public function editfront(Request $request, InscriptionFormation $inscriptionFormation, InscriptionFormationRepository $inscriptionFormationRepository): Response
+    {
+        $form = $this->createForm(InscriptionFormationfront::class, $inscriptionFormation);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $inscriptionFormation->setAutorisation(true);
+            $inscriptionFormationRepository->save($inscriptionFormation, true);
+
+            return $this->redirectToRoute('app_inscription_formation_index_front', [], Response::HTTP_SEE_OTHER);
+        }
+
+
+
+        return $this->renderForm('inscription_formation/edit_front.html.twig', [
             'inscription_formation' => $inscriptionFormation,
             'form' => $form,
         ]);
@@ -145,6 +202,16 @@ public function genererpdfinscription(InscriptionFormation $inscriptionFormation
 
     #[Route('/{id}', name: 'app_inscription_formation_delete', methods: ['POST'])]
     public function delete(Request $request, InscriptionFormation $inscriptionFormation, InscriptionFormationRepository $inscriptionFormationRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$inscriptionFormation->getId(), $request->request->get('_token'))) {
+            $inscriptionFormationRepository->remove($inscriptionFormation, true);
+        }
+
+        return $this->redirectToRoute('app_inscription_formation_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/back', name: 'app_inscription_formation_delete_back', methods: ['POST'])]
+    public function deleteback(Request $request, InscriptionFormation $inscriptionFormation, InscriptionFormationRepository $inscriptionFormationRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$inscriptionFormation->getId(), $request->request->get('_token'))) {
             $inscriptionFormationRepository->remove($inscriptionFormation, true);

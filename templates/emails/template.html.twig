@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -43,33 +44,34 @@
     </style>
 </head>
 {% block body %}
-    <body>
-    <div class="layout-container">
-        <div class="logo-container">
-        </div>
-        <div class="content-container">
-            <div class="text-container">
-                Hey there !<br>
-                We want to inform you that you have received an E-mail from : <br>
-                Full name : {{ name }}<br>
-                Phone number : ............<br>
-                Email :........... <br>
-                Talking about ( <span style="font-weight: 200;">subject</span> .......)
-            </div>
-
-        </div>
-        <div class="content-container"style="display:flex;justify-content:flex-end;">
-            <div class="media-container">
-                <i class="fa-brands fa-twitter" style="color:#64748B;font-size: 30px;margin-right: 20px;"></i>
-                <i class="fa-brands fa-instagram" style="color:#64748B;font-size: 30px;margin-right: 20px;"></i>
-                <i class="fa-brands fa-facebook" style="color:#64748B;font-size: 30px;"></i>
-            </div>
+<body>
+<div class="layout-container">
+    <div class="logo-container">
+        <img src="logo_tunsa.png" alt="">
+    </div>
+    <div class="content-container">
+        <div class="text-container">
+            Hey there !<br>
+            We want to inform you that you have received an E-mail from : <br>
+            Full name : {{ name }}<br>
+            Phone number : ............<br>
+            Email :........... <br>
+            Talking about ( <span style="font-weight: 200;">subject</span> .......)
         </div>
 
-        <div class="copyright-container">
-
+    </div>
+    <div class="content-container"style="display:flex;justify-content:flex-end;">
+        <div class="media-container">
+            <i class="fa-brands fa-twitter" style="color:#64748B;font-size: 30px;margin-right: 20px;"></i>
+            <i class="fa-brands fa-instagram" style="color:#64748B;font-size: 30px;margin-right: 20px;"></i>
+            <i class="fa-brands fa-facebook" style="color:#64748B;font-size: 30px;"></i>
         </div>
     </div>
-    </body>
+
+    <div class="copyright-container">
+
+    </div>
+</div>
+</body>
 {% endblock %}
 </html>

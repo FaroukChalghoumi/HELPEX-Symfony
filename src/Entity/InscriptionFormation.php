@@ -30,6 +30,9 @@ class InscriptionFormation
     #[ORM\ManyToOne(inversedBy: 'inscriptionFormations')]
     private ?User $user = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $autorisation = null;
+
 
 
     public function getId(): ?int
@@ -106,5 +109,17 @@ class InscriptionFormation
     public function onPrePersist(): void
     {
         $this->dateInscriptionFormation = new \DateTime();
+    }
+
+    public function isAutorisation(): ?bool
+    {
+        return $this->autorisation;
+    }
+
+    public function setAutorisation(bool $autorisation): self
+    {
+        $this->autorisation = $autorisation;
+
+        return $this;
     }
 }
