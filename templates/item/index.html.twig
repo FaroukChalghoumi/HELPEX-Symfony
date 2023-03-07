@@ -303,7 +303,9 @@
                     <i class="material-icons text-dark text-gradient">payments</i>
                   </span>
                             <div class="timeline-content">
+                                {% if items is not null %}
                                 <h6 class="text-dark text-sm font-weight-bold mb-0"> vous devez payez &nbsp;{{ items|length * 80}} DT avant le {{ items[0].tasks.startdate|date("m/d/Y") }}</h6>
+                               {% endif %}
                                 <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">{{ "now"|date("m/d/Y") }}</p>
                             </div>
                         </div>

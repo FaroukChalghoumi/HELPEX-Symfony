@@ -24,15 +24,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         parent::__construct($registry, User::class);
     }
 
-    public function save(User $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
     public function remove(User $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
@@ -56,10 +47,18 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->save($user, true);
     }
 
+    public function save(User $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */
-
 
 /**
      * @param string|array $roles
@@ -89,7 +88,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getResult()
             ;
     }
-    
+    public function findByEmail1($email)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.email  = :val')
+            ->setParameter('val', $email)
+//            ->orderBy('u.id', 'ASC')
+//            ->setMaxResults(10)
+            ->getQuery()
+           ->getOneOrNullResult()
+            ;
+    }
 
 //    public function findOneBySomeField($value): ?User
 //    {

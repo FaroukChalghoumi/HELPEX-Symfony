@@ -27,7 +27,8 @@
             <div class="row">
                 <h2 class="text-primary text-center">Listes {{ liste}} </h2>
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5" >
-                    {% if is_granted('ROLE_USER') %}
+                    {% if is_granted('ROLE_PRO') %}
+                    {%  elseif  is_granted('ROLE_USER') %}
                     <h1>Statistiques</h1>
                     <canvas id="gender" width="400" height="100"></canvas>
 

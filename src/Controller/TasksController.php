@@ -24,7 +24,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class TasksController extends AbstractController
 {
 
-    #[Route('/', name: 'app_item_index', methods: ['GET']), IsGranted('ROLE_ADMIN')]
+    #[Route('/', name: 'app_item_index', methods: ['GET'])]
     public function index(TasksRepository $tasksRepository): Response
     {
         $user = $this->getUser();
@@ -63,7 +63,7 @@ class TasksController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $tasksRepository->save($task, true);
 
-            return $this->redirectToRoute('app_tasks_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_item_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('tasks/index.html.twig', [
@@ -253,7 +253,7 @@ dd("admin");
         if ($form->isSubmitted() && $form->isValid()) {
             $tasksRepository->save($task, true);
 
-            return $this->redirectToRoute('app_tasks_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_item_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('tasks/index.html.twig', [
@@ -408,7 +408,7 @@ dd("admin");
     }
 
     #[Route('/{id}', name: 'app_tasks_delete', methods: ['POST'])]
-    public function delete(Request $request, Tasks $task, TasksRepository $tasksRepository): Response
+    public function delete(UserRepository $userRepository,Request $request, Tasks $task, TasksRepository $tasksRepository): Response
     {
         $user = $this->getUser();
 
@@ -427,8 +427,42 @@ dd("admin");
 
             }
         }
+        $user=$userRepository->findByEmail1($this->getUser()->getUserIdentifier());
 
-        return $this->redirectToRoute('app_tasks_index', [], Response::HTTP_SEE_OTHER);
+
+        //$user=reset($id_user);
+        //dd($user['id']);
+        return $this->redirect('http://127.0.0.1:8000/tasks/user_norm/'.$user->getId());
+        //return $this->redirectToRoute('app_item_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+
+
+
+
+
+    #[Route('/{id}', name: 'app_tasks_deleteAdmin', methods: ['POST'])]
+    public function deleteadmin(Request $request, Tasks $task, TasksRepository $tasksRepository): Response
+    {
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        if ($this->isCsrfTokenValid('delete' . $task->getId(), $request->request->get('_token'))) {
+            try {
+                $tasksRepository->remove($task, true);
+
+            } catch (Exception $exception) {
+                $this->addFlash('warning', 'attention! task non vide !');
+                return $this->redirectToRoute('app_item_index', [], Response::HTTP_SEE_OTHER);
+                // return $this->redirect('http://127.0.0.1:8000/tasks/user_norm/5/6');
+
+            }
+        }
+
+        return $this->redirectToRoute('app_item_index', [], Response::HTTP_SEE_OTHER);
     }
 
 
@@ -448,8 +482,8 @@ dd("admin");
         if ($form->isSubmitted() && $form->isValid()) {
             $tasksRepository->save($task, true);
             //raja3ha kima kénit next time
-            /*return $this->redirectToRoute('app_tasks_index', [], Response::HTTP_SEE_OTHER);*/
-            return $this->redirect('http://127.0.0.1:8000/tasks/user_norm/5/5');
+            return $this->redirectToRoute('app_item_index', [], Response::HTTP_SEE_OTHER);
+            //return $this->redirect('http://127.0.0.1:8000/tasks/user_norm/5/5');
 
         }
         return $this->render('tasks/admin/edit_admin.html.twig', [
