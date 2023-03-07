@@ -68,21 +68,63 @@ class OrganisationController extends AbstractController
 
             return $this->redirectToRoute('app_organisation_index', [], Response::HTTP_SEE_OTHER);
         }
-
+        $organisations= $organisationRepository->findAll();
+        $data= [];
+        $orgsNames=array();
+        foreach ($organisations as $organisation){
+            $orgsNames[]=$organisation->getNomOrg();
+            $caisseData=$organisation->getCaisses();
+            $sum=0;
+            foreach ($caisseData as $caisse){
+                $sum+=$caisse->getMontantCaisseOrg();
+            }
+            $data[]=$sum;
+        }
+        $numDataPoints = count($data);
+        $colors = array();
+        for ($i = 0; $i < $numDataPoints; $i++) {
+            $colors[] = "rgba(" . rand(0, 255) . ", " . rand(0, 255) . ", " . rand(0, 255) . ", 0.2)";
+        }
         return $this->renderForm('organisation/new.html.twig', [
             'organisation' => $organisation,
             'form' => $form,
+            'organisations' => $organisations,
+            'orgNames' => json_encode($orgsNames),
+            'statData' => $data,
+            'colors' => json_encode($colors),
         ]);
     }
 
     #[Route('/{id}', name: 'app_organisation_show', methods: ['GET'])]
-    public function show(Organisation $organisation, CaisseOrganisationRepository $caisseOrganisationRepository): Response
+    public function show(Organisation $organisation, CaisseOrganisationRepository $caisseOrganisationRepository,OrganisationRepository $organisationRepository): Response
     {
+
+        $organisations= $organisationRepository->findAll();
+        $data= [];
+        $orgsNames=array();
+        foreach ($organisations as $org){
+            $orgsNames[]=$org->getNomOrg();
+            $caisseData=$org->getCaisses();
+            $sum=0;
+            foreach ($caisseData as $caisse){
+                $sum+=$caisse->getMontantCaisseOrg();
+            }
+            $data[]=$sum;
+        }
+        $numDataPoints = count($data);
+        $colors = array();
+        for ($i = 0; $i < $numDataPoints; $i++) {
+            $colors[] = "rgba(" . rand(0, 255) . ", " . rand(0, 255) . ", " . rand(0, 255) . ", 0.2)";
+        }
         return $this->render('organisation/show.html.twig', [
             'organisation' => $organisation,
             'Caisses' => $caisseOrganisationRepository->findBy([
                 'organisation' => $organisation
-            ])
+            ]),
+            'organisations' => $organisations,
+            'orgNames' => json_encode($orgsNames),
+            'statData' => $data,
+            'colors' => json_encode($colors)
         ]);
     }
 

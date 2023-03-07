@@ -1,6 +1,11 @@
 {% extends 'admin.html.twig' %}
 
 {% block component %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous">
+{% endblock %}
+{% block jsimports%}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
 
 {% endblock %}
 {% block body %}
@@ -125,7 +130,33 @@
 
 
 {% endblock %}
-{% block sideTitle %} Stats {% endblock %}
+{% block sideTitle %} Répartition des dons par organisations {% endblock %}
+
 {% block sidecontent %}
+    <canvas id="myChart" style="width: 500px;height: 500px"></canvas>
+{% endblock %}
+
+{% block jscode %}
+    <script>
+        let categories = document.querySelector("#myChart").getContext('2d')
+        let categGraph = new Chart(categories, {
+                type: "pie",
+                data: {
+                    labels: {{ orgNames|raw }},
+                    datasets: [
+                        {
+
+                            data: {{ statData|json_encode }},
+                            backgroundColor: {{ colors|raw }},
+                            hoverOffset: 4
+                        }
+                    ]
+
+
+                }
+            }
+        )
+
+    </script>
 
 {% endblock %}
