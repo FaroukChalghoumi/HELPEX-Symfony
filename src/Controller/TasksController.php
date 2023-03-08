@@ -350,10 +350,14 @@ dd("admin");
 
                 $entityManager->commit();
 
+            $user=$userRepository->findByEmail1($this->getUser()->getUserIdentifier());
 
 
+            //$user=reset($id_user);
+            //dd($user['id']);
+            return $this->redirect('http://127.0.0.1:8000/tasks/myProUsers/');
 
-            return $this->redirectToRoute('app_accompagnement_new', [], Response::HTTP_SEE_OTHER);
+
         }
 
         return $this->renderForm('tasks/new.html.twig', [
@@ -432,7 +436,10 @@ dd("admin");
 
         //$user=reset($id_user);
         //dd($user['id']);
-        return $this->redirect('http://127.0.0.1:8000/tasks/user_norm/'.$user->getId());
+        http://127.0.0.1:8000/tasks/myProUsers/
+        return $this->redirect($request->getRequestUri());
+        //return $this->redirect('http://127.0.0.1:8000/tasks/user_norm/'.$user->getId());
+        //return $this->redirect('http://127.0.0.1:8000/tasks/user_norm/'.$user->getId());
         //return $this->redirectToRoute('app_item_index', [], Response::HTTP_SEE_OTHER);
     }
 
