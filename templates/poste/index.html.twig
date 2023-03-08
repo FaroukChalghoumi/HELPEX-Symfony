@@ -3,12 +3,27 @@
 {% block title %}Poste index{% endblock %}
 
 {% block body %}
+
  <!-- ========================
        page title 
     =========================== -->
+
     <section class="page-title page-title-layout5 bg-overlay">
       <div class="bg-img"><img src="{{asset("images/page-titles/8.jpg") }}" alt="background"></div>
       <div class="container">
+      {% for message in app.flashes('notice') %}
+       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+       <script>
+       Swal.fire({
+       position: 'top-end',
+        icon: 'success',
+        title: '{{message}}',
+        showConfirmButton: false,
+        timer: 5000
+      
+        })
+      </script>
+    {% endfor %}
         <div class="row">
           <div class="col-12">
             <h1 class="pagetitle__heading">Health Essentials</h1>
@@ -38,8 +53,23 @@
                   
                 </div><!-- /.widget-content -->
                 <a class="btn btn__secondary btn__link btn__block" style="margin-top: 50px;"href="{{ path('app_postefront_new') }}">
-          <span>Make a poste</span> 
+          <span>Make a poste</span>
+           
           </a>
+                          <h5 class="widget__title"style="margin-top: 50px;">Statistique of the day</h5>
+          <div class="widget-content">
+          <ul>
+            <li>Date: {{ dataArray[0].date }}</li>
+            <li>Positive Cases: {{ dataArray[0].positive }}</li>
+            <li>Negative Cases: {{ dataArray[0].negative }}</li>
+            <li>Pending Cases: {{ dataArray[0].pending }}</li>
+            <li>Hospitalized Currently: {{ dataArray[0].hospitalizedCurrently }}</li>
+            <li>Death: {{ dataArray[0].death }}</li>
+            <li>Total Test Results: {{ dataArray[0].totalTestResults }}</li>
+            <li>Death Increase: {{ dataArray[0].deathIncrease }}</li>
+            <li>Positive Increase: {{ dataArray[0].positiveIncrease }}</li>
+          </ul>
+              </div>
               </div><!-- /.widget-categories -->
               
           <div class="col-sm-12 col-md-6 col-lg-4">
@@ -84,8 +114,10 @@
                     {{ knp_pagination_render(postes) }}
               </div>
           </div><!-- /.col-lg-4 -->
+        <div class="container">
+        </div>
     </div>
-      
+ 
 
 {% endblock %}
 

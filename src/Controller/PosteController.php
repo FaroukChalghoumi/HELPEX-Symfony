@@ -21,10 +21,22 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use App\Service\Api;
 
 #[Route('/poste')]
 class PosteController extends AbstractController
 {
+    #[Route('/samirytir', name: 'app_api_front')]
+    public function index3(Api $callApiService): Response
+    {
+        dd($callApiService->getdata());
+
+
+        return $this->render('front.html.twig', [
+            'data' => $callApiService->getdata(),
+        ]);
+    }
+
     #[Route("/deletepostejson/{id}", name: "deletepostejson")]
     public function deletecentrejson(Request $req, $id, NormalizerInterface $Normalizer)
     {
@@ -101,10 +113,10 @@ class PosteController extends AbstractController
         ]);
     }
     #[Route('/front', name: 'app_poste_front_index', methods: ['GET'])]
-    public function index(Request $request,PosteRepository $posteRepository,PaginatorInterface $paginator,CategorieposteRepository $categorieposteRepository): Response
+    public function index(Request $request,PosteRepository $posteRepository,PaginatorInterface $paginator,CategorieposteRepository $categorieposteRepository,Api $samir): Response
     {
 
-        
+        $data = $samir->getdata();
 
         $postes=$posteRepository->findAll();
         $postes = $paginator->paginate(
@@ -113,6 +125,7 @@ class PosteController extends AbstractController
             6
         );
         return $this->render('poste/index.html.twig', [
+            'dataArray'=> $data,
             'postes' => $postes,
             'categoriepostes' => $categorieposteRepository->findAll(),
         ]);
@@ -204,7 +217,7 @@ class PosteController extends AbstractController
                 $poste->setMultimedia($newFilename);
             }
             $posteRepository->save($poste, true);
-
+            $this->addFlash('notice', 'Poste added Successufully!!');
             return $this->redirectToRoute('app_poste_front_index', [], Response::HTTP_SEE_OTHER);
         }
         
@@ -223,6 +236,7 @@ class PosteController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
         $commentaires = $poste->getCommentaire();
+        $user= $poste->getUser();
         return $this->render('poste/show.html.twig', [
             'poste' => $poste,
             'commentaires' => $commentaires,
@@ -235,6 +249,7 @@ class PosteController extends AbstractController
         $user = $this->getUser();
         $commentaires = $poste->getCommentaire();
         $commentaire = new Commentaire();
+        $user1= $poste->getUser();
         $form = $this->createForm(CommentaireType::class, $commentaire, [
             'data' => $commentaire
         ]);
@@ -249,6 +264,7 @@ class PosteController extends AbstractController
 
 
             return $this->renderform('commentaire/show.html.twig', [
+                'user'=> $user1,
                 'form' => $form,
                 'poste' => $poste,
                 'commentaires' => $commentaires,
@@ -259,6 +275,7 @@ class PosteController extends AbstractController
         }
 
     return $this->renderform('commentaire/show.html.twig', [
+        'user'=> $user1,
         'form' => $form,
         'poste' => $poste,
         'commentaires' => $commentaires,
@@ -379,5 +396,6 @@ class PosteController extends AbstractController
 
                 return $this->json(['code' => 200,'message'=>'works!!','likes'=> $likerepo->count(['poste'=>$poste])],200);
     }
+    
    
 }
