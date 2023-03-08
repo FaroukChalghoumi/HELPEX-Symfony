@@ -14,6 +14,7 @@
             <link href="{{asset("css/libraries.css") }}" rel="stylesheet">
             <link href="{{asset("css/style.css") }}" rel="stylesheet">
 
+
             {% block component %} {% endblock %}
         {% endblock %}
 
@@ -22,6 +23,19 @@
             <script src="{{asset("js/jquery-3.5.1.min.js") }}"></script>
             <script src="{{asset("js/plugins.js") }}"></script>
             <script src="{{asset("js/main.js") }}"></script>
+
+
+
+
+            <!--importants-->
+            <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.js" integrity="sha256-DBxkGZLxKsLKhz054qUpBqtotG00r9AELGpSigJujLg=" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
+            <!--importants-->
+
+
+            <script src="{{ asset('build/jquery.js') }}"></script>
+            <script src="{{ asset('build/popper.js') }}"></script>
+            <script src="{{ asset('build/bootstrap.js') }}"></script>
             {% block jsimports %}{% endblock%}
         {% endblock %}
     </head>
@@ -86,15 +100,86 @@
                     <nav class="navbar navbar-expand-lg sticky-navbar">
                         <div class="container-fluid">
                             <a class="navbar-brand" href="">
-                                <img alt="logo" class="logo-light" src="{{ asset( "images/logo/logo-light.png" ) }}">
-                                <img alt="logo" class="logo-dark" src="{{ asset("images/logo/logo-dark.png") }}">
+                                {% if is_granted('ROLE_PRO')%}
+                                    <img src="{{ asset('images/helpexpro.png')}} " style="width: 140px;"/>
+                                {% else %}
+
+                                    <img src="{{ asset('images/helpex.png')}} " style="width: 140px;"/>
+                                {% endif %}
                             </a>
-                            <button class="navbar-toggler" type="button">
-                                <span class="menu-lines"><span></span></span>
+                            <button class=" navbar-toggler" type=" button">
+								<span class="menu-lines">
+									<span></span>
+								</span>
                             </button>
                             <div class="collapse navbar-collapse" id="mainNavigation">
-
                                 <ul class="navbar-nav ml-auto">
+                                    <li class="nav__item has-dropdown">
+                                        <a class="dropdown-toggle nav__item-link active" data-toggle="dropdown" href="#">Home</a>
+
+                                    </li>
+                                    {% if is_granted('ROLE_PRO')%}
+                                        <li class="nav__item has-dropdown">
+                                            <a class="dropdown-toggle nav__item-link active" data-toggle="dropdown" href="#">professional</a>
+
+                                        </li>
+                                    {% endif %}
+
+                                    <!-- /.nav-item -->
+                                    <li class="nav__item has-dropdown">
+                                        <a class="dropdown-toggle nav__item-link" data-toggle="dropdown" href="#">Nos Services</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="nav__item">
+                                                <a class="nav__item-link" href="{{ path('app_filiere_front')}}">Nos Filieres</a>
+                                            </li>
+                                            <!-- /.nav-item -->
+                                            <li class="nav__item">
+                                                <a class="nav__item-link" href=" {{ path('ProUsers')}} ">Nos Professionels</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav__item has-dropdown">
+                                        <a class="dropdown-toggle nav__item-link" data-toggle="dropdown" href="#">Blog</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="nav__item">
+                                                <a class="nav__item-link" href="/poste/front">Postes</a>
+                                            </li>
+                                            <!-- /.nav-item -->
+
+                                        </ul>
+                                        <!-- /.dropdown-menu -->
+                                    </li>
+                                    <!-- /.nav-item -->
+                                    <li class="nav__item has-dropdown">
+                                        <a class="dropdown-toggle nav__item-link" data-toggle="dropdown" href="#">
+                                            <i class="fa fa-folder" aria-hidden="true"></i>
+                                        </a>
+
+                                        <ul class="dropdown-menu">
+                                            <li class="nav__item">
+                                                <a class="nav__item-link" href="{{ path('app_tasks_my_pro_user')}}">mon Espace</a>
+                                            </li>
+                                            <li class="nav__item">
+
+                                                <a class="nav__item-link" href="{{ path('mesaccompagnemnts')}}">liste accompagnements
+                                                </a>
+                                            </li>
+                                            <!-- /.nav-item -->
+                                            {% if is_granted('ROLE_PRO')%}
+                                            {% elseif is_granted('ROLE_USER') %}
+                                                <li class="nav__item">
+                                                    <a class="nav__item-link" href="{{ path('app_tasks_new_vide')}}">ajouter task for user only</a>
+                                                </li>
+                                            {% endif %}
+
+                                            <li class="nav__item">
+                                                <a class="nav__item-link" href="{{ path('app_calendrier')}}">calandrier</a>
+                                            </li>
+
+                                        </ul>
+                                        <!-- /.dropdown-menu -->
+                                    </li>
+
                                     <li class="nav__item has-dropdown">
                                         <a class="nav__item-link" href="/donations">Donations</a>
                                     </li><!-- /.nav-item -->
@@ -128,22 +213,77 @@
                                         </ul>
                                         <!-- /.dropdown-menu -->
                                     </li>
-                                </ul><!-- /.navbar-nav -->
-                                <button class="close-mobile-menu d-block d-lg-none"><i class="fas fa-times"></i></button>
-                            </div><!-- /.navbar-collapse -->
-                            <div class="d-none d-xl-flex align-items-center position-relative ml-30">
-                                <div class="miniPopup-departments-trigger">
-                                    <span class="menu-lines" id="miniPopup-departments-trigger-icon"><span></span></span>
-                                    <a href="">Departments</a>
-                                </div>
-
-                                <a class="btn btn__primary btn__rounded ml-30">
-                                    <i class="icon-calendar"></i>
-                                    <span>Appointment</span>
-                                </a>
+                                </ul>
+                                <!-- /.navbar-nav -->
+                                <button class="close-mobile-menu d-block d-lg-none">
+                                    <i class="fas fa-times"></i>
+                                </button>
                             </div>
-                        </div><!-- /.container -->
-                    </nav><!-- /.navabr -->
+                            <!-- /.navbar-collapse -->
+                            <div
+                                    class="d-none d-xl-flex align-items-center position-relative ml-30">
+
+
+                                <!-- /.miniPopup-departments -->
+
+
+                                <li class="nav__item has-dropdown">
+                                    <a class="dropdown-toggle nav__item-link" data-toggle="dropdown" href="#">
+
+
+                                        <div class="testimonial__thmb">
+                                            {% if is_granted('IS_AUTHENTICATED_FULLY')%}
+
+                                                {% if app.user.pdp is not null %}
+                                                    <img src="{{ asset('uploads/users/' ~ app.user.pdp) }}" alt="User Image">
+                                                {% else %}
+                                                    <img src="{{ asset('images/noauth.jpg') }}" alt="User Image">
+                                                {% endif %}
+
+
+                                            {% else %}
+                                                <img src="{{ asset('images/noauth.jpg') }}" alt="User Image">
+                                            {% endif %}
+                                        </div>
+                                        {% if is_granted('IS_AUTHENTICATED_FULLY')%}
+
+                                            <span>
+												{{app.user.username}}</span>
+                                        {% else %}
+                                            <span>connectez-vous!</span>
+                                        {% endif %}
+
+
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        {% if is_granted('IS_AUTHENTICATED_FULLY')%}
+
+                                            <li class="nav__item">
+                                                <a class="nav__item-link" href="{{ path('YourProfile')}}">Profile</a>
+                                            </li>
+                                            <li class="nav__item">
+                                                <a class="nav__item-link" href="{{ path('app_logout')}}">logout</a>
+                                            </li>
+                                        {% else %}
+
+                                            <li class="nav__item">
+                                                <a class="nav__item-link" href="{{ path('app_login')}}">login</a>
+                                            </li>
+                                            <!-- /.nav-item -->
+                                            <li class="nav__item">
+                                                <a class="nav__item-link" href="{{ path('pick')}}">registrer</a>
+                                            </li>
+                                        {% endif %}
+
+                                    </ul>
+                                    <!-- /.dropdown-menu -->
+                                </li>
+
+
+                            </div>
+                        </div>
+                        <!-- /.container -->
+                    </nav>
                 </header>
                 {% endblock %}
 
