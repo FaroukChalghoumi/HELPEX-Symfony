@@ -21,7 +21,7 @@ class ProduitsController extends AbstractController
 
     //****mobile****
 
-    #[Route('/produits/allproduits', name: 'mobileafficherproduit', methods: ['GET'])]
+    #[Route('/produits/allproduit', name: 'mobileafficherproduit', methods: ['GET'])]
     public function indexjson(NormalizerInterface $Normalizer): Response
     {
         //http://127.0.0.1:8000/produits/allproduits
