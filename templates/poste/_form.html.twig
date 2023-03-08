@@ -1,0 +1,27 @@
+
+<div class="container">
+ 
+<div class="form-group">
+</div>
+<div class="form-group">
+        {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+    {{ form_label(form.titre,"Titre") }}
+    {{ form_widget(form.titre,{'attr':{'class':'form-control'}}) }}
+    {{ form_errors(form.titre) }}
+</div>
+<div class="form-group">
+        {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+    {{ form_label(form.description,"Description") }}
+    {{ form_widget(form.description,{'attr':{'class':'form-control'}}) }}
+    {{ form_errors(form.description) }}
+</div>
+<div class="form-group">
+        {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+
+    {{ form_label(form.multimedia,"Multimedia") }}
+    {{ form_widget(form.multimedia,{'attr':{'class':''}}) }}
+    {{ form_errors(form.multimedia) }}
+</div>
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

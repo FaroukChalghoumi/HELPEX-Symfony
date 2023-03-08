@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}HELPEX
+			{% endblock %}
+		</title>
+		<link
+		rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+		{% block stylesheets %}
+
+			<link href="{{asset("images/favicon/favicon.png") }}" rel="icon">
+			<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&amp;family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet">
+			<link href="{{asset("css/use.fontawesome.com/releases/v5.15.3/css/all.css") }}" rel="stylesheet">
+			<link href="{{asset("css/libraries.css") }}" rel="stylesheet">
+			<link href="{{asset("css/style.css") }}" rel="stylesheet">
+		{% endblock %}
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+			<script src="{{asset("js/jquery-3.5.1.min.js") }}"></script>
+			<script src="{{asset("js/plugins.js") }}"></script>
+			<script src="{{asset("js/main.js") }}"></script>
+		{% endblock %}
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="preloader">
+				<div class="loading">
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+			</div>
+			{% block navbar %}
+				<header class="header header-layout1">
+					<div class="header-topbar">
+						<div class="container-fluid">
+							<div class="row align-items-center">
+								<div class="col-12">
+									<div class="d-flex align-items-center justify-content-between">
+										<ul class="contact__list d-flex flex-wrap align-items-center list-unstyled mb-0">
+											<li>
+												<button class="miniPopup-emergency-trigger" type="button">24/7 Emergency</button>
+												<div class="miniPopup miniPopup-emergency text-center" id="miniPopup-emergency">
+													<div class="emergency__icon">
+														<i class="icon-call3"></i>
+													</div>
+													<a class="phone__number" href="tel:+201061245741">
+														<i class="icon-phone"></i>
+														<span>+2 01061245741</span>
+													</a>
+													<p>Please feel free to contact our friendly reception staff with any general or
+
+													</p>
+
+
+												</div>
+
+
+												<!-- /.miniPopup-emergency -->
+											</li>
+											<li>
+												<i class="icon-phone"></i>
+												<a href="tel:+5565454117">Emergency Line: (002)
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					                                                    01061245741</a>
+											</li>
+											<li>
+												<i class="icon-location"></i>
+												<a href="#">Location: Brooklyn, New York</a>
+											</li>
+											<li>
+												<i class="icon-clock"></i>
+												<a href="">Mon - Fri: 8:00 am - 7:00 pm</a>
+											</li>
+										</ul>
+										<!-- /.contact__list -->
+										<div class="d-flex">
+											<ul class="social-icons list-unstyled mb-0 mr-30">
+												<li>
+													<a href="#">
+														<i class="fab fa-facebook-f"></i>
+													</a>
+												</li>
+												<li>
+													<a href="#">
+														<i class="fab fa-instagram"></i>
+													</a>
+												</li>
+												<li>
+													<a href="#">
+														<i class="fab fa-twitter"></i>
+													</a>
+												</li>
+											</ul>
+											<!-- /.social-icons -->
+											<form class="header-topbar__search">
+												<input class="form-control" placeholder="Search..." type="text">
+												<button class="header-topbar__search-btn">
+													<i class="fa fa-search"></i>
+												</button>
+											</form>
+										</div>
+									</div>
+								</div>
+								<!-- /.col-12 -->
+							</div>
+							<!-- /.row -->
+						</div>
+						<!-- /.container -->
+					</div>
+					<!-- /.header-top -->
+					<nav class="navbar navbar-expand-lg sticky-navbar">
+						<div class="container-fluid">
+							<a class="navbar-brand" href="">
+								{% if is_granted('ROLE_PRO')%}
+									<img src="{{ asset('images/helpexpro.png')}} " style="width: 140px;"/>
+								{% else %}
+
+									<img src="{{ asset('images/helpex.png')}} " style="width: 140px;"/>
+								{% endif %}
+							</a>
+							<button class=" navbar-toggler" type=" button">
+								<span class="menu-lines">
+									<span></span>
+								</span>
+							</button>
+							<div class="collapse navbar-collapse" id="mainNavigation">
+								<ul class="navbar-nav ml-auto">
+									<li class="nav__item has-dropdown">
+										<a class="dropdown-toggle nav__item-link active" data-toggle="dropdown" href="#">Home</a>
+
+									</li>
+									{% if is_granted('ROLE_PRO')%}
+										<li class="nav__item has-dropdown">
+											<a class="dropdown-toggle nav__item-link active" data-toggle="dropdown" href="#">professional</a>
+
+										</li>
+									{% endif %}
+
+									<!-- /.nav-item -->
+									<li class="nav__item has-dropdown">
+										<a class="dropdown-toggle nav__item-link" data-toggle="dropdown" href="#">Nos Services</a>
+										<ul class="dropdown-menu">
+											<li class="nav__item">
+												<a class="nav__item-link" href="{{ path('app_filiere_front')}}">Nos Filieres</a>
+											</li>
+											<!-- /.nav-item -->
+											<li class="nav__item">
+												<a class="nav__item-link" href=" {{ path('ProUsers')}} ">Nos Professionels</a>
+											</li>
+										</ul>
+									</li>
+									<li class="nav__item has-dropdown">
+										<a class="dropdown-toggle nav__item-link" data-toggle="dropdown" href="#">ahmed</a>
+										<ul class="dropdown-menu">
+											<li class="nav__item">
+												<a class="nav__item-link" href="/centre/front">No centre</a>
+											</li>
+											<!-- /.nav-item -->
+											<li class="nav__item">
+												<a class="nav__item-link" href="/formation/front">nos formations</a>
+											</li>
+
+										</ul>
+										<!-- /.dropdown-menu -->
+									</li>
+									<li class="nav__item has-dropdown">
+										<a class="dropdown-toggle nav__item-link" data-toggle="dropdown" href="#">salim</a>
+										<ul class="dropdown-menu">
+											<li class="nav__item">
+												<a class="nav__item-link" href="/poste/front">Postes</a>
+											</li>
+											<!-- /.nav-item -->
+
+										</ul>
+										<!-- /.dropdown-menu -->
+									</li>
+									<!-- /.nav-item -->
+
+								<!-- /.nav-item -->
+
+									<!-- /.nav-item -->
+								</ul>
+								<!-- /.navbar-nav -->
+								<button class="close-mobile-menu d-block d-lg-none">
+									<i class="fas fa-times"></i>
+								</button>
+							</div>
+							<!-- /.navbar-collapse -->
+							<div
+								class="d-none d-xl-flex align-items-center position-relative ml-30">
+
+
+								<!-- /.miniPopup-departments -->
+
+
+								<li class="nav__item has-dropdown">
+									<a class="dropdown-toggle nav__item-link" data-toggle="dropdown" href="#">
+
+
+										<div class="testimonial__thmb">
+											{% if is_granted('IS_AUTHENTICATED_FULLY')%}
+
+												{% if app.user.pdp is not null %}
+													<img src="{{ asset('uploads/users/' ~ app.user.pdp) }}" alt="User Image">
+												{% else %}
+													<img src="{{ asset('images/noauth.jpg') }}" alt="User Image">
+												{% endif %}
+
+
+											{% else %}
+												<img src="{{ asset('images/noauth.jpg') }}" alt="User Image">
+											{% endif %}
+										</div>
+										{% if is_granted('IS_AUTHENTICATED_FULLY')%}
+
+											<span>
+												{{app.user.username}}</span>
+										{% else %}
+											<span>connectez-vous!</span>
+										{% endif %}
+
+
+									</a>
+									<ul class="dropdown-menu">
+										{% if is_granted('IS_AUTHENTICATED_FULLY')%}
+
+											<li class="nav__item">
+												<a class="nav__item-link" href="{{ path('YourProfile')}}">Profile</a>
+											</li>
+											<li class="nav__item">
+												<a class="nav__item-link" href="{{ path('app_logout')}}">logout</a>
+											</li>
+										{% else %}
+
+											<li class="nav__item">
+												<a class="nav__item-link" href="{{ path('app_login')}}">login</a>
+											</li>
+											<!-- /.nav-item -->
+											<li class="nav__item">
+												<a class="nav__item-link" href="{{ path('pick')}}">registrer</a>
+											</li>
+										{% endif %}
+
+									</ul>
+									<!-- /.dropdown-menu -->
+								</li>
+
+
+							</div>
+						</div>
+						<!-- /.container -->
+					</nav>
+					<!-- /.navabr -->
+				</header>
+			{% endblock %}
+			{% block body %}{% endblock %}
+
+
+			{% block footer %}
+				<footer class="footer">
+					<div class="footer-primary">
+						<div class="container">
+							<div class="row">
+								<div class="col-sm-12 col-md-12 col-lg-3">
+									<div class="footer-widget-about">
+										<img alt="logo" class="mb-30" src="{{ asset("images/logo/logo-light.png") }}">
+										<p class="color-gray">Our goal is to deliver quality of care in a courteous, respectful, and
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																										                                            compassionate manner. We hope you will allow us to care for you and strive to be the
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																										                                            first and best
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																										                                            choice for your family healthcare.
+										</p>
+										<a class="btn btn__primary btn__primary-style2 btn__link">
+											<span>Make Appointment</span>
+											<i class="icon-arrow-right"></i>
+										</a>
+									</div>
+									<!-- /.footer-widget__content -->
+								</div>
+								<!-- /.col-xl-2 -->
+								<div class="col-sm-6 col-md-6 col-lg-2 offset-lg-1">
+									<div class="footer-widget-nav">
+										<h6 class="footer-widget__title">Departments</h6>
+										<nav>
+											<ul class="list-unstyled">
+												<li>
+													<a href="#">Neurology Clinic</a>
+												</li>
+												<li>
+													<a href="#">Cardiology Clinic</a>
+												</li>
+												<li>
+													<a href="#">Pathology Clinic</a>
+												</li>
+												<li>
+													<a href="#">Laboratory Analysis</a>
+												</li>
+												<li>
+													<a href="#">Pediatric Clinic</a>
+												</li>
+												<li>
+													<a href="#">Cardiac Clinic</a>
+												</li>
+											</ul>
+										</nav>
+									</div>
+									<!-- /.footer-widget__content -->
+								</div>
+								<!-- /.col-lg-2 -->
+								<div class="col-sm-6 col-md-6 col-lg-2">
+									<div class="footer-widget-nav">
+										<h6 class="footer-widget__title">Links</h6>
+										<nav>
+											<ul class="list-unstyled">
+												<li>
+													<a href="#">About Us</a>
+												</li>
+												<li>
+													<a href="#">Our CLinic</a>
+												</li>
+												<li>
+													<a href="#">Our Doctors</a>
+												</li>
+												<li>
+													<a href="#">News & Media</a>
+												</li>
+												<li>
+													<a href="#">Appointments</a>
+												</li>
+											</ul>
+										</nav>
+									</div>
+									<!-- /.footer-widget__content -->
+								</div>
+								<!-- /.col-lg-2 -->
+								<div class="col-sm-12 col-md-6 col-lg-4">
+									<div class="footer-widget-contact">
+										<h6 class="footer-widget__title color-heading">Quick Contacts</h6>
+										<ul class="contact-list list-unstyled">
+											<li>If you have any questions or need help, feel free to contact with our team.</li>
+											<li>
+												<a class="phone__number" href="tel:01061245741">
+													<i class="icon-phone"></i>
+													<span>01061245741</span>
+												</a>
+											</li>
+											<li class="color-body">2307 Beverley Rd Brooklyn, New York 11226 United States.</li>
+										</ul>
+										<div class="d-flex align-items-center">
+											<a class="btn btn__primary btn__link mr-30">
+												<i class="icon-arrow-right"></i>
+												<span>Get Directions</span>
+											</a>
+											<ul class="social-icons list-unstyled mb-0">
+												<li>
+													<a href="#">
+														<i class="fab fa-facebook-f"></i>
+													</a>
+												</li>
+												<li>
+													<a href="#">
+														<i class="fab fa-instagram"></i>
+													</a>
+												</li>
+												<li>
+													<a href="#">
+														<i class="fab fa-twitter"></i>
+													</a>
+												</li>
+											</ul>
+											<!-- /.social-icons -->
+										</div>
+									</div>
+									<!-- /.footer-widget__content -->
+								</div>
+								<!-- /.col-lg-2 -->
+							</div>
+							<!-- /.row -->
+						</div>
+						<!-- /.container -->
+					</div>
+					<!-- /.footer-primary -->
+					<div class="footer-secondary">
+						<div class="container">
+							<div class="row align-items-center">
+								<div class="col-sm-12 col-md-6 col-lg-6">
+									<span class="fz-14">&copy; 2020 DataSoft, All Rights Reserved. With Love by</span>
+									<a class="fz-14 color-primary" href="https://themeforest.net/user/7oroof">7oroof.com</a>
+								</div>
+								<!-- /.col-lg-6 -->
+								<div class="col-sm-12 col-md-6 col-lg-6">
+									<nav>
+										<ul class="list-unstyled footer__copyright-links d-flex flex-wrap justify-content-end mb-0">
+											<li>
+												<a href="#">Terms & Conditions</a>
+											</li>
+											<li>
+												<a href="#">Privacy Policy</a>
+											</li>
+											<li>
+												<a href="#">Cookies</a>
+											</li>
+										</ul>
+									</nav>
+								</div>
+								<!-- /.col-lg-6 -->
+							</div>
+							<!-- /.row -->
+						</div>
+						<!-- /.container -->
+					</div>
+					<!-- /.footer-secondary -->
+				</footer>
+			{% endblock %}
+		</body>
+	</body>
+</html></body></html></body></html></body></html></body></html></div> </body></html></body></html>

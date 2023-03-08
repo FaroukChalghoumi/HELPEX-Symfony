@@ -1,0 +1,89 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}formation index
+{% endblock %}
+{% block component %}
+	<link rel="stylesheet" href="{{ asset("css/Card/style.css") }}"/>
+{% endblock %}
+
+{% block body %}
+
+	<div class="org-table-container" style="">
+
+		<div class="org-table-head-container">
+			<div class="">
+				<h4>Statistiques utilisateurs Helpex:
+				</h4>
+				<h6>Nombre total des utilisateurs :
+					{{ usersList|length }}
+				</h6>
+
+			</div>
+
+		</div>
+		<div class="row">
+
+			<div class="col-sm-12 col-md-12 col-lg-8">
+				<div style="margin-bottom: 80px;">{{ render_chart(chart) }}</div>
+				<div class="row" style="margin-bottom: 80px;">
+					<div class="col-sm-12 col-md-6">
+						<h6 style="text-align: center;">utilisateurs selon role :
+						</h6>
+						{{ render_chart(PieChart) }}</div>
+					<div class="col-sm-12 col-md-6">
+						<h6 style="text-align: center;">utilisateurs selon filiere :
+						</h6>
+						{{ render_chart(DChart) }}</div>
+				</div>
+
+
+			</div>
+
+
+			<!-- LEES FIIIILLLLLTERSSSSSSSSSSS -->
+			<div class="col-sm-12 col-md-12 col-lg-4">
+				<aside class="sidebar has-marign-left sticky-top">
+					<div class="widget widget-services">
+						<h5 class="widget__title">Consulter :</h5>
+						<div class="widget-content">
+							<ul class="list-unstyled mb-0">
+								<li>
+									<a href="{{ path('AllUsers')}}">
+										<span>Statistiques Utilisateurs Helpex</span>
+										<i class="icon-arrow-right"></i>
+									</a>
+								</li>
+								<li>
+									<a href="{{ path('CliUsers')}}">
+										<span>Les Utilisateurs Helpex</span>
+										<i class="icon-arrow-right"></i>
+									</a>
+								</li>
+								<li>
+									<a href="{{ path('backProUsers')}}">
+										<span>Les Utilisateurs Helpex Pro</span>
+										<i class="icon-arrow-right"></i>
+									</a>
+								</li>
+
+								<li>
+									<a href="{{ path('app_filiere_index') }}">
+										<span>Helpex Filieres</span>
+										<i class="icon-arrow-right"></i>
+									</a>
+								</li>
+
+
+							</ul>
+						</div>
+						<!-- /.widget-content -->
+					</div>
+
+				</aside>
+				<!-- /.sidebar -->
+			</div>
+
+		</div>
+
+	</div>
+{% endblock %}

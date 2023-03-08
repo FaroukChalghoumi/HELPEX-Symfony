@@ -1,0 +1,82 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Filiere
+{% endblock %}
+
+{% block body %}
+	<div class=" text-right">
+		<div class="org-table-head-container">
+			<a href="{{ path('app_filiere_index') }}" class="btn btn-primary" style="background-color: #24ccc3; border-color: #24ccc3;">retour à la liste</a>
+		</div>
+	</div>
+
+	<h1>Filiere</h1>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ filiere.id }}</td>
+			</tr>
+			<tr>
+				<th>NomFiliere</th>
+				<td>{{ filiere.NomFiliere }}</td>
+			</tr>
+			<tr>
+				<th>DescriptionFiliere</th>
+				<td>{{ filiere.DescriptionFiliere }}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class=" text-right">
+		<div class="org-table-head-container">
+			<a href="{{ path('app_filiere_edit', {'id': filiere.id}) }}" class="btn btn-primary" style="background-color: #24ccc3; border-color: #24ccc3;">edit</a>
+		</div>
+	</div>
+
+	<h1>Users in
+		{{ filiere.NomFiliere }}</h1>
+
+	<div class="table" style="">
+		<table class="org-table">
+			<thead class="org-table-head">
+				<tr>
+					<th class="org-table-th">Id</th>
+					<th class="org-table-th">photo</th>
+					<th class="org-table-th">email</th>
+					<th class="org-table-th">nom</th>
+					<th class="org-table-th">prenom</th>
+					<th class="org-table-th">adresse</th>
+					<th class="org-table-th">num tel</th>
+					<th class="org-table-th">Diplome</th>
+					<th class="org-table-th">tarif/h</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for user in users %}
+					<tr>
+						<td class="org-table-th">{{ user.id }}</td>
+
+						<td class="org-table-th"><img src="{{ asset('uploads/users/' ~ user.pdp) }}" alt="User Image"></td>
+						<td class="org-table-th">{{ user.email }}</td>
+						<td class="org-table-th">{{ user.Nom }}</td>
+						<td class="org-table-th">{{ user.Prenom }}</td>
+						<td class="org-table-th">{{ user.adresse }}</td>
+						<td class="org-table-th">{{ user.NumTel }}</td>
+						<td class="org-table-th">
+							<a href="{{ asset('uploads/users/' ~ user.diplome) }}">Voir Diplome (PDF)</a>
+						</td>
+						<td class="org-table-th">{{ user.tarif}}</td>
+
+
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="8">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</tbody>
+	</table>
+</div>
+{{ include('filiere/_delete_form.html.twig') }}{% endblock %}

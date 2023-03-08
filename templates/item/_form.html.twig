@@ -1,0 +1,120 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<section class="contact-layout1 pt-0 mt--100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="contact-panel d-flex flex-wrap">
+                    <div class="contact-panel__form" >
+                        <div class="col">
+                            <div class="col-sm-12">   <p class="contact-panel__desc mb-30">
+                                </p>
+                                <p class="contact-panel__desc mb-30">
+                                </p>   <p class="contact-panel__desc mb-30">
+                                </p>
+                                <h4 class="contact-panel__title">votre item </h4>
+                                <p class="contact-panel__desc mb-30">
+                                </p>
+                            </div>
+                            <div class="">
+                                <div class="">
+                                    {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+                                    {{ form_label(form.titre,"titre") }}
+                                    {{ form_widget(form.titre,{'attr':{'class':'form-control'}}) }}
+                                    {% if form_errors(form.titre) %}
+                                        <div class="alert alert-danger">
+                                            {{ form_errors(form.titre) }}
+                                        </div>
+                                    {% endif %}
+
+                                </div>
+                            </div><!-- /.col-lg-6 -->
+                            <div class="">
+
+                                <div class="">
+
+                                    {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+                                    {{ form_label(form.time,"Temps") }}
+                                    {{ form_widget(form.time,{'attr':{'class':''}}) }}
+                                    {% if form_errors(form.time) %}
+                                        <div class="alert alert-danger">
+                                            {{ form_errors(form.time) }}
+                                        </div>
+                                    {% endif %}
+
+                                </div>
+                            </div><!-- /.col-lg-6 -->
+
+                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+                                    {{ form_label(form.is_complete,"compléter") }}
+                                    {{ form_widget(form.is_complete,{'attr':{'class':'form-group-date'}}) }}
+                                    {% if form_errors(form.is_complete) %}
+                                        <div class="alert alert-danger">
+                                            {{ form_errors(form.is_complete) }}
+                                        </div>
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+                                    {{ form_label(form.tasks,"inserer taske") }}
+                                    {{ form_widget(form.tasks) }}
+                                    {{ form_errors(form.tasks,{'attr':{'class':'alert alert-danger'}}) }}
+                                    {% if form_errors(form.tasks) %}
+                                        <div class="alert alert-danger">
+                                            {{ form_errors(form.tasks) }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+                                    {{ form_label(form.photo,"inserer image") }}
+                                    {{ form_widget(form.photo) }}
+                                    {% if form_errors(form.photo) %}
+                                        <div class="alert alert-danger">
+                                            {{ form_errors(form.photo) }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <!-- /.col-lg-6 -->
+                            {#    <div class="col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <i class="icon-news form-group-icon"></i>
+                                    <select class="form-control">
+                                        <option value="0">Subject</option>
+                                        <option value="1">Subject 1</option>
+                                        <option value="2">Subject 1</option>
+                                    </select>
+                                </div>
+                            </div><!-- /.col-lg-6 -->#}
+                            <div class="col-12">
+                                <button class="btn">{{ button_label|default('enregister') }}</button>
+                                {{ form_row(form._token) }}
+
+                                <div class="contact-result"></div>
+                            </div><!-- /.col-lg-12 -->
+                        </div><!-- /.row -->
+                    </div>
+                    <div
+                            class="contact-panel__info d-flex flex-column justify-content-between t">
+                        <div class="bg-img"><img src="{{ asset("massets/img.png") }}" alt="banner"></div>
+                        <div>
+                            <h4 class="contact-panel__title color-black"></h4>
+
+                        </div>
+                        <div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Nouvelle Filiere
+{% endblock %}
+
+{% block body %}
+	<div class="org-table-head-container">
+
+		<h1 style="text-align: center;">Creer une nouvelle Filiere</h1>
+	</div>
+	{{ include('filiere/_form.html.twig') }}
+	<div class="org-table-head-container">
+		<a href="{{ path('app_filiere_index') }}" class="btn btn-primary" style="background-color: #24ccc3; border-color: #24ccc3;">retour à la liste</a>
+	</div>
+
+{% endblock %}

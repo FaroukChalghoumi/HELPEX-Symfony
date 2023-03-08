@@ -1,0 +1,160 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+
+	<div class="wrapper">
+		<div class="preloader">
+			<div class="loading">
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+		</div>
+		<!-- /.preloader -->
+
+
+		<!-- ========================
+																																																																																																														       page title 
+																																																																																																														    =========================== -->
+		<section class="page-title page-title-layout1 bg-overlay">
+			<div class="bg-img"><img src="{{ asset('images/page-titles/7.jpg' ) }}" alt="background"></div>
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12 col-md-12 col-lg-12 col-xl-5">
+						<h1 class="pagetitle__heading">Helpex,Fournir des soins médicaux aux plus malades de notre communauté.
+						</h1>
+						<p class="pagetitle__desc">
+
+
+							Consultez nos professionels.
+						</p>
+						<a href="appointment.html" class="btn btn__primary btn__rounded">
+							<span>Faites Accompagnement</span>
+							<i class="icon-arrow-right"></i>
+						</a>
+					</div>
+					<!-- /.col-xl-5 -->
+				</div>
+				<!-- /.row -->
+			</div>
+			<!-- /.container -->
+		</section>
+		<!-- /.page-title -->
+
+		<!-- ========================
+																																																																																																														        Team layout 3
+																																																																																																														    ========================== -->
+		<section class="team-layout3 pb-40">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12 col-md-12 col-lg-8">
+
+						<div
+							class="row">
+							<!-- Member #1 -->
+							{% for user in ProList  %}
+								{% if user.isEnabled %}
+									<div class="col-sm-6 col-md-4 col-lg-4">
+										<div class="member">
+											<div class="member__img">
+												<img src="{{ asset('uploads/users/' ~ user.pdp) }}" alt="Professinal Image">
+											</div>
+											<!-- /.member-img -->
+											<div class="member__info">
+												<h5 class="member__name">
+													<a href="">{{ user.Nom }}
+														{{ user.Prenom }}
+													</a>
+												</h5>
+												<p class="member__job">{{ user.filiere }}</p>
+												<p class="member__desc">{{ user.bio }}</p>
+												<div class="mt-20 d-flex flex-wrap justify-content-between align-items-center">
+													<a href="{{ path('showProUser', {'id': user.id})}}" class="btn btn__secondary btn__link btn__rounded">
+														<span>Read More</span>
+														<i class="icon-arrow-right"></i>
+													</a>
+												</div>
+											</div>
+											<!-- /.member-info -->
+										</div>
+										<!-- /.member -->
+									</div>
+								{% endif %}
+							{% endfor %}
+
+
+						</div>
+
+					</div>
+
+					<!-- LEES FIIIILLLLLTERSSSSSSSSSSS -->
+					<div class="col-sm-12 col-md-12 col-lg-4">
+						<aside class="sidebar has-marign-left sticky-top">
+							<div class="widget widget-services">
+								<h5 class="widget__title">Filtres:</h5>
+								<div class="widget-content">
+									<ul class="list-unstyled mb-0">
+										<div class="sorting-options d-flex flex-wrap justify-content-between align-items-center mb-30">
+											<select>
+												<option selected="" value="0">Par Regions</option>
+												<option value="1">ariana</option>
+												<option value="2">bizerte</option>
+												<option value="3">gabes</option>
+												<option value="1">sfax</option>
+												<option value="2">tunis</option>
+												<option value="3">sousse</option>
+											</select>
+										</div>
+										<li>
+											<a href="{{ path('ProUsers') }}">
+												<span>Afficher Tous</span>
+												<i class="icon-arrow-right"></i>
+											</a>
+										</li>
+										{% for filiere in filieres %}
+											<li>
+												<a href="{{ path('showByFiliere', {'id': filiere.id}) }}">
+													<span>{{filiere.NomFiliere}}</span>
+													<i class="icon-arrow-right"></i>
+												</a>
+											</li>
+										{% endfor %}
+									</ul>
+
+								</div>
+							</div>
+
+
+							<!-- <div class="sorting-options d-flex flex-wrap justify-content-between align-items-center mb-30">
+																																																									<span>Showing 1:9 of 45 product</span>
+																																																									<select>
+																																																										<option selected="" value="0">Sort by latest</option>
+																																																										<option value="1">Sort by Popular</option>
+																																																										<option value="2">Sort by highest Price
+																																																										</option>
+																																																										<option value="3">Sort by lowest Price
+																																																										</option>
+																																																									</select>
+																																																								</div> -->
+
+
+						</aside>
+
+					</div>
+
+				</div>
+			</div>
+			<!-- /.container -->
+		</section>
+		<!-- /.Team layout 3  -->
+
+		<!-- ========================
+																																																																																																													      Footer
+																																																																																																													    ========================== -->
+
+	</div>
+	<!-- /.wrapper -->
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block navbar %}{% endblock %}
+
+{% block body %}
+
+	<section class="contact-layout5 bg-overlay bg-overlay-blue-gradient pb-60">
+		<div class="bg-img"><img src="assets/images/banners/3.jpg" alt="banner"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-20 col-md-20 col-lg-50 d-flex flex-column justify-content-between">
+					<div>
+						<div class="heading heading-light mb-30">
+							<h3 class="heading__title mb-30">Welcome back to Helpex,
+							</h3>
+							<p class="heading__desc">Bienvenue sur Helpex, une plateforme de santé qui relie les patients aux prestataires de soins de santé En Tunisie. Notre plateforme est conçue pour offrir un accès facile et sécurisé à une gamme de services de santé.
+																
+																Pour accéder à ces services, veuillez vous connecter en utilisant votre adresse e-mail et votre mot de passe enregistrés. Si vous êtes un nouvel utilisateur, veuillez créer un compte pour commencer à utiliser notre plateforme. Avec Helpex, vous pouvez recevoir des services de santé personnalisés depuis le confort de votre domicile, et notre équipe de professionnels de la santé est dévouée à vous offrir le plus haut niveau de soins possible.
+																
+																Merci d'avoir choisi Helpex pour vos besoins en matière de santé.</p>
+						</div>
+
+					</div>
+
+				</div>
+
+
+				<!-- SIIIIGN innnnnnnnnnnn -->
+				<div class="col-sm-12 col-md-12 col-lg-5 d-flex flex-column justify-content-between">
+					<div class="contact-panel mb-50">
+
+						<form method="post">
+							{% if error %}
+								<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+							{% endif %}
+
+							{% if app.user %}
+								<div class="mb-3">
+									You are logged in as
+									{{ app.user.userIdentifier }},
+									<a href="{{ path('app_logout') }}">Logout</a>
+								</div>
+							{% endif %}
+							<a href="{{ path('pick') }}" class="btn btn__primary btn__link">
+								<i class="icon-arrow-right icon-filled"></i>
+								<span>Vous n'avez etes pas inscris? s'inscrire.</span>
+							</a>
+							<h1 class="h3 mb-3 font-weight-normal">S'authentifier</h1>
+
+							<label for="inputEmail">Email</label>
+							<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+							<label for="inputPassword">mot de passe</label>
+							<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+							<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+							<button class="btn btn__primary btn__rounded btn__block btn__xhight mt-10" type="submit">
+								Log in
+							</button>
+							<!--<div style="text-align: center;">-->
+
+							<a href="{{ path('app_forgot_password_request') }}" class="btn btn__primary btn__link">
+								<i class="icon-arrow-right icon-filled"></i>
+								<span>Mot de passe oublié? Le réinitialiser.</span>
+							</a>
+							<!--</div>-->
+
+
+						</div>
+						<!-- /.col-lg-7 -->
+
+						<!-- /.row -->
+
+					</form>
+				</div>
+				<div class="col-sm-12 col-md-12 col-lg-5 d-flex flex-column justify-content-between">
+					<img src="{{ asset('images/hands.jpg')}} " style="height: 458.4px; width: 700px ;  border-radius: 33px;"/>
+				</div>
+			</div>
+		</div>
+		<!-- /.container -->
+	</section>
+	<!-- /.contact layout 5 -->
+{% endblock %}
+
+{% block footer %}{% endblock %}

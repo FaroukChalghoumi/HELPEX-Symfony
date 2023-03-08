@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+
+	<div class="wrapper">
+		<div class="preloader">
+			<div class="loading">
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+		</div>
+		<!-- /.preloader -->
+
+
+		<!-- ========================
+																																																																												       page title 
+																																																																												    =========================== -->
+		<section class="page-title page-title-layout1 bg-overlay">
+			<div class="bg-img"><img src="{{ asset('images/page-titles/7.jpg' ) }}" alt="background"></div>
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12 col-md-12 col-lg-12 col-xl-5">
+						<h1 class="pagetitle__heading">Providing Care for The Sickest In Community.
+						</h1>
+						<p class="pagetitle__desc">Medcity has been present in Europe since 1990, offering innovative solutions,
+																																																																																																																																																																																																																																																																										              specializing in medical services for treatment of medical infrastructure.
+						</p>
+						<a href="appointment.html" class="btn btn__primary btn__rounded">
+							<span>Make Appointment</span>
+							<i class="icon-arrow-right"></i>
+						</a>
+					</div>
+					<!-- /.col-xl-5 -->
+				</div>
+				<!-- /.row -->
+			</div>
+			<!-- /.container -->
+		</section>
+		<!-- /.page-title -->
+
+		<!-- ========================
+																																																																												        Team layout 3
+																																																																												    ========================== -->
+		<section class="team-layout3 pb-40">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12 col-md-12 col-lg-8">
+
+						<div
+							class="row">
+							<!-- Member #1 -->
+							{% for pro in prouser %}
+								<div class="col-sm-6 col-md-4 col-lg-4">
+									<div class="member">
+										<div class="member__img">
+											<img src="{{ asset('uploads/users/' ~ pro.pdp) }}" alt="Professinal Image">
+										</div>
+										<!-- /.member-img -->
+										<div class="member__info">
+											<h5 class="member__name">
+												<a href="">{{ pro.Nom }}
+													{{ pro.Prenom }}
+												</a>
+											</h5>
+											<p class="member__job">{{ pro.filiere }}</p>
+											<p class="member__desc">{{ pro.bio }}</p>
+											<div class="mt-20 d-flex flex-wrap justify-content-between align-items-center">
+												<a href="{{ path('showProUser', {'id': pro.id})}}" class="btn btn__secondary btn__link btn__rounded">
+													<span>Read More</span>
+													<i class="icon-arrow-right"></i>
+												</a>
+											</div>
+										</div>
+										<!-- /.member-info -->
+									</div>
+									<!-- /.member -->
+								</div>
+							{% endfor %}
+
+
+						</div>
+
+					</div>
+
+					<!-- LEES FIIIILLLLLTERSSSSSSSSSSS -->
+					<div class="col-sm-12 col-md-12 col-lg-4">
+						<aside class="sidebar has-marign-left sticky-top">
+							<div class="widget widget-services">
+								<h5 class="widget__title">Filtrer Selon Filiere:</h5>
+								<div class="widget-content">
+									<ul class="list-unstyled mb-0">
+										<li>
+											<a href="{{ path('ProUsers') }}">
+												<span>Afficher Tous</span>
+												<i class="icon-arrow-right"></i>
+											</a>
+										</li>
+										{% for filiere in filieres %}
+											<li>
+												<a href="{{ path('showByFiliere', {'id': filiere.id}) }}">
+													<span>{{filiere.NomFiliere}}</span>
+													<i class="icon-arrow-right"></i>
+												</a>
+											</li>
+										{% endfor %}
+									</ul>
+								</div>
+							</div>
+
+						</aside>
+						<!-- /.sidebar -->
+					</div>
+
+				</div>
+			</div>
+			<!-- /.container -->
+		</section>
+		<!-- /.Team layout 3  -->
+
+		<!-- ========================
+																																																																											      Footer
+																																																																											    ========================== -->
+
+	</div>
+	<!-- /.wrapper -->
+{% endblock %}

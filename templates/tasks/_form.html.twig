@@ -1,0 +1,97 @@
+
+{% extends 'base.html.twig' %}
+{%  block body %}
+<section class="contact-layout1 pt-0 mt--100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="contact-panel d-flex flex-wrap">
+                    <div class="contact-panel__form" >
+                        <div class="">
+                            <div class="col-sm-12">   <p class="contact-panel__desc mb-30">
+                                </p>
+                                <p class="contact-panel__desc mb-30">
+                                </p>   <p class="contact-panel__desc mb-30">
+                                </p>
+                                <h1 style="color: white">blanck</h1>
+                                <h1>votre Task</h1>
+                                <h4 class="contact-panel__title"> </h4>
+                                <p class="contact-panel__desc mb-30">
+                                </p>
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-auto">
+                                    {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+                                    {{ form_label(form.titre,"titre") }}
+                                    {{ form_widget(form.titre,{'attr':{'class':' form-control'}}) }}
+                                    {% if form_errors(form.titre) %}
+                                        <div class="alert alert-danger">
+                                            {{ form_errors(form.titre) }}
+                                        </div>
+                                    {% endif %}
+
+                                </div>
+                            </div><!-- /.col-lg-6 -->
+                            <div class="row g-3">
+
+                                <div class="col-auto">
+
+                                    {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+                                    {{ form_label(form.start_date,"Date de début") }}
+                                    {{ form_widget(form.start_date,{'attr':{'class':'form-control'}})  }}
+                                    {% if form_errors(form.start_date) %}
+                                        <div class="alert alert-danger">
+                                            {{ form_errors(form.start_date) }}
+                                        </div>
+                                    {% endif %}                                </div>
+                            </div><!-- /.col-lg-6 -->
+                            <div class="row g-3">
+
+                                <div class="col-auto">
+                                    {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+                                    {{ form_label(form.end_date,"Date de fin") }}
+                                    {{ form_widget(form.end_date,{'attr':{'class':'form-control'}}) }}
+                                    {% if form_errors(form.end_date) %}
+                                        <div class="alert alert-danger">
+                                            {{ form_errors(form.end_date) }}
+                                        </div>
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                            <h5 style="color:#ffffff;">white</h5>
+                            <div class="row g-3">
+
+                                <div class="col-auto">
+                                    {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+                                    {{ form_label(form.is_valid,"validité") }}
+                                    {{ form_widget(form.is_valid) }}
+                                    {{ form_errors(form.is_valid,{'attr':{'class':'alert alert-danger'}}) }}
+
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn">{{ button_label|default('enregister') }}</button>
+                                {{ form_row(form._token) }}
+
+                                <div class="contact-result"></div>
+                            </div><!-- /.col-lg-12 -->
+                        </div><!-- /.row -->
+                    </div>
+                    <div
+                            class="contact-panel__info d-flex flex-column justify-content-between t">
+                        <div class="bg-img"><img src="{{ asset("massets/img.png") }}" alt="banner"></div>
+                        <div>
+                            <h4 class="contact-panel__title color-black"></h4>
+
+                        </div>
+                        <div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

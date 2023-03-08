@@ -1,0 +1,35 @@
+<div class="row">
+	<div class="col-sm-6 col-md-6 col-lg-12">
+		<div class="form-group">
+
+
+			{{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+			{{ form_label(form.NomFiliere,"NomFiliere") }}
+			{{ form_widget(form.NomFiliere,{'attr':{'class':'form-control'}}) }}
+			{{ form_errors(form.NomFiliere) }}
+
+
+		</div>
+	</div>
+
+	<div class="col-sm-6 col-md-6 col-lg-12">
+
+		<div class="form-group">
+
+
+			{{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+			{{ form_label(form.DescriptionFiliere,"DescriptionFiliere") }}
+			{{ form_widget(form.DescriptionFiliere,{'attr':{'class':'form-control'}}) }}
+			{{ form_errors(form.DescriptionFiliere) }}
+
+
+		</div>
+	</div>
+
+	<div class="col-sm-6 col-md-6 col-lg-12 text-right">
+		<button class="btn btn-primary" data-toggle="modal" style="background-color: #24ccc3; border-color: #24ccc3;">{{ button_label|default('Save') }}</button>
+	</div>
+
+
+	{{ form_end(form) }}
+</div>
