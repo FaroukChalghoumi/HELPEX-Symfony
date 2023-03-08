@@ -132,7 +132,7 @@ $FilCount=[];
             'datasets' => [
                 [
                     'label' => 'Utilisateurs Pro selon Filieres',
-                    'backgroundColor' => ['#24ccc3', '#5358BF','#FF6384','#009900'],
+                    'backgroundColor' => ['#24ccc3', '#5358BF','#FF6384','#009900','#2d2d6d'],
                     'data' =>$FilCount ,
                 ]
             ]
