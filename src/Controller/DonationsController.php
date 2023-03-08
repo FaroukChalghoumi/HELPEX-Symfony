@@ -6,6 +6,7 @@ use App\Entity\CaisseOrganisation;
 use App\Entity\Organisation;
 use App\Repository\CaisseOrganisationRepository;
 use App\Repository\OrganisationRepository;
+use App\Repository\UserRepository;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
 use Stripe\StripeClient;
@@ -31,6 +32,11 @@ class DonationsController extends AbstractController
     #[Route('/payment/{id}', name: 'app_donations_payment')]
     public function Payment(Request $request,MailerInterface $mailer,CaisseOrganisation $caisseOrganisation,CaisseOrganisationRepository $caisseOrganisationRepository): Response
     {
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
         Stripe::setApiKey('sk_test_51MhCUgHv0arDT0U0P19vmMrNfUVhnrgr7oLZC6LOOXnbTEcciLDUPqrehv7UVbWDnCggUNFZegmbAuyK6wzwtEDI00F2fvASZc');
         $amount = $request->query->getInt('amount');
         $session_stripe = Session::create([
@@ -59,8 +65,8 @@ class DonationsController extends AbstractController
         $email = (new TemplatedEmail());
 
         $email->subject('Demo message using the Symfony Mailer library.');
-        $email->from('oussema.ayari.2001@gmail.com');
-        $email->to('oussema.ayari2020@gmail.com');
+        $email->from('apex.pidev1@gmail.com');
+        $email->to($user->getUsername());
         $email->htmlTemplate('emails/template.html.twig');
         $email->context([
         'name' => 'oussema',

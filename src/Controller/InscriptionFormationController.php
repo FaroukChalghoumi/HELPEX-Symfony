@@ -75,7 +75,11 @@ public function genererpdfinscription(InscriptionFormation $inscriptionFormation
     #[Route('/new/{id}', name: 'app_inscription_formation_new', methods: ['GET', 'POST'])]
     public function new(/*TexterInterface $texter*/ BuilderInterface $qrBuilder ,MailerInterface $mailer,Formation $id,Request $request, InscriptionFormationRepository $inscriptionFormationRepository): Response
     {
-    $user = $this->getUser();
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
 
 
 //        $sms = new SmsMessage(
@@ -96,8 +100,8 @@ public function genererpdfinscription(InscriptionFormation $inscriptionFormation
             $email = (new TemplatedEmail());
 
             $email->subject('nouvelle inscription a votre formation');
-            $email->from('oussema.ayari.2001@gmail.com');
-            $email->to('ahmedbelhajhassen22@gmail.com');
+            $email->from('apex.pidev1@gmail.com');
+            $email->to($id->getIdCentre()->getEmailCentre());
             //$email->text($user->getUsername(),$user->getUserIdentifier());
             $email->htmlTemplate('emails/template.html.twig');
             $email->context([

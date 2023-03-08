@@ -128,9 +128,28 @@
                                                     </div>
                                                     <p class="box-progress-percentage fancybox__title">{{ (caisse_organisation.montantCaisseOrg*100/caisse_organisation.goal)|number_format(2, '.', '') }}%</p>
                                                 </div>
-                                                <div id="contact">Donate !</div>
+                                                <div id="{{ "Contact"~caisse_organisation.id  }}" style="width: 100px;
+    height: 30px;
+    line-height: 30px;
+    background: teal;
+    color: white;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid white;">Donate !</div>
 
-                                                <div id="contactForm">
+                                                <div id="{{ "ContactForm"~caisse_organisation.id  }}" style="display: none;
+
+    border: 6px solid salmon;
+    padding: 2em;
+    width: 400px;
+    text-align: center;
+    background: #fff;
+    position: fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%)">
 
                                                     <h5>Type the amount u can donate</h5>
 
@@ -163,3 +182,28 @@
 
 {% endblock %}
 
+{% block jscode %}
+    <script>
+        {% for caisse_organisation in Caisses %}
+        $(function() {
+
+            // contact form animations
+            $("{{ "#Contact"~caisse_organisation.id }}").click(function() {
+                $('{{ "#ContactForm"~caisse_organisation.id }}').fadeToggle();
+
+            })
+            $(document).mouseup(function (e) {
+                var container = $("{{ "#ContactForm"~caisse_organisation.id }}");
+
+                if (!container.is(e.target) // if the target of the click isn't the container...
+                    && container.has(e.target).length === 0) // ... nor a descendant of the container
+                {
+                    container.fadeOut();
+                }
+
+            });
+
+        });
+        {% endfor %}
+    </script>
+{% endblock %}
