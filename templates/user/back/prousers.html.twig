@@ -1,0 +1,136 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}formation index
+{% endblock %}
+{% block component %}
+	<link rel="stylesheet" href="{{ asset("css/Card/style.css") }}"/>
+{% endblock %}
+
+{% block body %}
+
+	<div class="org-table-container" style="">
+
+		<div class="org-table-head-container">
+			<div class="">
+				<h2>Les
+					{{ ProList|length }}
+					Utilisateurs Professionnels
+				</h2>
+
+			</div>
+
+		</div>
+		<div class="row">
+
+			<div class="col-sm-12 col-md-12 col-lg-8">
+
+
+				<table class="org-table">
+					<thead class="org-table-head">
+						<tr>
+							<th class="org-table-th">Id</th>
+							<th class="org-table-th">photo</th>
+							<th class="org-table-th">email</th>
+							<th class="org-table-th">nom</th>
+							<th class="org-table-th">prenom</th>
+							<th class="org-table-th">adresse</th>
+							<th class="org-table-th">num tel</th>
+							<th class="org-table-th">Diplome</th>
+							<th class="org-table-th">tarif/h</th>
+							<th class="org-table-th">filiere</th>
+							<th class="org-table-th">
+								actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for user in ProList %}
+							<tr>
+								<td class="org-table-th">{{ user.id }}</td>
+
+								<td class="org-table-th"><img src="{{ asset('uploads/users/' ~ user.pdp) }}" alt="User Image"></td>
+								<td class="org-table-th">{{ user.email }}</td>
+								<td class="org-table-th">{{ user.Nom }}</td>
+								<td class="org-table-th">{{ user.Prenom }}</td>
+								<td class="org-table-th">{{ user.adresse }}</td>
+								<td class="org-table-th">{{ user.NumTel }}</td>
+								<td class="org-table-th">
+									<a href="{{ asset('uploads/users/' ~ user.diplome) }}">Voir Diplome (PDF)</a>
+								</td>
+								<td class="org-table-th">{{ user.tarif}}</td>
+								<td class="org-table-th">{{ user.filiere }}</td>
+
+								<td class="org-table-th">
+									<form method="POST" action="{{ path('DisableUser', {'id': user.id}) }}">
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-check form-switch">
+													<input class="form-check-input" type="checkbox" id="isEnabled{{ user.id }}" name="isEnabled[]" value="{{ user.id }}" {% if user.isEnabled %} checked {% endif %}>
+													<label class="form-check-label" for="isEnabled{{ user.id }}">Enabled</label>
+													<input type="hidden" name="isEnabled[]" value="0">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<button type="submit" class="btn btn-primary" style="background-color: #24ccc3; border-color: #24ccc3;height: 30px; width: 85px;">Save Changes</button>
+											</div>
+										</div>
+									</form>
+								</td>
+
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="8">no records found</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</tbody>
+			</table>
+
+
+		</div>
+
+
+		<!-- LEES FIIIILLLLLTERSSSSSSSSSSS -->
+		<div class="col-sm-12 col-md-12 col-lg-4">
+			<aside class="sidebar has-marign-left sticky-top">
+				<div class="widget widget-services">
+					<h5 class="widget__title">Consulter :</h5>
+					<div class="widget-content">
+						<ul class="list-unstyled mb-0">
+							<li>
+								<a href="{{ path('AllUsers')}}">
+									<span>Statistiques Utilisateurs Helpex</span>
+									<i class="icon-arrow-right"></i>
+								</a>
+							</li>
+							<li>
+								<a href="{{ path('CliUsers')}}">
+									<span>Les Utilisateurs Helpex</span>
+									<i class="icon-arrow-right"></i>
+								</a>
+							</li>
+							<li>
+								<a href="{{ path('backProUsers')}}">
+									<span>Les Utilisateurs Helpex Pro</span>
+									<i class="icon-arrow-right"></i>
+								</a>
+							</li>
+							<li>
+								<a href="{{ path('app_filiere_index') }}">
+									<span>Helpex Filieres</span>
+									<i class="icon-arrow-right"></i>
+								</a>
+							</li>
+
+						</ul>
+					</div>
+					<!-- /.widget-content -->
+				</div>
+
+			</aside>
+			<!-- /.sidebar -->
+		</div>
+
+	</div>
+
+</div>{% endblock %}

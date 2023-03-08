@@ -1,0 +1,95 @@
+{% extends 'admin.html.twig' %}
+
+{% block component %}
+
+{% endblock %}
+{% block body %}
+    <div class="projects-section-header">
+        <p>Caisses</p>
+        <p class="time">December, 12</p>
+    </div>
+    <div class="projects-section-line">
+        <div class="projects-status">
+            <div class="item-status">
+                <span class="status-number">{{ caisse_organisations|length }}</span>
+                <span class="status-type">Nombre total des organisations</span>
+            </div>
+
+        </div>
+        <div class="view-actions">
+            <button class="view-btn list-view" title="List View">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list">
+                    <line x1="8" y1="6" x2="21" y2="6" />
+                    <line x1="8" y1="12" x2="21" y2="12" />
+                    <line x1="8" y1="18" x2="21" y2="18" />
+                    <line x1="3" y1="6" x2="3.01" y2="6" />
+                    <line x1="3" y1="12" x2="3.01" y2="12" />
+                    <line x1="3" y1="18" x2="3.01" y2="18" /></svg>
+            </button>
+            <button class="view-btn grid-view active" title="Grid View">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid">
+                    <rect x="3" y="3" width="7" height="7" />
+                    <rect x="14" y="3" width="7" height="7" />
+                    <rect x="14" y="14" width="7" height="7" />
+                    <rect x="3" y="14" width="7" height="7" /></svg>
+            </button>
+        </div>
+    </div>
+    <div class="project-boxes jsGridView">
+        {% for caisse_organisation in caisse_organisations %}
+            <div class="project-box-wrapper">
+                <div class="project-box" style="background-color: #c8f7dc;">
+                    <div class="project-box-header">
+                        <span><img style="width: 50px;height: 50px" src="{{ asset("uploads/users/"~caisse_organisation.organisation.logoOrg) }}"></span>
+                        <div class="more-wrapper">
+                            <button class="project-btn-more">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical">
+                                    <circle cx="12" cy="12" r="1" />
+                                    <circle cx="12" cy="5" r="1" />
+                                    <circle cx="12" cy="19" r="1" /></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="project-box-content-header">
+                        <p class="box-content-subheader"><span class="box-content-header">Organisation:</span> {{  caisse_organisation.organisation.NomOrg|length > 10 ?  caisse_organisation.organisation.NomOrg|slice(0, 10) ~ '...' :  caisse_organisation.organisation.NomOrg  }}</p>
+                        <p class="box-content-subheader"><span class="box-content-header">Cause:</span> {{  caisse_organisation.description|length > 10 ?  caisse_organisation.description|slice(0, 10) ~ '...' :  caisse_organisation.description  }}</p>
+                        <p class="box-content-subheader"><span class="box-content-header">Montant:</span>{{ caisse_organisation.montantCaisseOrg }} </p>
+                        <p class="box-content-subheader"><span class="box-content-header">Goal:</span>{{ caisse_organisation.goal }} </p>
+                    </div>
+                    <div class="box-progress-wrapper">
+                        <p class="box-progress-header">Progress</p>
+                        <div class="box-progress-bar">
+                            <span class="box-progress" style="width: {{ (caisse_organisation.montantCaisseOrg/caisse_organisation.goal*100) }}%; background-color: #34c471"></span>
+                        </div>
+                        <p class="box-progress-percentage">{{ (caisse_organisation.montantCaisseOrg*100/caisse_organisation.goal)|number_format(2, '.', '') }}%</p>
+                    </div>
+                    <div class="project-box-footer">
+                        <div class="participants">
+                            <div class="org-action-item ">
+                                <a  href="{{ path('app_caisse_organisation_edit', {'id': caisse_organisation.id}) }}"><i class="fa-solid fa-pencil"style="color: #FFC107"></i></a>
+                            </div>
+                            <div class="org-action-item ">
+                                <a  href="{{ path('app_caisse_organisation_show', {'id': caisse_organisation.id}) }}"><i class="fa-solid fa-circle-info" style="color: #0035ba"></i></a>
+                            </div>
+                            <form class="org-action-item " method="post" action="{{ path('app_caisse_organisation_delete', {'id': caisse_organisation.id}) }}" onsubmit="return confirm('Are you sure you want to delete this Organisation?');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ caisse_organisation.id) }}">
+                                <button style="border: none;background: transparent">
+                                    <a href="{{ path('app_organisation_delete', {'id': caisse_organisation.id}) }}"><i class="fa-solid fa-trash-can" style="color: red"></i></a>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="days-left" style="color: #34c471;">
+                            open
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+
+
+    </div>
+
+
+{% endblock %}
+

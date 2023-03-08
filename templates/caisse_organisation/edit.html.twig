@@ -1,0 +1,13 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Edit CaisseOrganisation{% endblock %}
+
+{% block body %}
+    <h1>Edit CaisseOrganisation</h1>
+
+    {{ include('caisse_organisation/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_caisse_organisation_index') }}">back to list</a>
+
+    {{ include('caisse_organisation/_delete_form.html.twig') }}
+{% endblock %}
