@@ -39,28 +39,63 @@ class AccompagnementRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Accompagnement[] Returns an array of Accompagnement objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('a.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Accompagnement
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    /**
+     * @return Accompagnement[] Returns an array of Accompagnement objects
+     */
+    public function findByAccompagnementEmail($value): array
+    {
+        return $this->createQueryBuilder('a')
+            ->join('a.user', 'u')
+                ->where('u.email = :val')
+                ->setParameter('val', $value)
+                ->getQuery()
+                ->getResult();
+        ;
+    }
+    public function findByAccompagnementEmailUserProandStatus($value): array
+    {
+        return $this->createQueryBuilder('a')
+            ->join('a.user_pro', 'u')
+            ->where('u.email = :val')
+            ->andWhere('a.is_accepted = :vala')
+            ->setParameter('val', $value)
+            ->setParameter('vala', 1)
+            ->getQuery()
+            ->getResult();
+        ;
+    }
+    public function findByAccompagnementEmailUserandStatus($value): array
+    {
+        return $this->createQueryBuilder('a')
+            ->join('a.user', 'u')
+            ->where('u.email = :val')
+            ->andWhere('a.is_accepted = :vala')
+            ->setParameter('val', $value)
+            ->setParameter('vala', 1)
+            ->getQuery()
+            ->getResult();
+        ;
+    }
+    public function findByAccompagnementEmailUserPro($pro): array
+    {
+        return $this->createQueryBuilder('a')
+            ->join('a.user_pro', 'p')
+            ->andWhere('p.email = :vala')
+            ->setParameter('vala', $pro)
+            ->getQuery()
+            ->getResult();
+        ;
+    }
+   public function findOneByEmailTask($email,$task): ?Accompagnement
+  {
+      return $this->createQueryBuilder('a')
+            ->join('a.user', 'u')
+            ->where('u.email = :vale')
+            ->andWhere('a.task = :valt')
+            ->setParameter('vale', $email)
+            ->setParameter('valt', $task)
+            ->getQuery()
+            ->getOneOrNullResult()
+       ;
+    }
 }

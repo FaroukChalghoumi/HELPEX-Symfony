@@ -21,6 +21,13 @@ class AppController extends AbstractController
         ]);
     } 
 
+    #[Route('/disabled', name: 'disabled_page')]
+    public function disabled(): Response
+    {
+       
+        return $this->render('app/disabled.html.twig');
+    } 
+
     #[ Route('/admin', name: 'admin'),
      IsGranted("ROLE_ADMIN") ]
     public function indexAdmin(): Response

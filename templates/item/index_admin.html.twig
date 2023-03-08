@@ -41,10 +41,16 @@
                 {% endif %}
 
 
+            <td style="color: #ca8d0a">  <a href="{{ path('app_item_editadmin', {'id': item.id}) }}">  <button class="btn-sm "><i class="fas fa-edit"></i></button></a></td>
+            <form method="post" action="{{ path('app_item_delete_admin', {'id': item.id}) }}" onsubmit="return confirm('est ce que vous étes sure de vouloir supprimer le Task?');">
+                <input   type="hidden" name="_token" value="{{ csrf_token('delete' ~ item.id) }}">
+                <td style="color: #ca0a44">    <button class=" btn-sm ">   <i class="fas fa-trash fa-1x"></i> </button>       </td>
 
+            </form>
+
+        </tr>
                 {% endfor %}
 
-            </tr>
 
         </tbody>
     </table>

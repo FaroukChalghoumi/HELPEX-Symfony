@@ -24,7 +24,6 @@
         {% for task in tasks %}
 
                 <tr>
-
             <th scope="row "> {{ task.id }}</th>
             <td class="font-italic "> {{ task.titre}}</td>
             <td> {{ task.startDate ? task.startDate|date('Y-m-d') : '' }}</td>
@@ -39,14 +38,15 @@
                       <button class="btn-dark">voir items</button>  </a></td>
                     <td style="color: #ca8d0a">  <a href="{{ path('app_tasks_edit_admin', {'id': task.id}) }}">  <button class="btn-sm "><i class="fas fa-edit"></i></button></a></td>
 
-                    <form method="post" action="{{ path('app_tasks_delete', {'id': task.id}) }}" onsubmit="return confirm('est ce que vous étes sure de vouloir supprimer le Task?');">
+                    <form method="post" action="{{ path('app_tasks_deleteAdmin', {'id': task.id}) }}" onsubmit="return confirm('est ce que vous étes sure de vouloir supprimer le Task?');">
                         <input   type="hidden" name="_token" value="{{ csrf_token('delete' ~ task.id) }}">
+                        <td style="color: #ca0a44">    <button class=" btn-sm ">   <i class="fas fa-trash fa-1x"></i> </button>       </td>
 
                     </form>
-                    <td style="color: #ca0a44">    <button class=" btn-sm ">   <i class="fas fa-trash fa-1x"></i> </button>       </td>
 
 
 </tr>
+
         {% endfor %}
 
 

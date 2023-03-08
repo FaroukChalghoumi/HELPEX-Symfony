@@ -61,9 +61,16 @@ class UserProType extends AbstractType
                 ]])
             ->add('adresse',ChoiceType::class, [
                 'choices' => [
-                    'ariana' => 'ariana',
                     'bizerte' => 'bizerte',
+                    'tunis' => 'tunis',
+                    'ariana' => 'ariana',
+                    'sousse' => 'sousse',
+                    'sfax' => 'sfax',
                     'gabes' => 'gabes',
+                    
+
+                    
+                    
 
     
                 ]])

@@ -82,13 +82,23 @@
 						<!-- /.widget-member -->
 
 						<!-- /.widget-help -->
+						{% if auth is  null %}
+							<button disabled  class="btn btn-danger" >
 
-						<div class="widget widget-reports">
-							<a href="#" class="btn btn__primary btn__block">
+
+									<span> signer pour faire Accompagnement</span>
+
+							</button>
+						{%  else %}
+						<div class="widget widget-reports" >
+							{%  if role=="user" %}
+							<a href="#" class="btn btn__primary btn__block"  data-toggle="modal" data-target="#myModal">
 
 								<span>Accompagnement</span>
 							</a>
+							{% endif %}
 						</div>
+						{% endif %}
 						<div class="widget widget-help bg-overlay bg-overlay-primary-gradient">
 							<div class="bg-img"><img src={{ asset('images/banners/5.jpg') }} alt="background"></div>
 							<div class="widget-content">
@@ -237,4 +247,67 @@
 		</div>
 		<!-- /.container -->
 	</section>
+	<!--modal-->
+
+	<div  class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div style="background-color: #1cb6d2" class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">tasks</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						{#<span aria-hidden="true">  vos tasks</span>#}
+					</button>
+				</div>
+				<div style="background-color: #ffffff" class="modal-body">
+					<form method="post" action="{{ path('Accomp') }}">
+
+
+						{% for task in tasks %}
+
+							<input hidden="hidden" name="hidd_user"  id="hidd_user"value="{{ user.id }}">
+							<input type="radio" id="my_checkbox" name="my_checkbox" value="{{ task.id }}" >
+							<label class="form-check-label" for="optionsRadios1">{{ task }}
+							</label>
+
+
+
+
+
+						{% endfor %}
+
+
+
+
+				<div style="background-color: #ffffff" class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button  class="btn btn-primary" type="submit">envoyer</button>
+				</div>
+					</form>
+
+			</div>
+		</div>
+	</div>
+		{% if error_message is defined %}
+			<div class="alert alert-danger">{{ error_message }}</div>
+		{% endif %}
+	<div class="modal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Modal title</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true"></span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>Modal body text goes here.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary">Save changes</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--endmodal-->
 {% endblock %}

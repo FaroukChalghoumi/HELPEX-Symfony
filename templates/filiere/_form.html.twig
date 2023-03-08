@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-sm-6 col-md-6 col-lg-6">
+	<div class="col-sm-6 col-md-6 col-lg-12">
 		<div class="form-group">
 
 
@@ -12,7 +12,7 @@
 		</div>
 	</div>
 
-	<div class="col-sm-6 col-md-6 col-lg-6">
+	<div class="col-sm-6 col-md-6 col-lg-12">
 
 		<div class="form-group">
 
@@ -26,7 +26,10 @@
 		</div>
 	</div>
 
+	<div class="col-sm-6 col-md-6 col-lg-12 text-right">
+		<button class="btn btn-primary" data-toggle="modal" style="background-color: #24ccc3; border-color: #24ccc3;">{{ button_label|default('Save') }}</button>
+	</div>
 
-	<button class="btn">{{ button_label|default('Save') }}</button>
+
 	{{ form_end(form) }}
 </div>

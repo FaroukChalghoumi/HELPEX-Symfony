@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ItemRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ItemRepository::class)]
@@ -13,29 +14,34 @@ class Item
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['item'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\NotBlank]
     #[Assert\Length(
         min: 5,
         max: 50,
         minMessage: 'minumum 5 caratéres',
         maxMessage: 'ùaximum 50 caracteres',
     )]
+    #[Groups(['item'])]
     private ?string $titre = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     #[Assert\NotBlank]
+    #[Groups(['item'])]
     private ?\DateTimeInterface $time = null;
 
     #[ORM\Column]
+    #[Groups(['item'])]
     private ?bool $is_complete = null;
 
     #[ORM\ManyToOne(inversedBy: 'list_items')]
-    #[Assert\NotBlank]
     private Tasks $tasks ;
 
+
+
+    #[Groups(['item'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo = null;
 

@@ -14,6 +14,11 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\User;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
+
+
 
 class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 {
@@ -21,7 +26,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     public const LOGIN_ROUTE = 'app_login';
 
-    public function __construct(private UrlGeneratorInterface $urlGenerator)
+    public function __construct(private UrlGeneratorInterface $urlGenerator, private EntityManagerInterface $entityManager)
     {
     }
 
@@ -31,13 +36,26 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
         $request->getSession()->set(Security::LAST_USERNAME, $email);
 
-        return new Passport(
-            new UserBadge($email),
-            new PasswordCredentials($request->request->get('password', '')),
-            [
-                new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token')),
-            ]
-        );
+///isEnabled
+
+$user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
+
+
+
+if ($user->isIsEnabled() == 0) {
+    // User is not enabled, throw exception
+    throw new CustomUserMessageAuthenticationException('Vous etes interdit de Helpex');
+}
+return new Passport(
+    new UserBadge($email),
+    new PasswordCredentials($request->request->get('password', '')),
+    [
+        new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token')),
+    ]
+);
+
+      
+
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response

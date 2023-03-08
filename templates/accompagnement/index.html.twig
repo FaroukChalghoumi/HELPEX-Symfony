@@ -4,33 +4,66 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Accompagnement index</h1>
+    <link href="https://cdn.datatables.net/v/dt/dt-1.13.3/datatables.min.css"/>
 
-    <table class="table">
+    <script src="https://cdn.datatables.net/v/dt/dt-1.13.3/datatables.min.js"></script>
+    <h4>vous avez (<span style="color: #0a58ca">{{ accompagnements|length }}</span> )demande d'accompagnement </h4>
+
+    <table class="table table-hover" id="example" style="width:100%">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Is_accepted</th>
+
+                <th style="color: #0b0b0b">expéditeur</th>
+                <th>task</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for accompagnement in accompagnements %}
+            {%  if accompagnement.isAccepted==0 %}
             <tr>
-                <td>{{ accompagnement.id }}</td>
-                <td>{{ accompagnement.isAccepted ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ path('app_accompagnement_show', {'id': accompagnement.id}) }}">show</a>
-                    <a href="{{ path('app_accompagnement_edit', {'id': accompagnement.id}) }}">edit</a>
+                {% set diff = date(accompagnement.task.enddate).diff(date(accompagnement.task.startdate)) %}
+                <td>  <img class="rounded-circle" style="max-width: 6%;" src="{{ asset('uploads/users/'~ accompagnement.user.pdp)}}" >   {{ accompagnement.user }} vous à envoyer un task à faire de durée <span style="color: #0a58ca">{{ diff.days }}</span> jours</td>
+                <td><button data-toggle="modal" data-target="#myModal">voir task</button>
+
                 </td>
+                <td><a  style="color: #0a58ca" href="{{ path('app_accompagnement_accepter', {'id': accompagnement.id}) }}">  <span style="color: #0a58ca" class="badge bg-primary" >accpter</span></a>
+                    <a href="{{ path('app_accompagnement_rejeterr', {'id': accompagnement.id})   }}">  <span style="color: #ca0a0a" class="badge ">rejeter</span></a></td>
             </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
+
+           {% endif %}
         {% endfor %}
+
         </tbody>
+
     </table>
 
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    Modal content goes here
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<script>$(document).ready(function () {
+        $('#example').DataTable();
+    });</script>
     <a href="{{ path('app_accompagnement_new') }}">Create new</a>
 {% endblock %}

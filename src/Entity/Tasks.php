@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\DateTime ;
 use http\Message;
@@ -17,6 +18,7 @@ class Tasks
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
     #[ORM\Column]
+    #[Groups(['tasks'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -27,45 +29,47 @@ class Tasks
         minMessage: 'minumum 5 caratéres',
         maxMessage: 'ùaximum 50 caracteres',
     )]
+    #[Groups(['tasks'])]
     private ?string $titre = null;
 
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\GreaterThan(value: 'today',message: "la date soit étre supérieur à la date d'aujourd'hui")]
+    #[Groups(['tasks'])]
+
     private ?\DateTimeInterface $start_date = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\GreaterThan(propertyPath :"start_date"
     ,message:"error date doit etre superieur de date debut")]
+    #[Groups(['tasks'])]
     private ?\DateTimeInterface $end_date = null;
 
     #[ORM\Column]
+    #[Groups(['tasks'])]
+
     private ?bool $is_valid = null;
 
     #[ORM\OneToMany(mappedBy: 'tasks', targetEntity: Item::class)]
     #[Assert\NotBlank]
     private Collection $list_items;
+    private ?String $color ;
 
     public function __construct()
     {
         $this->list_items = new ArrayCollection();
     }
 
+    public static function randm_image(){
+        $imagesDir = 'images/tasks/';
+
+        $images = glob($imagesDir . '*.{jpg,jpeg,png,gif}', GLOB_BRACE);
+        $randomImage = $images[array_rand($images)];
+    }
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getTitre(): ?string
-    {
-        return $this->titre;
-    }
-
-    public function setTitre(?string $titre): self
-    {
-        $this->titre = $titre;
-
-        return $this;
     }
 
     public function getStartDate(): ?\DateTimeInterface
@@ -138,15 +142,21 @@ class Tasks
     {
         return $this->getTitre();
     }
-    private ?String $color ;
+
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+
+    public function setTitre(?string $titre): self
+    {
+        $this->titre = $titre;
+
+        return $this;
+    }
+
     public function rand_color() {
         $this->color= sprintf('#%06X', mt_rand(0, 0xFFFFFF));
-    }
-    public static function randm_image(){
-        $imagesDir = 'images/tasks/';
-
-        $images = glob($imagesDir . '*.{jpg,jpeg,png,gif}', GLOB_BRACE);
-        $randomImage = $images[array_rand($images)];
     }
 
 }

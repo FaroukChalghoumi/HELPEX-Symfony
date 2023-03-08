@@ -1,0 +1,28 @@
+ {% if items is null %}
+        <h1> vous n'avez pas des items assignés !</h1>
+        {%  else %}
+        {% for item in items %}
+        <tr>
+            <td>{{ item.titre }}</td>
+            <td> {{ item.time|date('H:i:s') }}</td>
+            {% if item.iscomplete %}
+            <td style="color: green">complété</td>
+            {% else %}
+                <td style="color: red ">non complété</td>
+                {% endif %}
+            {%  if item.photo  is null%}
+                <td style="color: orangered">pas de preuve</td>
+            {%  else %}
+            <td>         <a href="{{ asset('uploads/users/'~ item.photo)}}" target="_blank">    <button class="btn-success">voir preuve</button>          </a>
+         {#   <td><button type="button" class="btn btn-success" data-mdb-toggle="modal" data-mdb-target="#exampleModal"> voir preuve
+                </button></td>#}
+                {% endif %}
+                <td><a href="{{ path('app_item_edit', {'id': item.id}) }}">  <button class="btn-sm "><i class="fas fa-edit"></i></button></a>
+                </td>
+            <td>  <form method="post" action="{{ path('app_item_delete', {'id': item.id}) }}" onsubmit="return confirm('est ce que vous étes sure de vouloir supprimer le Task?');">
+                    <input   type="hidden" name="_token" value="{{ csrf_token('delete' ~ item.id) }}">
+                     <button class=" btn-sm "><i class="fas fa-trash fa-1x"></i></button>
+                </form></td>
+
+        </tr>
+
