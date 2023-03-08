@@ -7,6 +7,7 @@
 		<title>Helpex</title>
 
 		{% block css %}
+			{{ encore_entry_link_tags('app') }}
 			<link rel="stylesheet" href="{{ asset("build/css/admin.css") }}"/>
 			<link href="{{asset("images/favicon/favicon.png") }}" rel="icon">
 			<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&amp;family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet">
@@ -105,11 +106,11 @@
 
 			</div>
 			<div class="projects-section"> {% block body %}{% endblock %}
-
-				</div>
-
+				{% block javascripts %}
+					{{ encore_entry_script_tags('app') }}
+				{% endblock %}
 			</div>
-		</body>
-	</html>
-</div>
-<script src="{{ asset("admin/js/admin.js") }}"></script></body></html>-+
+
+		</div>
+	</body>
+</html></div><script src="{{ asset("admin/js/admin.js") }}"></script></body></html>-+

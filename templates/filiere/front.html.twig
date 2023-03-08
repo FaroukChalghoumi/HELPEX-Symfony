@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos Filieres
+{% endblock %}
+
+{% block body %}
+	<section class="services-layout1 pt-130">
+		<div class="bg-img"><img src="assets/images/backgrounds/2.jpg" alt="background"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 col-md-12 col-lg-6 offset-lg-3">
+					<div class="heading text-center mb-60">
+						<h2 class="heading__subtitle">La meilleure plateforme Helpex!</h2>
+						<h3 class="heading__title">Fournir des soins médicaux aux plus malades de notre communauté.
+
+
+						</h3>
+					</div>
+					<!-- /.heading -->
+				</div>
+				<!-- /.col-lg-6 -->
+			</div>
+			<!-- /.row -->
+			<div class="row">
+				{% for filiere in filieres %}
+					<!-- service item #5 -->
+					<div class="col-sm-12 col-md-6 col-lg-4">
+						<div class="service-item">
+							<div class="service__icon">
+								<i class="icon-heart3"></i>
+								<i class="icon-heart3"></i>
+							</div>
+							<!-- /.service__icon -->
+							<div class="service__content">
+								<h4 class="service__title">{{ filiere.NomFiliere }}</h4>
+								<p class="service__desc">{{ filiere.DescriptionFiliere }}</p>
+
+								<a href="services-single.html" class="btn btn__secondary btn__outlined btn__rounded">
+									<span>Voir les professionels de de ce domaine</span>
+									<i class="icon-arrow-right"></i>
+								</a>
+							</div>
+							<!-- /.service__content -->
+						</div>
+						<!-- /.service-item -->
+					</div>
+
+
+				{% endfor %}
+			</div>
+			<!-- /.container -->
+		</section>
+		<!-- /.Services Layout 1 -->
+	{% endblock %}

@@ -12,9 +12,21 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
-#[Route('admin/filiere')]
+#[Route('filiere')]
 class FiliereController extends AbstractController
 {
+
+  ////////////////////////////FRONT///////////////////////////////////////
+
+  #[Route('/front', name: 'app_filiere_front', methods: ['GET'])]
+  public function front(FiliereRepository $filiereRepository): Response
+  {
+    
+      return $this->render('filiere/front.html.twig', [
+          'filieres' => $filiereRepository->findAll(),
+      ]);
+  }
+
     #[Route('/', name: 'app_filiere_index', methods: ['GET']), IsGranted('ROLE_ADMIN')]
     public function index(FiliereRepository $filiereRepository): Response
     {
@@ -127,5 +139,10 @@ class FiliereController extends AbstractController
         ]);
     }
 
+
+
+
+
+  
 
 }

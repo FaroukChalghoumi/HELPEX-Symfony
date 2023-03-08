@@ -11,15 +11,14 @@
 	<div class="org-table-container" style="">
 		<div class="org-table-head-container">
 			<div class="">
-				<h2>les filieres</h2>
+				<h2>les filieres Helpex</h2>
 			</div>
-			<div class="add-org-btn-container">
-				<a href="{{ path('app_filiere_new') }}" class="add-org-btn" data-toggle="modal">
-					<i class="fa-solid fa-plus"></i>
-					<span>Ajouter Filiere</span>
-				</a>
 
-			</div>
+			<a href="{{ path('app_filiere_new') }}" class="btn btn-primary" data-toggle="modal" style="background-color: #24ccc3; border-color: #24ccc3;">
+				<i class=" fa-solid fa-plus"></i>
+				<span>Ajouter Filiere</span>
+			</a>
+
 
 		</div>
 		<table class="org-table">
@@ -66,6 +65,4 @@
 			</tbody>
 		</table>
 	</div>
-
-
 {% endblock %}
