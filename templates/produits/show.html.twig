@@ -91,7 +91,7 @@
                                     <div class="col-sm-6">
                                         <div class="product__meta-review mb-20">
                   <span class="product__rating">
-                      <a href="{{ path('show_Marketplace_User', {'id': produit.user.id})}}"
+                      <a href="{{ path('app_produits_show', {'id': produit.user.id})}}"
                          class="btn btn__secondary btn__link btn__rounded">{{ produit.user.Nom }} {{ produit.user.Prenom }}</a>
 
                     <i class="fa fa-star active"></i>
@@ -113,7 +113,7 @@
                                         </div><!-- /.product-desc -->
 
                                         <div class="product__quantity d-flex mb-30">
-                                            <a class="btn btn__secondary btn__rounded" href="{{ path('pdf_inscription', {'id': produit.id}) }}">PDF</a>
+                                            <a class="btn btn__secondary btn__rounded" href="{{ path('pdf_inscription_produit', {'id': produit.id}) }}">PDF</a>
                                         </div><!-- /.product-quantity -->
 
                                         <div class="product__quantity d-flex mb-30">

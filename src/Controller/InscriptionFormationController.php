@@ -88,7 +88,7 @@ public function genererpdfinscription(InscriptionFormation $inscriptionFormation
 //        );
         //$sentMessage = $texter->send($sms);
         $inscriptionFormation = new InscriptionFormation();
-        $form = $this->createForm(InscriptionFormationType::class, $inscriptionFormation);
+        $form = $this->createForm(InscriptionFormationfront::class, $inscriptionFormation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

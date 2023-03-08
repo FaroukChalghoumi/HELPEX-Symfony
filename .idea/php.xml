@@ -158,4 +158,5 @@
       <path value="$PROJECT_DIR$/vendor/symfony/twilio-notifier" />
     </include_path>
   </component>
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.0" />
 </project>

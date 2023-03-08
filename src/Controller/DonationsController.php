@@ -41,7 +41,7 @@ class DonationsController extends AbstractController
                         'currency' => 'usd',
                         'unit_amount' => $amount*100,
                         'product_data' => [
-                            'name' => 'T-shirt',
+                            'name' => 'Donation',
                         ],
                     ],
                     'quantity' => 1,
