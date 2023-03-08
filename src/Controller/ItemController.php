@@ -351,6 +351,48 @@ class ItemController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}/editadmin', name: 'app_item_editadmin', methods: ['GET', 'POST'])]
+    public function editadmin(Request $request, Item $item, ItemRepository $itemRepository,SluggerInterface $slugger,$id): Response
+    {$user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+        $form = $this->createForm(ItemType::class, $item);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $task_id =$form->get('tasks')->getData()->getId();
+
+            $pictureFile = $form->get('photo')->getData();
+            if ($pictureFile) {
+                $originalFilename = pathinfo($pictureFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$pictureFile->guessExtension();
+
+                try {
+                    $pictureFile->move(
+                        $this->getParameter('users_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // handle exception
+                }
+                $item->setPhoto($newFilename);
+            }
+
+            $itemRepository->save($item, true);
+
+            return $this->redirectToRoute('app_item_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('item/admin/edit.html.twig', [
+            'item' => $item,
+            'form' => $form,
+
+        ]);
+    }
+
     #[Route('/{id}', name: 'app_item_delete', methods: ['POST','GET'])]
     public function delete(Request $request, Item $item, ItemRepository $itemRepository): Response
     {       $user = $this->getUser();
@@ -364,4 +406,20 @@ class ItemController extends AbstractController
         $task_id=$item->getTasks()->getId();
         return $this->redirect('http://127.0.0.1:8000/item/task/'.$task_id);
     }
+
+    #[Route('admin/{id}', name: 'app_item_delete_admin', methods: ['POST','GET'])]
+    public function deleteadmin(Request $request, Item $item, ItemRepository $itemRepository): Response
+    {       $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+        if ($this->isCsrfTokenValid('delete'.$item->getId(), $request->request->get('_token'))) {
+            $itemRepository->remove($item, true);
+        }
+        $task_id=$item->getTasks()->getId();
+        return $this->redirectToRoute('app_item_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+
 }
