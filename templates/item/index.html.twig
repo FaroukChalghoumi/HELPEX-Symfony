@@ -12,7 +12,9 @@
 
             {% elseif is_granted('ROLE_USER')  %}
                 <nav class="navbar navbar-light bg-light">&nbsp;&nbsp;<span style="color: white">whiteee</span>
+                    {% if task is defined %}
                     <a href="{{path('app_item_download', {'id': task.id})}}" target="_blank">    <button class="btn-info">download pdf</button>          </a>
+                 {%  endif %}
                     &nbsp;<span style="color: white">we</span>
                     <a  href="{{ path('app_item_new', {'idT': task.id}) }}" >  <button class="btn-warning"> attribuer des items</button>
                     </a>

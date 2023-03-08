@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Accompagnement;
 use App\Entity\Tasks;
+use App\Entity\User;
 use App\Form\TasksType;
 use App\Repository\AccompagnementRepository;
 use App\Repository\TasksRepository;
@@ -298,7 +299,7 @@ dd("admin");
 
 
 
-                return $this->redirectToRoute('ProUsers', [], Response::HTTP_SEE_OTHER);
+                return $this->redirect('http://127.0.0.1:8000/tasks/myProUsers/');
             }
 
             return $this->renderForm('tasks/new.html.twig', [
@@ -386,7 +387,7 @@ dd("admin");
     }
 
     #[Route('/{id}/edit', name: 'app_tasks_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Tasks $task, TasksRepository $tasksRepository): Response
+    public function edit(UserRepository $userRepository ,AccompagnementRepository $accompagnementRepository,Request $request, Tasks $task, TasksRepository $tasksRepository): Response
     {
         $user = $this->getUser();
 
@@ -399,7 +400,17 @@ dd("admin");
         if ($form->isSubmitted() && $form->isValid()) {
             $tasksRepository->save($task, true);
             //raja3ha kima kénit next time
-            /*return $this->redirectToRoute('app_tasks_index', [], Response::HTTP_SEE_OTHER);*/
+            //return $this->redirectToRoute('app_tasks_index', [], Response::HTTP_SEE_OTHER);
+            $user=$userRepository->findByEmail1($this->getUser()->getUserIdentifier());
+
+
+            //$user=reset($id_user);
+            //dd($user['id']);
+            http://127.0.0.1:8000/tasks/myProUsers/
+            //return $this->redirect($request->getRequestUri());
+
+            // return $this->redirect('http://127.0.0.1:8000/tasks/user_norm/'.$user->getId());
+            return $this->redirect('http://127.0.0.1:8000/tasks/myProUsers/');
            // return $this->redirect('http://127.0.0.1:8000/tasks/user_norm/5/5');
 
         }
@@ -412,7 +423,7 @@ dd("admin");
     }
 
     #[Route('/{id}', name: 'app_tasks_delete', methods: ['POST'])]
-    public function delete(UserRepository $userRepository,Request $request, Tasks $task, TasksRepository $tasksRepository): Response
+    public function delete(AccompagnementRepository $accompagnementRepository,UserRepository $userRepository,Request $request, Tasks $task, TasksRepository $tasksRepository): Response
     {
         $user = $this->getUser();
 
@@ -437,9 +448,10 @@ dd("admin");
         //$user=reset($id_user);
         //dd($user['id']);
         http://127.0.0.1:8000/tasks/myProUsers/
-        return $this->redirect($request->getRequestUri());
-        //return $this->redirect('http://127.0.0.1:8000/tasks/user_norm/'.$user->getId());
-        //return $this->redirect('http://127.0.0.1:8000/tasks/user_norm/'.$user->getId());
+        //return $this->redirect($request->getRequestUri());
+
+       // return $this->redirect('http://127.0.0.1:8000/tasks/user_norm/'.$user->getId());
+        return $this->redirect("http://127.0.0.1:8000/tasks/myProUsers/");
         //return $this->redirectToRoute('app_item_index', [], Response::HTTP_SEE_OTHER);
     }
 

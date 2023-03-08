@@ -139,9 +139,9 @@ class ItemController extends AbstractController
         foreach ($items as $item){
             array_push( $categColor, '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT));
             if($item->isIsComplete()==1){
-                array_push($non_complet,$item) ;
+                array_push($complete,$item) ;
             }
-            else{ array_push($complete,$item) ;}
+            else{ array_push($non_complet,$item) ;}
         }
 
         $countnon_complet=count($non_complet);
@@ -198,7 +198,7 @@ class ItemController extends AbstractController
 
         // On instancie Dompdf
         $dompdf = new Dompdf($pdfOptions);
-        $item=$itemRepository->findAll();
+        $item=$itemRepository->findBy(["tasks"=>$id]);
 
 
 
