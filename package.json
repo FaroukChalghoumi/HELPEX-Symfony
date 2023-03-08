@@ -20,7 +20,6 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-
         "chart.js": "^4.2.1",
         "node-sass": "^8.0.0",
         "sass-loader": "^13.2.0"

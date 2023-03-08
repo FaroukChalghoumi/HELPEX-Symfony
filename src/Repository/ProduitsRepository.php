@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Produits;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +38,15 @@ class ProduitsRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findProductsByUser(User $userId)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.user = :userId')
+            ->setParameter('userId', $userId)
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**
