@@ -10,7 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+
 use Symfony\Component\Serializer\Annotation\Groups;
+
 
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -19,11 +21,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+
     #[groups ("post:read")]
         private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
     #[groups ("post:read")]
+
+    private ?int $id = null;
+
+    #[ORM\Column(length: 180, unique: true)]
+
     #[Assert\NotBlank (message:'champ obligatoire')]
     #[Assert\Email(
         message: 'The email {{ value }} is not a valid email.',
@@ -31,7 +39,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $email = null;
 
     #[ORM\Column]
-    
+
     private array $roles = [];
 
     /**
@@ -41,29 +49,39 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+
     #[groups ("post:read")]
+
     #[Assert\NotBlank (message:'champ obligatoire')]
     private ?string $Nom = null;
 
     #[ORM\Column(length: 255)]
+
     #[groups ("post:read")]
+
     #[Assert\NotBlank (message:'champ obligatoire')]
     private ?string $Prenom = null;
 
     #[ORM\Column(length: 255)]
+
     #[groups ("post:read")]
+
     #[Assert\NotBlank (message:'champ obligatoire')]
     /**dropdownmenu homme femme */
     private ?string $sexe = null;
 
     #[ORM\Column(type: Types::TEXT)]
+
     #[groups ("post:read")]
+
     #[Assert\NotBlank (message:'champ obligatoire')]
     /**dropmenu regions tn */
     private ?string $adresse = null;
 
     #[ORM\Column(length: 255)]
+
     #[groups ("post:read")]
+
     #[Assert\NotBlank (message:'champ obligatoire')]
     #[Assert\Length(
         min: 8,
@@ -74,6 +92,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $num_tel = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+
     #[groups ("post:read")]
     private ?string $pdp = null;
 
@@ -83,6 +102,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $bio = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE,nullable: true)]
+
+    private ?string $pdp = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank (message:'champ obligatoire')]
+    private ?string $bio = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+
     #[Assert\NotBlank (message:'champ obligatoire')]   
    // #[Assert\LessThanOrEqual("-18 years", message:"You should be at least 18 years old.")] 
     private ?\DateTimeInterface $date_naissance = null;
@@ -90,12 +118,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::TEXT, nullable: true)] /***selon role pour pro user */
    /**  #[Assert\NotBlank (message:'champ obligatoire')] */  
+
    #[groups ("post:read")]
+
    private ?string $diplome = null;
 
     #[ORM\Column(nullable: true)]
    /**  #[Assert\NotBlank (message:'champ obligatoire')] */  
+
    #[groups ("post:read")]
+
     private ?float $tarif = null;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
@@ -121,6 +153,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?Accompagnement $accompagnement = null;
 
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Postelikes::class)]
+    private Collection $likes;
+
+
+
 
     public function __construct()
 {
@@ -130,6 +167,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     $this->accompagnements = new ArrayCollection();
     $this->accompagnements_pro = new ArrayCollection();
+
+    $this->likes = new ArrayCollection();
+
 }
 
     public function getId(): ?int
@@ -496,6 +536,37 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($accompagnementsPro->getUserPro() === $this) {
                 $accompagnementsPro->setUserPro(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * @return Collection<int, Postelikes>
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(Postelikes $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes->add($like);
+            $like->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(Postelikes $like): self
+    {
+        if ($this->likes->removeElement($like)) {
+            // set the owning side to null (unless already changed)
+            if ($like->getUser() === $this) {
+                $like->setUser(null);
             }
         }
 

@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\EntityListeners({"App\EventListener\YourEntityListener"})
@@ -18,6 +19,7 @@ class Poste
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[groups ("post:read")]
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -29,6 +31,7 @@ class Poste
         maxMessage: 'trop long {{ limit }} ',
     )]
     #[Assert\Regex(pattern:'/^[0-9]+$/i', match:false,message:'c"ant only be numbers')]
+    #[groups ("post:read")]
     private ?string $titre = null;
   
     #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -36,6 +39,8 @@ class Poste
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Assert\NotBlank (message:'champ obligatoire')]
+    #[groups ("post:read")]
+
     private ?string $description = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -43,7 +48,6 @@ class Poste
 
     #[ORM\Column]
     private ?int $compteurvote = null;
-
 
     #[ORM\OneToMany(mappedBy: 'poste', targetEntity: Commentaire::class)]
     private ?Collection $commentaire;
@@ -54,11 +58,15 @@ class Poste
     #[ORM\ManyToOne(inversedBy: 'postes')]
     private ?User $user = null;
 
+    #[ORM\OneToMany(mappedBy: 'poste', targetEntity: Postelikes::class)]
+    private Collection $likes;
+
     public function __construct()
     {
         $this->date = new \DateTime();
         $this->compteurvote = 0;
         $this->commentaire = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -183,5 +191,43 @@ class Poste
         $this->user = $user;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Postelikes>
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(Postelikes $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes->add($like);
+            $like->setPoste($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(Postelikes $like): self
+    {
+        if ($this->likes->removeElement($like)) {
+            // set the owning side to null (unless already changed)
+            if ($like->getPoste() === $this) {
+                $like->setPoste(null);
+            }
+        }
+
+        return $this;
+    }
+    public function isliked(User $user)
+    {
+        foreach($this->likes as $like)
+        {
+            if($like->getUser() === $user)return true;
+        }
+        return false;
     }
 }

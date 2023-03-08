@@ -36,7 +36,7 @@
                 </div><!-- /.blog-meta-cat -->
                 <div class="post__meta d-flex align-items-center mb-20">
                   <span class="post__meta-date">{{ poste.date ? poste.date|date('Y-m-d') : '' }}</span>
-                  <a class="post__meta-author" href="#">Martin King</a>
+                  <a class="post__meta-author" href="#">{{ poste.user }}</a>
                 </div><!-- /.blog-meta -->
                 <h1 class="post__title mb-30">
                   {{ poste.titre }}
@@ -58,13 +58,13 @@
             </div>
             <div class="blog-author d-flex flex-wrap mb-70">
               <div class="blog-author__avatar">
-                <img src="assets/images/blog/author/1.jpg" alt="avatar">
+              
+                <img src="{{ asset('uploads/users/' ~ user.pdp) }}" alt="avatar">
+        
               </div><!-- /.author-avatar  -->
               <div class="blog-author__content">
-                <h6 class="blog-author__name">Mahmoud Baghagho</h6>
-                <p class="blog-author__bio">Founded by Begha over many cups of tea at her kitchen table in 2009, our
-                  brand promise is simple: to
-                  provide powerful digital marketing solutions to small and medium businesses.</p>
+                <h6 class="blog-author__name">{{ user.nom }} {{ user.prenom }}</h6>
+                <p class="blog-author__bio">{{ user.bio }}</p>
                 <ul class="social-icons list-unstyled mb-0">
                   <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
                   <li><a href="#"><i class="fab fa-twitter"></i></a></li>
@@ -79,7 +79,7 @@
               <ul class="comments-list list-unstyled">
                 <li class="comment__item">
                   <div class="comment__content">
-                    <h5 class="comment__author">Author</h5>
+                    <h5 class="comment__author">{{ commentaire.user }}</h5>
                     <span class="comment__date">{{ commentaire.date ? commentaire.date|date('Y-m-d') : '' }}</span>
                     <p class="comment__desc">  {{ commentaire.description }}</p>
                    <a href="{{ path('app_commentaire_edit', {'id': commentaire.id}) }}">edit</a>

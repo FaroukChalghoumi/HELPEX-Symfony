@@ -38,7 +38,7 @@ class CategorieposteRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
+  
 //    /**
 //     * @return Categorieposte[] Returns an array of Categorieposte objects
 //     */

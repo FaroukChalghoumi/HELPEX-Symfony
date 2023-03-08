@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Poste;
+use App\Entity\Postelikes;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Poste>
+ * @extends ServiceEntityRepository<Postelikes>
  *
- * @method Poste|null find($id, $lockMode = null, $lockVersion = null)
- * @method Poste|null findOneBy(array $criteria, array $orderBy = null)
- * @method Poste[]    findAll()
- * @method Poste[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Postelikes|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Postelikes|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Postelikes[]    findAll()
+ * @method Postelikes[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PosteRepository extends ServiceEntityRepository
+class PostelikesRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Poste::class);
+        parent::__construct($registry, Postelikes::class);
     }
 
-    public function save(Poste $entity, bool $flush = false): void
+    public function save(Postelikes $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class PosteRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Poste $entity, bool $flush = false): void
+    public function remove(Postelikes $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -38,17 +38,9 @@ class PosteRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-    public function getBycategory($id)  {
-        $qb= $this->createQueryBuilder('f')
-            ->join('f.categorie','c')
-            ->addSelect('c')
-            ->where('c.id=:id')
-            ->setParameter('id',$id);
-        return $qb->getQuery()
-            ->getResult();
-    }
+
 //    /**
-//     * @return Poste[] Returns an array of Poste objects
+//     * @return Postelikes[] Returns an array of Postelikes objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -62,7 +54,7 @@ class PosteRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Poste
+//    public function findOneBySomeField($value): ?Postelikes
 //    {
 //        return $this->createQueryBuilder('p')
 //            ->andWhere('p.exampleField = :val')

@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Entity;
-
-use App\Repository\CommentaireRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CommentaireRepository;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 
 #[ORM\Entity(repositoryClass: CommentaireRepository::class)]
 class Commentaire
@@ -26,8 +27,12 @@ class Commentaire
 
     #[ORM\ManyToOne(inversedBy: 'commentaire')]
     private ?Poste $poste = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $user = null;
     public function __construct()
     {
+       
         $this->date = new \DateTime();
         $this->compteurvote = 0;
     }
@@ -86,5 +91,17 @@ class Commentaire
     public function __toString()
     {
         return $this->getDescription();
+    }
+
+    public function getUser(): ?string
+    {
+        return $this->user;
+    }
+
+    public function setUser(?string $user): self
+    {
+        $this->user = $user;
+
+        return $this;
     }
 }
