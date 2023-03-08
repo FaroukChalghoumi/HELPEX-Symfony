@@ -247,7 +247,9 @@
 
                             </tbody>
                         </table>
+                        {%  if items is not null %}
                         {{knp_pagination_render(items) }}
+                        {%  endif %}
 
                     </div>
                 </div>
@@ -304,8 +306,11 @@
                   </span>
                             <div class="timeline-content">
                                 {% if items is not null %}
-                                <h6 class="text-dark text-sm font-weight-bold mb-0"> vous devez payez &nbsp;{{ items|length * 80}} DT avant le {{ items[0].tasks.startdate|date("m/d/Y") }}</h6>
+                                <h6 class="text-dark text-sm font-weight-bold mb-0"> vous devez payez &nbsp;{{ items|length * 80}} DT avant le 12/03/2023</h6>
                                {% endif %}
+{#
+                                {{ items[1].tasks.startdate|date("m/d/Y") }}
+#}
                                 <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">{{ "now"|date("m/d/Y") }}</p>
                             </div>
                         </div>
