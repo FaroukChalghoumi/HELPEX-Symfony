@@ -14,10 +14,12 @@
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
 			<link rel="stylesheet" href="{{ asset('build/app.css') }}">
-			<link rel="stylesheet" href="{{ asset('build/bootstrap.css') }}">
-		<!--importants-->
+			<link
+			rel="stylesheet" href="{{ asset('build/bootstrap.css') }}">
+			<!--importants-->
 			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.css" integrity="sha256-uq9PNlMzB+1h01Ij9cx7zeE2OR2pLAfRw3uUUOOPKdA=" crossorigin="anonymous">
-			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous">
+			<link
+			rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous">
 			<!--importants-->
 			<link href="{{asset("images/favicon/favicon.png") }}" rel="icon">
 			<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&amp;family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet">
@@ -42,10 +44,9 @@
 			<script src="{{ asset('build/bootstrap.js') }}"></script>
 			<script>
 				const eventSource = new EventSource("{{ mercure('https://example.com/.well-known/mercure')|escape('js') }}");
-				eventSource.onmessage = event => {
-					// Will be called every time an update is published by the server
-					console.log(JSON.parse(event.data));
-				}
+eventSource.onmessage = event => { // Will be called every time an update is published by the server
+console.log(JSON.parse(event.data));
+}
 			</script>
 
 		{% endblock %}
@@ -91,7 +92,7 @@
 											<li>
 												<i class="icon-phone"></i>
 												<a href="tel:+5565454117">Emergency Line: (002)
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																					                                                    01061245741</a>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															                                                    01061245741</a>
 											</li>
 											<li>
 												<i class="icon-location"></i>
@@ -205,7 +206,10 @@
 										<!-- /.dropdown-menu -->
 									</li>
 									<!-- /.nav-item -->
-									<li class="nav__item has-dropdown"><a class="dropdown-toggle nav__item-link" data-toggle="dropdown" href="#"><i class="fa fa-folder" aria-hidden="true"></i></a>
+									<li class="nav__item has-dropdown">
+										<a class="dropdown-toggle nav__item-link" data-toggle="dropdown" href="#">
+											<i class="fa fa-folder" aria-hidden="true"></i>
+										</a>
 
 										<ul class="dropdown-menu">
 											<li class="nav__item">
@@ -213,13 +217,16 @@
 											</li>
 											<li class="nav__item">
 
-												<a class="nav__item-link" href="{{ path('mesaccompagnemnts')}}">liste accompagnements for pro only</a>
+												<a class="nav__item-link" href="{{ path('mesaccompagnemnts')}}">liste accompagnements
+												</a>
 											</li>
 											<!-- /.nav-item -->
-											<li class="nav__item">
-												<a class="nav__item-link" href="{{ path('app_tasks_new_vide')}}">ajouter task for user only</a>
-											</li>
-
+											{% if is_granted('ROLE_PRO')%}
+												{% elseif is_granted('ROLE_USER') %}
+													<li class="nav__item">
+														<a class="nav__item-link" href="{{ path('app_tasks_new_vide')}}">ajouter task for user only</a>
+													</li>
+											{% endif %}
 
 											<li class="nav__item">
 												<a class="nav__item-link" href="{{ path('app_calendrier')}}">calandrier</a>
@@ -229,7 +236,7 @@
 										<!-- /.dropdown-menu -->
 									</li>
 
-								<!-- /.nav-item -->
+									<!-- /.nav-item -->
 
 									<!-- /.nav-item -->
 								</ul>
@@ -318,9 +325,9 @@
 									<div class="footer-widget-about">
 										<img alt="logo" class="mb-30" src="{{ asset("images/logo/logo-light.png") }}">
 										<p class="color-gray">Our goal is to deliver quality of care in a courteous, respectful, and
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																										                                            compassionate manner. We hope you will allow us to care for you and strive to be the
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																										                                            first and best
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																										                                            choice for your family healthcare.
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																                                            compassionate manner. We hope you will allow us to care for you and strive to be the
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																                                            first and best
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																                                            choice for your family healthcare.
 										</p>
 										<a class="btn btn__primary btn__primary-style2 btn__link">
 											<span>Make Appointment</span>
