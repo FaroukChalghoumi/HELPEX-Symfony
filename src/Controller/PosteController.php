@@ -385,16 +385,17 @@ class PosteController extends AbstractController
     {
         $user = $this->getUser();
         if($poste->isliked($user))
-         {
+        {
             $like = $likerepo ->findoneby(['poste'=>$poste,'user'=>$user]);
             $likerepo->remove($like, true);
-            return $this->json(['code'=>200,'message'=>'no more like','likes'=>$likerepo->count(['poste'=>$poste])],200);
-         }
-         $like = new Postelikes();
-         $like->setPoste($poste)->setUser($user);
-         $likerepo->save($like, true);
+            return $this->redirectToRoute('app_poste_front_index', [], Response::HTTP_SEE_OTHER);
 
-                return $this->json(['code' => 200,'message'=>'works!!','likes'=> $likerepo->count(['poste'=>$poste])],200);
+        }
+        $like = new Postelikes();
+        $like->setPoste($poste)->setUser($user);
+        $likerepo->save($like, true);
+
+        return $this->redirectToRoute('app_poste_front_index', [], Response::HTTP_SEE_OTHER);
     }
     
    

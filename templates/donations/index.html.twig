@@ -35,9 +35,9 @@
                         </div>
                     </div>
                     <div class="donate-btn-container">
-                        <div id="contact">Donate !</div>
+                        <div id="{{ caisse_organisation.id ~"Contact" }}">Donate !</div>
 
-                        <div id="contactForm">
+                        <div id="{{ caisse_organisation.id ~"ContactForm" }}">
 
                             <h5>Type the amount u can donate</h5>
 
@@ -62,4 +62,28 @@
 
 
 {% endblock %}
+{% block jscode %}
+<script>
+    {% for caisse_organisation in Caisses %}
+    $(function() {
 
+    // contact form animations
+    $({{ caisse_organisation.id~"Contact" }}).click(function() {
+    $('{{ caisse_organisation.id~"ContactForm" }}').fadeToggle();
+
+    })
+    $(document).mouseup(function (e) {
+    var container = $("{{ caisse_organisation.id~"ContactForm" }}");
+
+    if (!container.is(e.target) // if the target of the click isn't the container...
+    && container.has(e.target).length === 0) // ... nor a descendant of the container
+    {
+    container.fadeOut();
+    }
+
+    });
+
+    });
+    {% endfor %}
+</script>
+{% endblock %}

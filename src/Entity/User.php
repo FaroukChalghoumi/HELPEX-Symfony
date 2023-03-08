@@ -20,11 +20,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-
-    #[groups ("post:read")]
-        private ?int $id = null;
-
     #[ORM\Column(length: 180, unique: true)]
     #[groups ("post:read")]
 
@@ -98,14 +93,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::TEXT)]
     #[groups ("post:read")]
-    #[Assert\NotBlank (message:'champ obligatoire')]
-    private ?string $bio = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE,nullable: true)]
-
-    private ?string $pdp = null;
-
-    #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank (message:'champ obligatoire')]
     private ?string $bio = null;
 

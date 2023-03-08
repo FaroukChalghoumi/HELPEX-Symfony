@@ -125,14 +125,18 @@ $FilCount=[];
 
       }
 
-
+        $numDataPoints = count($FilCount);
+        $colors = array();
+        for ($i = 0; $i < $numDataPoints; $i++) {
+            $colors[] = "rgba(" . rand(0, 255) . ", " . rand(0, 255) . ", " . rand(0, 255) . ", 0.2)";
+        }
         $Dchart = $chartBuilder->createChart(Chart::TYPE_DOUGHNUT);
         $Dchart->setData([
             'labels' => $FilNom,             
             'datasets' => [
                 [
                     'label' => 'Utilisateurs Pro selon Filieres',
-                    'backgroundColor' => ['#24ccc3', '#5358BF','#FF6384','#009900','#2d2d6d'],
+                    'backgroundColor' => $colors,
                     'data' =>$FilCount ,
                 ]
             ]

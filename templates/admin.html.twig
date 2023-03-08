@@ -20,6 +20,7 @@
 
     {% endblock %}
     {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
         <script src="{{ asset("admin/js/admin.js") }}"></script>
         {% block jsimports %} {% endblock %}
     {% endblock %}

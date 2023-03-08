@@ -3,6 +3,7 @@ $(function() {
     // contact form animations
     $('#contact').click(function() {
         $('#contactForm').fadeToggle();
+        console.log("jsdjsd");
     })
     $(document).mouseup(function (e) {
         var container = $("#contactForm");
@@ -12,6 +13,7 @@ $(function() {
         {
             container.fadeOut();
         }
+        console.log(container);
     });
 
 });

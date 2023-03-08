@@ -150,35 +150,7 @@
                                         <!-- /.dropdown-menu -->
                                     </li>
                                     <!-- /.nav-item -->
-                                    <li class="nav__item has-dropdown">
-                                        <a class="dropdown-toggle nav__item-link" data-toggle="dropdown" href="#">
-                                            <i class="fa fa-folder" aria-hidden="true"></i>
-                                        </a>
 
-                                        <ul class="dropdown-menu">
-                                            <li class="nav__item">
-                                                <a class="nav__item-link" href="{{ path('app_tasks_my_pro_user')}}">mon Espace</a>
-                                            </li>
-                                            <li class="nav__item">
-
-                                                <a class="nav__item-link" href="{{ path('mesaccompagnemnts')}}">liste accompagnements
-                                                </a>
-                                            </li>
-                                            <!-- /.nav-item -->
-                                            {% if is_granted('ROLE_PRO')%}
-                                            {% elseif is_granted('ROLE_USER') %}
-                                                <li class="nav__item">
-                                                    <a class="nav__item-link" href="{{ path('app_tasks_new_vide')}}">ajouter task for user only</a>
-                                                </li>
-                                            {% endif %}
-
-                                            <li class="nav__item">
-                                                <a class="nav__item-link" href="{{ path('app_calendrier')}}">calandrier</a>
-                                            </li>
-
-                                        </ul>
-                                        <!-- /.dropdown-menu -->
-                                    </li>
 
                                     <li class="nav__item has-dropdown">
                                         <a class="nav__item-link" href="/donations">Donations</a>
@@ -209,6 +181,35 @@
                                             </li>
                                             <!-- /.nav-item -->
 
+
+                                        </ul>
+                                        <!-- /.dropdown-menu -->
+                                    </li>
+                                    <li class="nav__item has-dropdown">
+                                        <a class="dropdown-toggle nav__item-link" data-toggle="dropdown" href="#">
+                                            <i class="fa fa-folder" aria-hidden="true"></i>
+                                        </a>
+
+                                        <ul class="dropdown-menu">
+                                            <li class="nav__item">
+                                                <a class="nav__item-link" href="{{ path('app_tasks_my_pro_user')}}">mon Espace</a>
+                                            </li>
+                                            <li class="nav__item">
+
+                                                <a class="nav__item-link" href="{{ path('mesaccompagnemnts')}}">liste accompagnements
+                                                </a>
+                                            </li>
+                                            <!-- /.nav-item -->
+                                            {% if is_granted('ROLE_PRO')%}
+                                            {% elseif is_granted('ROLE_USER') %}
+                                                <li class="nav__item">
+                                                    <a class="nav__item-link" href="{{ path('app_tasks_new_vide')}}">ajouter task for user only</a>
+                                                </li>
+                                            {% endif %}
+
+                                            <li class="nav__item">
+                                                <a class="nav__item-link" href="{{ path('app_calendrier')}}">calandrier</a>
+                                            </li>
 
                                         </ul>
                                         <!-- /.dropdown-menu -->
@@ -248,7 +249,7 @@
                                         {% if is_granted('IS_AUTHENTICATED_FULLY')%}
 
                                             <span>
-												{{app.user.username}}</span>
+												{{app.user.Nom}} {{app.user.Prenom}}</span>
                                         {% else %}
                                             <span>connectez-vous!</span>
                                         {% endif %}
@@ -390,4 +391,5 @@
                 {% endblock %}
             </div>
     </body>
+{% block jscode %}{% endblock %}
 </html>

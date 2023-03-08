@@ -7,6 +7,7 @@ use App\Form\OrganisationType;
 use App\Repository\CaisseOrganisationRepository;
 use App\Repository\OrganisationRepository;
 use App\Service\FileUploader;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,9 +19,14 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 #[Route('/organisation')]
 class OrganisationController extends AbstractController
 {
-    #[Route('/', name: 'app_organisation_index', methods: ['GET'])]
+    #[Route('/', name: 'app_organisation_index', methods: ['GET']), IsGranted('ROLE_ADMIN')]
     public function index(OrganisationRepository $organisationRepository): Response
     {
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
         $organisations= $organisationRepository->findAll();
         $data= [];
         $orgsNames=array();
@@ -46,9 +52,14 @@ class OrganisationController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_organisation_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'app_organisation_new', methods: ['GET', 'POST']), IsGranted('ROLE_ADMIN')]
     public function new(Request $request, OrganisationRepository $organisationRepository,FileUploader $fileUploader): Response
     {
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
         $organisation = new Organisation();
         $form = $this->createForm(OrganisationType::class, $organisation);
         $form->handleRequest($request);
@@ -95,10 +106,14 @@ class OrganisationController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_organisation_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_organisation_show', methods: ['GET']), IsGranted('ROLE_ADMIN')]
     public function show(Organisation $organisation, CaisseOrganisationRepository $caisseOrganisationRepository,OrganisationRepository $organisationRepository): Response
     {
+        $user = $this->getUser();
 
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
         $organisations= $organisationRepository->findAll();
         $data= [];
         $orgsNames=array();
@@ -128,9 +143,14 @@ class OrganisationController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_organisation_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_organisation_edit', methods: ['GET', 'POST']), IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, Organisation $organisation, OrganisationRepository $organisationRepository,FileUploader $fileUploader): Response
     {
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
         $form = $this->createForm(OrganisationType::class, $organisation);
         $form->handleRequest($request);
 
@@ -156,9 +176,14 @@ class OrganisationController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_organisation_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_organisation_delete', methods: ['POST']), IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, Organisation $organisation, OrganisationRepository $organisationRepository): Response
     {
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
         if ($this->isCsrfTokenValid('delete'.$organisation->getId(), $request->request->get('_token'))) {
             $organisationRepository->remove($organisation, true);
         }
