@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Repository\ProduitsRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProduitsRepository::class)]
@@ -15,8 +14,6 @@ class Produits
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[groups ("post:read")]
-
     private ?int $id = null;
 
 
@@ -28,21 +25,15 @@ class Produits
         message: 'le nom du produit ne contient pas des nombre',
         match: true
     )]
-    #[groups ("post:read")]
-
     private ?string $NomProduit = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
-    #[groups ("post:read")]
-
     private ?string $EtatProduit = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank (message:'champ obligatoire')]
     #[Assert\Positive]
-    #[groups ("post:read")]
-
     private ?string $PrixProduit = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -53,26 +44,20 @@ class Produits
         minMessage: 'insuffisant {{ limit }}',
         maxMessage: 'trop long {{ limit }} ',
     )]
-    #[groups ("post:read")]
-
     private ?string $DescriptionProduit = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $ImagePath = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-
     private ?string $StatusProduit = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[groups ("post:read")]
 
     private ?string $localisationProduit = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Assert\NotBlank (message:'champ obligatoire')]
-    #[groups ("post:read")]
-
     private ?string $Brand = null;
 
 //    #[ORM\ManyToOne]
@@ -90,11 +75,10 @@ class Produits
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Details = null;
 
-    #[ORM\Column( nullable: true)]
+    #[ORM\Column]
     private ?bool $Authorisation = null;
 
     #[ORM\ManyToOne(inversedBy: 'produits')]
-
     private ?CategorieProduit $CategorieProduit = null;
 
     #[ORM\ManyToOne(inversedBy: 'produits')]

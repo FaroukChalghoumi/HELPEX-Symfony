@@ -80,7 +80,7 @@ class ProduitsType extends AbstractType
             ->add('localisationProduit')
             ->add('Brand')
             ->add('CategorieProduit')
-
+            ->add('user')
         ;
     }
 

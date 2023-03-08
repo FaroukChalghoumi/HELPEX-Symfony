@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+    <style>
+
+        body{
+            width: 100vw;
+            height: 100vh;
+            background-color: #F8FAFC;
+            overflow: hidden;
+            font-family: 'Inter';
+            font-style: normal;
+        }
+        .layout-container{
+            width: 86%;
+            height: 98%;
+            padding-top: 2%;
+            padding-right: 7%;
+            padding-left: 7%;
+            display: grid;
+            grid-template-rows: 10% 40% 10% 40%;
+        }
+        .content-container{
+            width: 90%;
+            height: 100%;
+        }
+        .text-container{
+            width: 95%;
+            height: 80%;
+            background-color: white;
+            border-radius: 8px;
+            color: #384860;
+            padding-left: 5% ;
+            padding-top: 40px;
+            font-size: 20px;
+            line-height: 150%;
+            letter-spacing: 0.2px;
+        }
+    </style>
+</head>
+{% block body %}
+<body>
+<div class="layout-container">
+    <div class="logo-container">
+        <img src="logo_tunsa.png" alt="">
+    </div>
+    <div class="content-container">
+        <div class="text-container">
+            Hey there !<br>
+            We want to inform you that you have received an E-mail from : <br>
+            Full name : {{ name }}<br>
+            Phone number : ............<br>
+            Email :........... <br>
+            Talking about ( <span style="font-weight: 200;">subject</span> .......)
+        </div>
+
+    </div>
+    <div class="content-container"style="display:flex;justify-content:flex-end;">
+        <div class="media-container">
+            <i class="fa-brands fa-twitter" style="color:#64748B;font-size: 30px;margin-right: 20px;"></i>
+            <i class="fa-brands fa-instagram" style="color:#64748B;font-size: 30px;margin-right: 20px;"></i>
+            <i class="fa-brands fa-facebook" style="color:#64748B;font-size: 30px;"></i>
+        </div>
+    </div>
+
+    <div class="copyright-container">
+
+    </div>
+</div>
+</body>
+{% endblock %}
+</html>

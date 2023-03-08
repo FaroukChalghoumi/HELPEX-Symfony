@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: InscriptionFormationRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class InscriptionFormation
 {
     #[ORM\Id]
@@ -28,6 +29,9 @@ class InscriptionFormation
 
     #[ORM\ManyToOne(inversedBy: 'inscriptionFormations')]
     private ?User $user = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $autorisation = null;
 
 
 
@@ -101,5 +105,21 @@ class InscriptionFormation
         return $this;
     }
 
+    #[ORM\PrePersist]
+    public function onPrePersist(): void
+    {
+        $this->dateInscriptionFormation = new \DateTime();
+    }
 
+    public function isAutorisation(): ?bool
+    {
+        return $this->autorisation;
+    }
+
+    public function setAutorisation(bool $autorisation): self
+    {
+        $this->autorisation = $autorisation;
+
+        return $this;
+    }
 }

@@ -1,4 +1,4 @@
-{% extends 'admin.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}InscriptionFormation{% endblock %}
 
@@ -23,10 +23,14 @@
             <th>Note</th>
             <td>{{ inscription_formation.note }}</td>
         </tr>
+        <tr>
+            <th>qr</th>
+         <td><a href="blog-single-post.html">   <img src="{{ qrCode }}" alt="Code QR"> </a></td>
+        </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_inscription_formation_index') }}">back to list</a>
+    <a href="{{ path('app_inscription_formation_index_front') }}">back to list</a>
 
     <a href="{{ path('app_inscription_formation_edit', {'id': inscription_formation.id}) }}">edit</a>
 

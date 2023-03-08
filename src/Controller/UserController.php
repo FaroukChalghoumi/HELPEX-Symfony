@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller;
-use App\Entity\Produits;
 use App\Entity\User;
 use App\Form\EditYourProfileType;
 use App\Repository\UserRepository;
@@ -85,20 +84,6 @@ public function ProUsers(UserRepository $userRepo): Response
         return $this->render('user/front/ProfileProuser.html.twig', [
             'user' => $User,
             
-        ]);
-    }
-
-    #[Route('marketplace/{id}', name: 'show_Marketplace_User', methods: ['GET'])]
-    public function showuser(User $User): Response
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-        $User = $entityManager->getRepository(User::class)->find($User);
-        $produits = $this->getDoctrine()->getRepository(Produits::class)->findProductsByUser($User);
-
-        return $this->render('produits/MarketplaceUser.html.twig', [
-            'user' => $User,
-            'produits' => $produits ,
-
         ]);
     }
 

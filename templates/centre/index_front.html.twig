@@ -65,7 +65,14 @@
                         <div class="service-item">
                             <div class="service__img">
 
-                                    <img src={{ asset('uploads/NoImage.jpg' ) }} alt="Product" loading="lazy">
+                                {% if centre.imagecentre  is not empty %}
+                                    <div>
+                                        <a href="blog-single-post.html"><img src={{ asset('uploads/users/' ~ centre.imagecentre) }} alt="centre" loading="lazy">
+                                        </a>
+                                    </div>
+                                {% else %}
+                                    <img src={{ asset('uploads/NoImage.jpg' ) }} alt="centre" loading="lazy">
+                                {% endif %}
 
                                 {#                        <img src="{{ asset("images/services/1.jpg")}}" alt="img" loading="lazy">#}
                             </div><!-- /.serviceimg -->

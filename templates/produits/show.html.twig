@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
 
-
-
 {#{% block title %}Produits{% endblock %}#}
 
 {#{% block body %}#}
@@ -82,18 +80,13 @@
                                 <div class="row product-item-single">
                                     <div class="col-sm-6">
                                         <div class="product__img">
-                                            {% if produit.ImagePath  is not empty %}
-                                                <img src={{ asset('uploads/users/' ~ produit.ImagePath) }}   class="zoomin" alt="product" loading="lazy" style="visibility: visible;">
-                                            {% else %}
-                                                <img src={{ asset('uploads/No_Image_Available.jpg' ) }} alt="Product" loading="lazy">
-                                            {% endif %}                                        </div><!-- /.product-img -->
+                                            <img src={{ asset('uploads/users/' ~ produit.ImagePath) }} class="zoomin" alt="product" loading="lazy" style="visibility: visible;">
+                                        </div><!-- /.product-img -->
                                     </div>
                                     <div class="col-sm-6">
+                                        <h1 class="product__title">{{ produit.NomProduit }}</h1>
                                         <div class="product__meta-review mb-20">
                   <span class="product__rating">
-                      <a href="{{ path('show_Marketplace_User', {'id': produit.user.id})}}"
-                         class="btn btn__secondary btn__link btn__rounded">{{ produit.user.Nom }} {{ produit.user.Prenom }}</a>
-
                     <i class="fa fa-star active"></i>
                     <i class="fa fa-star active"></i>
                     <i class="fa fa-star active"></i>
@@ -103,8 +96,6 @@
                                             <span>4 Review(s)</span>
                                             <a href="#">Add Review</a>
                                         </div><!-- /.product-meta-review -->
-                                        <h1 class="product__title">{{ produit.NomProduit }}</h1>
-
                                         <span class="product__price mb-20">{{ produit.PrixProduit }} DT</span>
                                         <div class="product__desc">
                                             <p>
@@ -117,16 +108,14 @@
                                         </div><!-- /.product-quantity -->
 
                                         <div class="product__quantity d-flex mb-30">
-                                            {% if produit.user == user %}
                                         <a href="{{ path('app_produits_edit', {'id':produit.id})}}" class="btn btn__secondary btn__rounded">Editer mon poste</a>
-                                       {% endif %}
                                         </div><!-- /.product-quantity -->
                                         <div class="product__meta-details">
                                             <ul class="list-unstyled mb-30">
                                                 <li><span>IdProduit :</span> <span>#{{ produit.id }}</span></li>
                                                 <li><span>Category :</span> <span> Implant intraoculaire</span></li>
                                                 <li><span>Etat Produit :</span> <span> {{ produit.EtatProduit }}  </span></li>
-                                                <li><span>Client Contacts :</span> <span>  </span></li>
+                                                <li><span>Client Contacts :</span> <span> You can contact me here  </span></li>
                                             </ul>
                                         </div><!-- /.product__meta-details -->
                                         <ul class="social-icons list-unstyled mb-0">
