@@ -42,16 +42,28 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
         
+        $prousers = $userRepo->findPros(['ROLE_PRO']);
+        $ProNom=[];
+$Protarif=[];
+
+      foreach ($prousers as $prouser) {
+        $ProNom[]= $prouser->getId();
+        $Protarif[]= $prouser->getTarif();
+
+
+      }
+
+
         $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
 
         $chart->setData([
-            'labels' => ['February', 'March', 'April'],
+            'labels' => $ProNom,
             'datasets' => [
                 [
-                    'label' => 'My First dataset',
+                    'label' => 'evolution Tarifaire des professionels par id',
                     'backgroundColor' => 'rgb(255, 99, 132)',
                     'borderColor' => 'rgb(255, 99, 132)',
-                    'data' => [ 20, 5, 45],
+                    'data' => $Protarif,
                 ],
             ],
         ]);
@@ -149,18 +161,18 @@ $FilCount=[];
         
 
 
+        $userId = $request->get('id');
         $isEnabled = $request->request->get('isEnabled');
-        $users = $entityManager->getRepository(User::class)->findAll();
-
-        // Loop through the IDs of the enabled users and update the database
-        foreach ($users as $user) {
-            $isEnabledForUser = in_array($user->getId(), $isEnabled);
-            $user->setIsEnabled($isEnabledForUser);
-            $entityManager->persist($user);
+    
+        $user = $entityManager->getRepository(User::class)->find($userId);
+        if (!$user) {
+            throw $this->createNotFoundException('User not found');
         }
-        // Flush the changes to the database
+    
+        // Set isEnabled value of the corresponding user to the received value
+        $user->setIsEnabled(in_array($userId, $isEnabled));
+        $entityManager->persist($user);
         $entityManager->flush();
-        // Redirect to the original page
 
 
         //////////////////lists
