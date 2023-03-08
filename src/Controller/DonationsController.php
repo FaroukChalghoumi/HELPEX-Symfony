@@ -79,6 +79,7 @@ class DonationsController extends AbstractController
 
         $amount_paid = (int)$request->getSession()->get('amount_donated');
         $caisseOrganisation->setMontantCaisseOrg($caisseOrganisation->getMontantCaisseOrg()+floatval($amount_paid));
+        $request->getSession()->set('amount_donated',0);
         $caisseOrganisationRepository->save($caisseOrganisation,true);
         return $this->render('donations/success.html.twig', []);
     }
