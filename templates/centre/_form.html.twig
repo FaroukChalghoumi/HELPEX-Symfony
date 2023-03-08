@@ -60,18 +60,6 @@
 
 
     </div>
-        <div class="col-sm-6 col-md-6 col-lg-6">
-
-            <div class="form-group">
-
-
-                {{ form_label(form.imagecentre,"imagecentre") }}
-                {{ form_widget(form.imagecentre,{'attr':{'class':'form-control'}}) }}
-                {{ form_errors(form.imagecentre) }}
-
-
-            </div>
-        </div>
     </div>
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

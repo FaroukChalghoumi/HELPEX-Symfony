@@ -1,4 +1,4 @@
-{% extends 'admin.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}InscriptionFormation{% endblock %}
 
@@ -7,22 +7,22 @@
 
     <table class="table">
         <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ inscription_formation.id }}</td>
-        </tr>
-        <tr>
-            <th>DateInscriptionFormation</th>
-            <td>{{ inscription_formation.dateInscriptionFormation ? inscription_formation.dateInscriptionFormation|date('Y-m-d') : '' }}</td>
-        </tr>
-        <tr>
-            <th>StatusFormation</th>
-            <td>{{ inscription_formation.statusFormation }}</td>
-        </tr>
-        <tr>
-            <th>Note</th>
-            <td>{{ inscription_formation.note }}</td>
-        </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ inscription_formation.id }}</td>
+            </tr>
+            <tr>
+                <th>DateInscriptionFormation</th>
+                <td>{{ inscription_formation.dateInscriptionFormation ? inscription_formation.dateInscriptionFormation|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>StatusFormation</th>
+                <td>{{ inscription_formation.statusFormation }}</td>
+            </tr>
+            <tr>
+                <th>Note</th>
+                <td>{{ inscription_formation.note }}</td>
+            </tr>
         </tbody>
     </table>
 
