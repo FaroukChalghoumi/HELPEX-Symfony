@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Accompagnement;
+use App\Entity\Item;
 use App\Entity\Tasks;
 use App\Form\TasksType;
 use App\Repository\AccompagnementRepository;
+use App\Repository\ItemRepository;
 use App\Repository\TasksRepository;
 use App\Repository\UserRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Exception\ORMException;
@@ -15,10 +18,13 @@ use Doctrine\ORM\OptimisticLockException;
 use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 #[Route('/tasks')]
 class TasksController extends AbstractController
@@ -72,6 +78,106 @@ class TasksController extends AbstractController
         ]);
     }
 
+
+    //////////////////////////json///////////////////////////////
+
+    #[Route('/json/ajoutTask', name: 'addTaskJSON')]
+    public function ajouterTask(Request $request,TasksRepository $tasksRepository)
+
+    {       $tasks=new Tasks();
+        $titre = $request->query->get("titre");
+        $is_valid = $request->query->get("is_valid");
+        $start_date = $request->query->get("startdate");
+        $end_date = $request->query->get("enddate");
+            //dd($titre,$is_valid, $start_date,$end_date);
+
+        $em = $this->getDoctrine()->getManager();
+        $tasks->setTitre($titre);
+        $converted_datestart = date('Y-m-d', strtotime($start_date)); // convert to 'Y-m-d' format
+        $converted_dateend = date('Y-m-d', strtotime($end_date)); // convert to 'Y-m-d' format
+
+        $newformatstart = DateTimeImmutable::createFromFormat('Y-m-d', $converted_datestart);
+        $newformatend = DateTimeImmutable::createFromFormat('Y-m-d', $converted_dateend);
+       // dd(gettype($newformatend));
+        $tasks->setStartDate($newformatstart);
+        $tasks->setEndDate($newformatend);
+        if($is_valid==0){
+            $tasks->setIsValid(0);
+        }
+        else{
+            $tasks->setIsValid(1);
+        }
+
+
+
+        dd($tasks);
+        $tasksRepository->save($tasks, true);
+
+        // $serializer = new Serializer([new ObjectNormalizer()]);
+        // $formatted = $serializer->normalize($item);
+        return new JsonResponse("ok");
+
+    }
+
+    #[Route('/json/EditerTask/{id}', name: 'EditTaskJSON')]
+    public function modifierTaskJson(Request $request,TasksRepository $tasksRepository) {
+        $em = $this->getDoctrine()->getManager();
+        $tasks = $tasksRepository
+            ->find($request->get("id"));
+
+        $titre = $request->query->get("titre");
+        $is_valid = $request->query->get("is_valid");
+        $start_date = $request->query->get("startdate");
+        $end_date = $request->query->get("enddate");
+        //dd($titre,$is_valid, $start_date,$end_date);
+
+        $em = $this->getDoctrine()->getManager();
+        $tasks->setTitre($titre);
+        $converted_datestart = date('Y-m-d', strtotime($start_date)); // convert to 'Y-m-d' format
+        $converted_dateend = date('Y-m-d', strtotime($end_date)); // convert to 'Y-m-d' format
+
+        $newformatstart = DateTimeImmutable::createFromFormat('Y-m-d', $converted_datestart);
+        $newformatend = DateTimeImmutable::createFromFormat('Y-m-d', $converted_dateend);
+        // dd(gettype($newformatend));
+        $tasks->setStartDate($newformatstart);
+        $tasks->setEndDate($newformatend);
+        if($is_valid==0){
+            $tasks->setIsValid(0);
+        }
+        else{
+            $tasks->setIsValid(1);
+        }
+        $tasksRepository->save($tasks, true);
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        //$formatted = $serializer->normalize($reclamation);
+        return new JsonResponse("ok task");
+
+    }
+
+    #[Route('/json/deleteTask/{id}', name: 'DeleteTaskJSON')]
+    public function deleteJsonTask(Request $request,TasksRepository $tasksRepository) {
+        $id = $request->get("id");
+
+        $em = $this->getDoctrine()->getManager();
+        $tasks = $tasksRepository
+            ->find($request->get("id"));
+
+        if($tasks!=null ) {
+            $em->remove($tasks);
+            $em->flush();
+
+            $serialize = new Serializer([new ObjectNormalizer()]);
+           // $formatted = $serialize->normalize("Reclamation a ete supprimee avec success.");
+            return new JsonResponse("delete ok");
+
+        }
+        return new JsonResponse("id task invalide.");
+
+
+    }
+
+    ////////////////////////endJson//////////////////////////////
 
 
 

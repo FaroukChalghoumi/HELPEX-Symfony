@@ -96,6 +96,29 @@ class ItemController extends AbstractController
 
     }
 
+    #[Route('/json/deleteitem/{id}', name: 'DeleteitemJSON')]
+    public function deleteJsonITEM(Request $request,ItemRepository $itemRepository) {
+        $id = $request->get("id");
+
+        $em = $this->getDoctrine()->getManager();
+        $item = $itemRepository
+            ->find($request->get("id"));
+
+        if($item!=null ) {
+            $em->remove($item);
+            $em->flush();
+
+            $serialize = new Serializer([new ObjectNormalizer()]);
+            // $formatted = $serialize->normalize("Reclamation a ete supprimee avec success.");
+            return new JsonResponse("delete ok");
+
+        }
+        return new JsonResponse("id item invalide.");
+
+
+    }
+
+
     #[Route('/json/{t}', name: 'jsonAllItem', methods: ['GET'])]
     public function indexj($t,ItemRepository $itemRepository,NormalizerInterface $normalizable): Response
     {

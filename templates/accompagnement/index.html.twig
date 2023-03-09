@@ -27,7 +27,9 @@
                 <td><button data-toggle="modal" data-target="#myModal">voir task</button>
 
                 </td>
-                <td><a  style="color: #0a58ca" href="{{ path('app_accompagnement_accepter', {'id': accompagnement.id}) }}">  <span style="color: #0a58ca" class="badge bg-primary" >accpter</span></a>
+                <td>
+                    {% if is_granted() %}
+                    <a  style="color: #0a58ca" href="{{ path('app_accompagnement_accepter', {'id': accompagnement.id}) }}">  <span style="color: #0a58ca" class="badge bg-primary" >accpter</span></a>
                     <a href="{{ path('app_accompagnement_rejeterr', {'id': accompagnement.id})   }}">  <span style="color: #ca0a0a" class="badge ">rejeter</span></a></td>
             </tr>
 
