@@ -80,7 +80,11 @@
             <div class="post-item" style="display: inline-block; margin-right: 10px; vertical-align: top; white-space: normal;flex-basis: calc(33.33% - 20px); margin: 10px;margin-top:30px;">
               <div class="post__img">
                 <a href="{{ path('app_postecommentaire_show', {'id': poste.id}) }}">
-                <img src="{{ asset('uploads/users/' ~ poste.multimedia) }}" alt="post image" loading="lazy">
+                {% if poste.multimedia  is not empty %}
+                                    <img src={{ asset('uploads/users/' ~ poste.multimedia) }} alt="poste" loading="lazy">
+                                {% else %}
+                        <img src={{ asset('uploads/No_Image_Available.jpg' ) }} alt="poste" loading="lazy">
+                                {% endif %}
                 </a>
               </div><!-- /.post__img -->
               <div class="post__body">

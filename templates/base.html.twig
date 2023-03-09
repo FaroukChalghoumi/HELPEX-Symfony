@@ -115,12 +115,12 @@
                             <div class="collapse navbar-collapse" id="mainNavigation">
                                 <ul class="navbar-nav ml-auto">
                                     <li class="nav__item has-dropdown">
-                                        <a class="dropdown-toggle nav__item-link active" data-toggle="dropdown" href="#">Home</a>
+                                        <a class="dropdown-toggle nav__item-link" data-toggle="dropdown" href="#">Home</a>
 
                                     </li>
                                     {% if is_granted('ROLE_PRO')%}
                                         <li class="nav__item has-dropdown">
-                                            <a class="dropdown-toggle nav__item-link active" data-toggle="dropdown" href="#">professional</a>
+                                            <a class="dropdown-toggle nav__item-link" data-toggle="dropdown" href="#">professional</a>
 
                                         </li>
                                     {% endif %}
@@ -138,16 +138,10 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li class="nav__item has-dropdown">
-                                        <a class="dropdown-toggle nav__item-link" data-toggle="dropdown" href="#">Blog</a>
-                                        <ul class="dropdown-menu">
-                                            <li class="nav__item">
-                                                <a class="nav__item-link" href="/poste/front">Postes</a>
-                                            </li>
-                                            <!-- /.nav-item -->
-
-                                        </ul>
-                                        <!-- /.dropdown-menu -->
+                                    <li class="nav__item">
+                                        <a class="nav__item-link" href=" {{ path('app_poste_front_index')}} ">Blog</a>
+                                       
+                               
                                     </li>
                                     <!-- /.nav-item -->
 

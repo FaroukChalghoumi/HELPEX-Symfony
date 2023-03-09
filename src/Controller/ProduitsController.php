@@ -2,21 +2,22 @@
 
 namespace App\Controller;
 
-use App\Entity\Produits;
-use App\Form\ProduitAuthType;
-use App\Form\ProduitsType;
-use App\Repository\CategorieProduitRepository;
-use App\Repository\ProduitsRepository;
-use App\Service\PdfService;
 use Dompdf\Dompdf;
 use Dompdf\Options;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use App\Entity\Produits;
+use App\Form\ProduitsType;
+use App\Service\PdfService;
+use App\Form\ProduitAuthType;
+use App\Repository\ProduitsRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
+use App\Repository\CategorieProduitRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 
 class ProduitsController extends AbstractController
@@ -125,10 +126,16 @@ class ProduitsController extends AbstractController
 
 
     #[Route('/produits/', name: 'app_produits_index', methods: ['GET'])]
-    public function index(ProduitsRepository $produitsRepository,CategorieProduitRepository $categorieProduitRepository): Response
+    public function index(ProduitsRepository $produitsRepository,Request $request,PaginatorInterface $paginator,CategorieProduitRepository $categorieProduitRepository): Response
     {
+        $produits = $produitsRepository->findAll();
+        $produits = $paginator->paginate(
+            $produits, /* query NOT result */
+            $request->query->getInt('page', 1),
+            6
+        );
         return $this->render('produits/index.html.twig', [
-            'produits' => $produitsRepository->findAll(),
+            'produits' => $produits,
             'categorie_produits' => $categorieProduitRepository->findAll(),
         ]);
     }
