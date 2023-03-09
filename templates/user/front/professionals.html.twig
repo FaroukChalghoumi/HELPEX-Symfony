@@ -17,8 +17,8 @@
 
 
 		<!-- ========================
-																																																																																																														       page title 
-																																																																																																														    =========================== -->
+																																																																																																																       page title 
+																																																																																																																    =========================== -->
 		<section class="page-title page-title-layout1 bg-overlay">
 			<div class="bg-img"><img src="{{ asset('images/page-titles/7.jpg' ) }}" alt="background"></div>
 			<div class="container">
@@ -45,8 +45,8 @@
 		<!-- /.page-title -->
 
 		<!-- ========================
-																																																																																																														        Team layout 3
-																																																																																																														    ========================== -->
+																																																																																																																        Team layout 3
+																																																																																																																    ========================== -->
 		<section class="team-layout3 pb-40">
 			<div class="container">
 				<div class="row">
@@ -70,7 +70,7 @@
 													</a>
 												</h5>
 												<p class="member__job">{{ user.filiere }}</p>
-												<p class="member__desc">{{ user.bio }}</p>
+												<p class="member__desc" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ user.bio }}</p>
 												<div class="mt-20 d-flex flex-wrap justify-content-between align-items-center">
 													<a href="{{ path('showProUser', {'id': user.id})}}" class="btn btn__secondary btn__link btn__rounded">
 														<span>Read More</span>
@@ -129,16 +129,16 @@
 
 
 							<!-- <div class="sorting-options d-flex flex-wrap justify-content-between align-items-center mb-30">
-																																																									<span>Showing 1:9 of 45 product</span>
-																																																									<select>
-																																																										<option selected="" value="0">Sort by latest</option>
-																																																										<option value="1">Sort by Popular</option>
-																																																										<option value="2">Sort by highest Price
-																																																										</option>
-																																																										<option value="3">Sort by lowest Price
-																																																										</option>
-																																																									</select>
-																																																								</div> -->
+																																																																<span>Showing 1:9 of 45 product</span>
+																																																																<select>
+																																																																	<option selected="" value="0">Sort by latest</option>
+																																																																	<option value="1">Sort by Popular</option>
+																																																																	<option value="2">Sort by highest Price
+																																																																	</option>
+																																																																	<option value="3">Sort by lowest Price
+																																																																	</option>
+																																																																</select>
+																																																															</div> -->
 
 
 						</aside>
@@ -152,8 +152,8 @@
 		<!-- /.Team layout 3  -->
 
 		<!-- ========================
-																																																																																																													      Footer
-																																																																																																													    ========================== -->
+																																																																																																															      Footer
+																																																																																																															    ========================== -->
 
 	</div>
 	<!-- /.wrapper -->
