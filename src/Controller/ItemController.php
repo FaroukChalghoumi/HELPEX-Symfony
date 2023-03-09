@@ -92,7 +92,7 @@ class ItemController extends AbstractController
         $em->flush();
         $serializer = new Serializer([new ObjectNormalizer()]);
         //$formatted = $serializer->normalize($reclamation);
-        return new JsonResponse("item modifiee avec success.");
+        return new JsonResponse("ok",Response::HTTP_OK);
 
     }
 
