@@ -68,8 +68,7 @@
 													</a>
 												</h5>
 												<p class="member__job">{{ pro.filiere }}</p>
-												<p class="member__desc">{{ pro.bio }}</p>
-												<div class="mt-20 d-flex flex-wrap justify-content-between align-items-center">
+												<p class="member__desc" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ pro.bio }}</p>												<div class="mt-20 d-flex flex-wrap justify-content-between align-items-center">
 													<a href="{{ path('showProUser', {'id': pro.id})}}" class="btn btn__secondary btn__link btn__rounded">
 														<span>Read More</span>
 														<i class="icon-arrow-right"></i>

@@ -57,8 +57,7 @@
 					<tr>
 						<td class="org-table-th">{{ user.id }}</td>
 
-						<td class="org-table-th"><img src="{{ asset('uploads/users/' ~ user.pdp) }}" alt="User Image"></td>
-						<td class="org-table-th">{{ user.email }}</td>
+						<td class="org-table-th"><img src="{{ asset('uploads/users/' ~ user.pdp) }}" style="max-width: 10%; border-radius: 50%;" alt="User Image"></td>						<td class="org-table-th">{{ user.email }}</td>
 						<td class="org-table-th">{{ user.Nom }}</td>
 						<td class="org-table-th">{{ user.Prenom }}</td>
 						<td class="org-table-th">{{ user.adresse }}</td>
