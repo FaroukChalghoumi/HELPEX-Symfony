@@ -43,7 +43,16 @@
         </div>
     </div>
     <div class="project-boxes jsGridView">
+        {% set counter = 0 %}
         {% for cat in categorie_produits %}
+
+
+
+            {% for item in cat.produits %}
+                {% if item.Authorisation==0 %}
+                {% set counter = counter + 1 %}
+                {% endif %}
+            {% endfor %}
             <div class="project-box-wrapper">
                 <div class="project-box" style="background-color: #c8f7dc;">
                     <div class="project-box-header">
@@ -63,13 +72,17 @@
 {#                        <p class="box-content-subheader"><span class="box-content-header">Telephone:</span>{{ organisation.numTelOrganisation }} </p>#}
 {#                        <p class="box-content-subheader"><span class="box-content-header">Document:</span>{{ organisation.documentOrganisation }} </p>#}
                     </div>
+                    {% if cat.produits|length != 0 %}
                     <div class="box-progress-wrapper">
                         <p class="box-progress-header">Progress</p>
                         <div class="box-progress-bar">
-                            <span class="box-progress" style="width: 60%; background-color: #34c471"></span>
+
+                            <span class="box-progress" style="width: {{ (counter*100)/(cat.produits|length) }}%; background-color: #34c471"></span>
+
                         </div>
-                        <p class="box-progress-percentage">40%</p>
+                        <p class="box-progress-percentage">{{ (counter*100)/(cat.produits|length) }}%</p>
                     </div>
+                    {% endif %}
                     <div class="project-box-footer">
                         <div class="participants">
                             <div class="org-action-item ">

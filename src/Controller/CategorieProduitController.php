@@ -25,6 +25,7 @@ class CategorieProduitController extends AbstractController
         if (!$user) {
             return $this->redirectToRoute('app_login');
         }
+
         return $this->render('categorie_produit/adminCat.html.twig', [
             'categorie_produits' => $categorieProduitRepository->findAll(),
         ]);

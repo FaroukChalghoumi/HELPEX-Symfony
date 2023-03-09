@@ -54,14 +54,15 @@
     align-items: center;
 }
 .add-org-btn-container{
-    height: 89%;
+    height: 31%;
     background: #18b237;
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 20%;
+    width: 21%;
     border-radius: 20px;
+    margin-left:9px;
 }
 .add-org-btn{
     color: white;
