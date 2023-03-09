@@ -10,9 +10,11 @@ use App\Service\PdfService;
 use App\Form\ProduitAuthType;
 use App\Repository\ProduitsRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\CategorieProduitRepository;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -280,7 +282,7 @@ class ProduitsController extends AbstractController
 
 
     #[Route('/{id}/edit/back', name: 'app_produits_edit_auth', methods: ['GET', 'POST']) , IsGranted('ROLE_ADMIN') ]
-    public function editAdmin(Request $request ,Produits $produit, ProduitsRepository $produitsRepository): Response
+    public function editAdmin(Request $request ,Produits $produit, ProduitsRepository $produitsRepository,MailerInterface $mailer): Response
     {
         $user = $this->getUser();
 
@@ -292,7 +294,16 @@ class ProduitsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $produitsRepository->save($produit, true);
+            $email = (new TemplatedEmail());
 
+            $email->subject('Your Market Place');
+            $email->from('apex.pidev1@gmail.com');
+            $email->to($produit->getUser()->getEmail());
+            $email->htmlTemplate('emails/templateProd.html.twig');
+            $email->context([
+                'product' => $produit->getNomProduit(),
+            ]);
+            $mailer->send($email);
             return $this->redirectToRoute('app_categorie_produit_index', [], Response::HTTP_SEE_OTHER);
         }
 

@@ -64,7 +64,7 @@ class DonationsController extends AbstractController
 
         $email = (new TemplatedEmail());
 
-        $email->subject('Demo message using the Symfony Mailer library.');
+        $email->subject('THANK YOU !');
         $email->from('apex.pidev1@gmail.com');
         $email->to($user->getUsername());
         $email->htmlTemplate('emails/template.html.twig');

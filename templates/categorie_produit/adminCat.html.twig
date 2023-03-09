@@ -77,10 +77,10 @@
                         <p class="box-progress-header">Progress</p>
                         <div class="box-progress-bar">
 
-                            <span class="box-progress" style="width: {{ (counter*100)/(cat.produits|length) }}%; background-color: #34c471"></span>
+                            <span class="box-progress" style="width: {{ (counter*100)/(cat.produits|length)|number_format(2, '.', '') }}%; background-color: #34c471"></span>
 
                         </div>
-                        <p class="box-progress-percentage">{{ (counter*100)/(cat.produits|length) }}%</p>
+                        <p class="box-progress-percentage">{{ (counter*100)/(cat.produits|length)|number_format(2, '.', '') }}%</p>
                     </div>
                     {% endif %}
                     <div class="project-box-footer">

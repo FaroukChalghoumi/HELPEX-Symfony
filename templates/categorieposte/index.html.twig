@@ -13,6 +13,14 @@
                 <a href="{{ path('app_categorieposte_new') }}" class="add-org-btn" data-toggle="modal"><i class="fa-solid fa-plus"></i><span>cree une nouvelle categorie</span></a>
 
             </div>
+            <div class="add-org-btn-container"style=" margin-top: 30px;">
+                <a href="{{ path('app_poste_index') }}" class="add-org-btn" data-toggle="modal"><span>Postes</span></a>
+
+            </div>
+            <div class="add-org-btn-container"style=" margin-top: 30px;">
+                <a href="{{ path('app_categorieposte_index') }}" class="add-org-btn" data-toggle="modal"><span>Categorie</span></a>
+
+            </div>
         </div>
         <table class="org-table"style=" margin-top: 30px;">
             <thead class="org-table-head">
@@ -58,3 +66,5 @@
 
 
 {% endblock %}
+
+{% block ahmed %} {% endblock %}
