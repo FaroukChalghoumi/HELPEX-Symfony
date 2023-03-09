@@ -36,7 +36,7 @@ class UserController extends AbstractController
 
     //////////////////////backbackbackBABY////////////
 
-    #[Route('admin/users', name: 'AllUsers'), IsGranted('ROLE_ADMIN')]
+    #[Route('/admin/users', name: 'AllUsers'), IsGranted('ROLE_ADMIN')]
     public function AllUsers(UserRepository $userRepo,FiliereRepository $filRepo, ChartBuilderInterface $chartBuilder): Response
     {
         $user = $this->getUser();

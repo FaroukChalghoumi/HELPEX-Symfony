@@ -69,7 +69,7 @@ class DonationsController extends AbstractController
         $email->to($user->getUsername());
         $email->htmlTemplate('emails/template.html.twig');
         $email->context([
-        'name' => 'oussema',
+        'amount' => $amount,
     ]);
         $mailer->send($email);
 

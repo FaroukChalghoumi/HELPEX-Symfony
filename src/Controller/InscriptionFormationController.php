@@ -47,13 +47,16 @@ class InscriptionFormationController extends AbstractController
 public function genererpdfinscription(InscriptionFormation $inscriptionFormation, PdfService $pdf){
         //$html=$this->render('inscription_formation/show_pdf.html.twig',['inscription_formation'=>$inscriptionFormation]);
        // $pdf->showPdfFile($html);
+        $user = $this->getUser();
+
         $options = new Options();
         $options->set('defaultFont', 'Arial');
 
         $dompdf = new Dompdf($options);
 
         $html = $this->renderView('inscription_formation/show_pdf.html.twig', [
-            'name' => 'John Doe'
+            'user' => $user,
+            'formation'=>$inscriptionFormation->getFormations(),
         ]);
 
         $dompdf->loadHtml($html);
@@ -103,9 +106,10 @@ public function genererpdfinscription(InscriptionFormation $inscriptionFormation
             $email->from('apex.pidev1@gmail.com');
             $email->to($id->getIdCentre()->getEmailCentre());
             //$email->text($user->getUsername(),$user->getUserIdentifier());
-            $email->htmlTemplate('emails/template.html.twig');
+            $email->htmlTemplate('emails/ahmed.html.twig');
             $email->context([
-                'name' => 'ahmed',
+                'user' => $user,
+                'inscri'=>$inscriptionFormation,
             ]);
             $mailer->send($email);
 

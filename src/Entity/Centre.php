@@ -61,6 +61,9 @@ class Centre
     #[ORM\OneToMany(mappedBy: 'idCentre', targetEntity: Formation::class, orphanRemoval: true)]
     private Collection $formations;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $imagecentre = null;
+
     public function __construct()
     {
         $this->formations = new ArrayCollection();
@@ -163,5 +166,16 @@ class Centre
     public function  __toString(): string
     {
         return $this->getNomCentre();
+    }
+    public function getImagecentre(): ?string
+    {
+        return $this->imagecentre;
+    }
+
+    public function setImagecentre(?string $imagecentre): self
+    {
+        $this->imagecentre = $imagecentre;
+
+        return $this;
     }
 }

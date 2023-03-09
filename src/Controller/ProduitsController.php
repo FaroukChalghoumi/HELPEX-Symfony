@@ -23,6 +23,7 @@ class ProduitsController extends AbstractController
 {
     #[Route('/pdf/front/{id}', name: 'pdf_inscription_produit', methods: ['GET', 'POST'])]
     public function genererpdfinscription(Produits $produits, PdfService $pdf){
+        $user=$this->getUser();
         //$html=$this->render('inscription_formation/show_pdf.html.twig',['inscription_formation'=>$inscriptionFormation]);
         // $pdf->showPdfFile($html);
         $options = new Options();
@@ -31,7 +32,9 @@ class ProduitsController extends AbstractController
         $dompdf = new Dompdf($options);
 
         $html = $this->renderView('produits/show_pdf.html.twig', [
-            'name' => 'John Doe'
+            'user' => $user,
+            'produit' => $produits,
+
         ]);
 
         $dompdf->loadHtml($html);

@@ -1,75 +1,213 @@
-<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Document</title>
-    <style>
+    <meta charset="utf-8">
+    <title>pdf item</title>
+    <link rel="stylesheet" href="{{asset("pdf_css_item/style.css") }}" media="all" />
+    <style>.clearfix:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
 
-        body{
-            width: 100vw;
-            height: 100vh;
-            background-color: #F8FAFC;
-            overflow: hidden;
-            font-family: 'Inter';
-            font-style: normal;
+        a {
+            color: #5D6975;
+            text-decoration: underline;
         }
-        .layout-container{
-            width: 86%;
-            height: 98%;
-            padding-top: 2%;
-            padding-right: 7%;
-            padding-left: 7%;
-            display: grid;
-            grid-template-rows: 10% 40% 10% 40%;
+
+        body {
+            position: relative;
+            height: 29.7cm;
+            margin: 0 auto;
+            color: #001028;
+            background: #FFFFFF;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            font-family: Arial;
         }
-        .content-container{
-            width: 90%;
-            height: 100%;
+
+        header {
+            padding: 10px 0;
+            margin-bottom: 30px;
         }
-        .text-container{
-            width: 95%;
-            height: 80%;
-            background-color: white;
-            border-radius: 8px;
-            color: #384860;
-            padding-left: 5% ;
-            padding-top: 40px;
-            font-size: 20px;
-            line-height: 150%;
-            letter-spacing: 0.2px;
+
+        #logo {
+            text-align: center;
+            margin-bottom: 10px;
         }
-    </style>
+
+        #logo img {
+            width: 90px;
+        }
+
+        h1 {
+            border-top: 1px solid  #5D6975;
+            border-bottom: 1px solid  #5D6975;
+            color: #5D6975;
+            font-size: 2.4em;
+            line-height: 1.4em;
+            font-weight: normal;
+            text-align: center;
+            margin: 0 0 20px 0;
+            background: url(dimension.png);
+        }
+
+        #project {
+            float: left;
+        }
+
+        #project span {
+            color: #5D6975;
+            text-align: right;
+            width: 52px;
+            margin-right: 10px;
+            display: inline-block;
+            font-size: 0.8em;
+        }
+
+        #company {
+            float: right;
+            text-align: right;
+        }
+
+        #project div,
+        #company div {
+            white-space: nowrap;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            margin-bottom: 20px;
+        }
+
+        table tr:nth-child(2n-1) td {
+            background: #F5F5F5;
+        }
+
+        table th,
+        table td {
+            text-align: center;
+        }
+
+        table th {
+            padding: 5px 20px;
+            color: #5D6975;
+            border-bottom: 1px solid #C1CED9;
+            white-space: nowrap;
+            font-weight: normal;
+        }
+
+        table .service,
+        table .desc {
+            text-align: left;
+        }
+
+        table td {
+            padding: 20px;
+            text-align: right;
+        }
+
+        table td.service,
+        table td.desc {
+            vertical-align: top;
+        }
+
+        table td.unit,
+        table td.qty,
+        table td.total {
+            font-size: 1.2em;
+        }
+
+        table td.grand {
+            border-top: 1px solid #5D6975;;
+        }
+
+        #notices .notice {
+            color: #5D6975;
+            font-size: 1.2em;
+        }
+
+        footer {
+            color: #5D6975;
+            width: 100%;
+            height: 30px;
+            position: absolute;
+            bottom: 0;
+            border-top: 1px solid #C1CED9;
+            padding: 8px 0;
+            text-align: center;
+        }</style>
 </head>
-{% block body %}
-    <body>
-    <div class="layout-container">
-        <div class="logo-container">
-        </div>
-        <div class="content-container">
-            <div class="text-container">
-                Hey there !<br>
-                We want to inform you that you have received an E-mail from : <br>
-                Full name : {{ name }}<br>
-                Phone number : ............<br>
-                Email :........... <br>
-                Talking about ( <span style="font-weight: 200;">subject</span> .......)
-            </div>
-
-        </div>
-        <div class="content-container"style="display:flex;justify-content:flex-end;">
-            <div class="media-container">
-                <i class="fa-brands fa-twitter" style="color:#64748B;font-size: 30px;margin-right: 20px;"></i>
-                <i class="fa-brands fa-instagram" style="color:#64748B;font-size: 30px;margin-right: 20px;"></i>
-                <i class="fa-brands fa-facebook" style="color:#64748B;font-size: 30px;"></i>
-            </div>
-        </div>
-
-        <div class="copyright-container">
-
-        </div>
+<body>
+<header class="clearfix">
+    <div id="logo">
+        {#
+        <img src="{{ asset('img/helpex.png')}} ">
+        #}
     </div>
-    </body>
-{% endblock %}
-</html>
+    <h1>INSCRIPTION FORMATION</h1>
+    <div id="company" class="clearfix">
+        <div>Company Name:helpex</div>
+        <div>ESprit Ecole d'ingenieurs,<br /> AZ 85004, Tunis</div>
+        <div>(602) 519-0450</div>
+        <div><a href="mailto:company@example.com">Esprit@esprit.tn</a></div>
+    </div>
+    <div id="project">
+        <div><span>NOM </span> {{ user.Nom }}</div>
+        <div><span>PRENOM</span> {{ user.Prenom }}</div>
+
+        {#        <div><span>NUMERO</span> {{ user.num_tel }}</div>#}
+        <div><span>EMAIL</span>  {{ user.email }}</div>
+        <div><span>DATE</span> MARS 09, 2023</div>
+
+    </div>
+</header>
+<main>
+    <table>
+        <thead>
+        <tr>
+            <th class="service">NOM FORMATION</th>
+            <th class="desc">DESCRIPTION</th>
+            <th>PRIX</th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+        {#        {% for item in items %}#}
+        <tr>
+            {#                <td class="service">{{ item.tasks.titre }}</td>#}
+            <td class="desc">{{ formation.nomFormation }}</td>
+            <td class="unit">{{ formation.descriptionFormation }}</td>
+            <td class="unit">{{ formation.coutFormation }}</td>
+
+            {#                <td></td>#}
+
+
+        </tr>
+        {#        {% endfor %}#}
+        <tr>
+            <td colspan="3" class="grand total">GRAND TOTAL</td>
+            {#            <td class="grand total">{{ items|length *80 }} &nbsp; DT</td>#}
+        </tr>
+        </tbody>
+    </table>
+    <div id="notices">
+
+    </div>
+</main>
+<footer>
+    Invoice was created on a computer and is valid without the signature and seal.
+</footer>
+</body>
