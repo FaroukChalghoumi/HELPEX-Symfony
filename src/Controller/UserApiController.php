@@ -89,7 +89,7 @@ public function signupPRO(Request $request, UserPasswordEncoderInterface $passwo
     $email=$request->query->get("email");
     //$roles=$request->query->get("roles");
     $password=$request->query->get("password");
-    $Nom=$request->query->get("Nom");
+    /*$Nom=$request->query->get("Nom");
     $Prenom=$request->query->get("Prenom");
     $sexe=$request->query->get("sexe");
     $adresse=$request->query->get("adresse");
@@ -98,7 +98,7 @@ public function signupPRO(Request $request, UserPasswordEncoderInterface $passwo
     $bio=$request->query->get("bio");
     //$date_naissance=$request->query->get("date_naissance");
     $diplome=$request->query->get("diplome");
-    $tarif=$request->query->get("tarif");
+    $tarif=$request->query->get("tarif");*/
 
 
 
@@ -112,7 +112,7 @@ $user->setRoles(['ROLE_PRO']);
 $user->setPassword(
 $passwordEncoder->encodePassword($user,$password) 
 );
-$user->setNom($Nom);
+/*$user->setNom($Nom);
 $user->setPrenom($Prenom);
 $user->setSexe($sexe);
 $user->setAdresse($adresse);
@@ -122,7 +122,7 @@ $user->setBio($bio);
 //$user->setDateNaissance(new DateTimeInterface($date_naissance));
 $user->setIsEnabled(true);
 $user->setDiplome($diplome);
-$user->setTarif(floatval($tarif));
+$user->setTarif(floatval($tarif));*/
 
 
 try{

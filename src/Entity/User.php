@@ -40,29 +40,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255,nullable: true)]
     #[groups ("post:read")]
     #[Assert\NotBlank (message:'champ obligatoire')]
     private ?string $Nom = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255,nullable: true)]
     #[groups ("post:read")]
     #[Assert\NotBlank (message:'champ obligatoire')]
     private ?string $Prenom = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255,nullable: true)]
     #[groups ("post:read")]
     #[Assert\NotBlank (message:'champ obligatoire')]
     /**dropdownmenu homme femme */
     private ?string $sexe = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT,nullable: true)]
     #[groups ("post:read")]
     #[Assert\NotBlank (message:'champ obligatoire')]
     /**dropmenu regions tn */
     private ?string $adresse = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255,nullable: true)]
     #[groups ("post:read")]
     #[Assert\NotBlank (message:'champ obligatoire')]
     #[Assert\Length(
@@ -77,7 +77,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[groups ("post:read")]
     private ?string $pdp = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT,nullable: true)]
     #[groups ("post:read")]
     #[Assert\NotBlank (message:'champ obligatoire')]
     private ?string $bio = null;
