@@ -2,29 +2,7 @@
 <html>
 <head>
   <title>Helpex</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f2f2f2;
-      margin: 0;
-      padding: 20px;
-    }
-
-    h1 {
-      color: #333;
-    }
-
-    p {
-      color: #555;
-    }
-
-    .app-screenshot {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      margin: 20px 0;
-    }
-  </style>
+  <style body { font-family: Arial, sans-serif;background-color: #f2f2f2;margin: 0;padding: 20px;}h1 {color: #333;}p {color: #555;}.app-screenshot { max-width: 100%;height: auto;display: block;margin: 20px 0;}</style>
 </head>
 <body>
   <h1>Helpex</h1>
